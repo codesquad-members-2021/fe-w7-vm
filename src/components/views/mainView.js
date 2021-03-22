@@ -1,12 +1,16 @@
 import OperatingView from './operatingView';
 import OrderScreen from './orderScreen';
+import WalletView from './walletView';
 
 const orderScreen = new OrderScreen();
 const operatingView = new OperatingView();
+const walletView = new WalletView();
 
-const orderTitle = orderScreen.renderOrderTitle();
-const buttonGroup = orderScreen.renderOrderButtonGroup();
-const box = operatingView.renderInsertMoney();
+const orderTitleBox = orderScreen.renderTitle();
+const buttonGroupBox = orderScreen.renderButtonGroup();
+const operatingBox = operatingView.renderView();
+const walletTitle = walletView.renderTitle();
+const walletBox = walletView.renderUnitMoneyButton();
 
 export default class MainView {
   init() {
@@ -14,10 +18,16 @@ export default class MainView {
   }
   render() {
     return `
-    <div class="vending-machine">
-      ${orderTitle}
-      ${buttonGroup}
-      ${box}
+    <div class="body__container">
+      <div class="vending-machine">
+        ${orderTitleBox}
+        ${buttonGroupBox}
+        ${operatingBox}
+      </div>
+      <div class="raccoon-wallet">
+        ${walletTitle}
+        ${walletBox}
+      </div>
     </div>
     `;
   }

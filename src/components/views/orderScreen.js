@@ -1,3 +1,5 @@
+import { _ } from '../../util/const';
+
 export default class OrderScreen {
   constructor() {
     this.title = `Lonely Vending Machine`;
@@ -6,7 +8,7 @@ export default class OrderScreen {
     this.price = 'price';
   }
 
-  renderOrderTitle() {
+  renderTitle() {
     return `
       <div class="order--title">
         ${this.title}
@@ -19,12 +21,12 @@ export default class OrderScreen {
     return `
     <div class="list-group-item order--button__box">
       <button type="button" class="btn btn-default order--button">${this.order}</button>
-      <div class="order--price"><span>${this.price}</span></div>
+      <div class="order--price"><span>${this.price} ${_.money}</span></div>
     </div>
     `;
   }
 
-  renderOrderButtonGroup() {
+  renderButtonGroup() {
     const tempArray = Array(this.buttonNumber).fill();
     const buttonGroup = tempArray.reduce((acc, cur) => {
       cur = this.getOrderButton();

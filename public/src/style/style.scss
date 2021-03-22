@@ -7,10 +7,17 @@
   box-sizing: border-box;
 }
 
-.container {
-  height: 800px;
+body {
+  padding: 50px;
 }
-.container,
+
+.container {
+  display: flex;
+  height: 500px;
+}
+
 .vending-machine {
   display: flex;
+  border: 3px solid black;
+  margin-right: 20px;
 }

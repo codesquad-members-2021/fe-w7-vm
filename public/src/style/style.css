@@ -148,14 +148,37 @@ input {
     .products .product-item .product-item__price {
       line-height: 30px; }
 
-.monitor .monitor-money {
-  border: 1px solid black; }
-
-.monitor .monitor-btn {
-  border: 1px solid black; }
-
-.monitor .monitor-status {
-  border: 1px solid black; }
+.monitor {
+  border: 1px solid black;
+  padding-top: 20px; }
+  .monitor .monitor-money {
+    text-align: center;
+    line-height: 50px;
+    margin: 10px 20px;
+    font-size: 1.5rem;
+    font-weight: 600;
+    width: 260px;
+    height: 50px;
+    margin-bottom: 20px;
+    border: 1px solid black; }
+  .monitor .monitor-btn {
+    text-align: center;
+    font-size: 1.5rem;
+    font-weight: 600;
+    line-height: 50px;
+    margin: 10px 20px;
+    width: 260px;
+    height: 50px;
+    border: 1px solid black;
+    margin-bottom: 20px; }
+  .monitor .monitor-status {
+    margin: 10px 20px;
+    padding: 10px;
+    width: 260px;
+    height: 300px;
+    border: 1px solid black; }
+    .monitor .monitor-status .monitor-status__line {
+      margin-bottom: 5px; }
 
 .wallet {
   border: 1px solid black; }
@@ -174,9 +197,14 @@ input {
 * {
   box-sizing: border-box; }
 
-.container {
-  height: 800px; }
+body {
+  padding: 50px; }
 
-.container,
+.container {
+  display: flex;
+  height: 500px; }
+
 .vending-machine {
-  display: flex; }
+  display: flex;
+  border: 3px solid black;
+  margin-right: 20px; }

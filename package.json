@@ -4,7 +4,8 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node-sass public/src/style/style.scss public/src/style/style.css --watch"
   },
   "repository": {
     "type": "git",
@@ -26,6 +27,7 @@
     "webpack-cli": "^4.5.0"
   },
   "dependencies": {
-    "core-js": "^3.9.1"
+    "core-js": "^3.9.1",
+    "node-sass": "^5.0.0"
   }
 }

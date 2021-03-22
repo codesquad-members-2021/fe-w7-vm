@@ -1,0 +1,11 @@
+@import './config/reset.scss';
+@import './partials/product.scss';
+
+* {
+  box-sizing: border-box;
+}
+
+.container,
+.vending-machine {
+  display: flex;
+}

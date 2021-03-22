@@ -1,3 +1,5 @@
+import CreateMoneyData from '../models/createMoneyData';
+import FetchTest from '../models/fetchTest';
 import OperatingView from './operatingView';
 import OrderScreen from './orderScreen';
 import WalletView from './walletView';
@@ -5,12 +7,14 @@ import WalletView from './walletView';
 const orderScreen = new OrderScreen();
 const operatingView = new OperatingView();
 const walletView = new WalletView();
+const fetchTest = new FetchTest();
+fetchTest.getData();
+const randomNumber = new CreateMoneyData();
+console.log(randomNumber.getCount());
 
-const orderTitleBox = orderScreen.renderTitle();
-const buttonGroupBox = orderScreen.renderButtonGroup();
-const operatingBox = operatingView.renderView();
-const walletTitle = walletView.renderTitle();
-const walletBox = walletView.renderUnitMoneyButton();
+const orderScreenBox = orderScreen.render();
+const operatingBox = operatingView.render();
+const walletBox = walletView.render();
 
 export default class MainView {
   init() {
@@ -20,12 +24,10 @@ export default class MainView {
     return `
     <div class="body__container">
       <div class="vending-machine">
-        ${orderTitleBox}
-        ${buttonGroupBox}
+        ${orderScreenBox}
         ${operatingBox}
       </div>
       <div class="raccoon-wallet">
-        ${walletTitle}
         ${walletBox}
       </div>
     </div>

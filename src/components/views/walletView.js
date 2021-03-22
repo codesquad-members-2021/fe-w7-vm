@@ -2,8 +2,16 @@ import { _ } from '../../util/const';
 
 export default class WalletView {
   constructor() {
-    this.unitMoneyArray = [10, 50, 100, 500, 1000, 5000, 10000];
-    this.title = 'Lonely Wallet';
+    this.unitMoneyArray = _.walletMoneyArray;
+    this.title = _.walletTitle;
+  }
+
+  render() {
+    return `
+      ${this.renderTitle()}
+      ${this.renderUnitMoneyButton()}
+      ${this.renderWalletMoney()}
+    `;
   }
 
   renderTitle() {
@@ -14,24 +22,23 @@ export default class WalletView {
       `;
   }
 
-  renderWalletMoney() {
-    return `
-    <div class="order--title">
-      ${this.title}
-    </div>
-      `;
-  }
-
   getWalletMoney() {
     return `
-    <div class="list-group-item order--button__box">
-      <button type="button" class="btn btn-default order--button">${this.order}</button>
-      <div class="order--price"><span>${this.price}</span></div>
-    </div>
+    <form class="navbar-form wallet--money__form" role="search">
+      <div class="form-group form-group-div">
+        <input type="text" class="form-control wallet--money__input" placeholder="${_.money}">
+      </div>
+    </form>
       `;
   }
 
-  getOperatingInfo() {}
+  renderWalletMoney() {
+    return `
+    <div class="wallet__box">
+      ${this.getWalletMoney()}
+    </div>
+      `;
+  }
 
   getUnitMoneyButton(unit) {
     return `

@@ -2,10 +2,17 @@ import { _ } from '../../util/const';
 
 export default class OrderScreen {
   constructor() {
-    this.title = `Lonely Vending Machine`;
+    this.title = _.vendingMachineTitle;
     this.buttonNumber = 20;
     this.order = 'order';
     this.price = 'price';
+  }
+
+  render() {
+    return `
+      ${this.renderTitle()}
+      ${this.renderButtonGroup()}
+    `;
   }
 
   renderTitle() {

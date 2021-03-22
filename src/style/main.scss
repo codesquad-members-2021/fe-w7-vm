@@ -1,7 +1,12 @@
 $background: #222;
-$defaultButtonSize: 70px;
+$defaultButtonWidth: 77px;
+$defaultButtonHeight: 50px;
 $defaultFontSize: 16px;
 $defaultBorderRadius: 10px;
+$defaultButtonMargin: 5px;
+@mixin defaultBorder {
+  border: 1px solid #fff;
+}
 
 body {
   background: $background;
@@ -9,8 +14,9 @@ body {
 
 .vending-machine {
   max-width: 512px;
-  height: 80vh;
-  border: 1px solid #fff;
+  min-width: 512px;
+  height: fit-content;
+  @include defaultBorder();
   border-radius: 10px;
   margin: 40px;
   padding: 10px;
@@ -21,32 +27,65 @@ body {
   color: #fff;
   font-size: 3rem;
   text-align: center;
-  border: 1px solid #fff;
+  @include defaultBorder();
   border-radius: $defaultBorderRadius;
-  padding: 10px;
-  margin-bottom: 20px;
+  padding: 20px 10px;
+  margin-bottom: 10px;
 }
 
 .order--button__container {
   display: grid;
   grid-template-columns: repeat(4, 1fr);
+  @include defaultBorder();
+  border-radius: $defaultBorderRadius;
+  padding: 5px;
 
   .list-group-item:last-child {
-    margin: 10px;
+    margin: $defaultButtonMargin;
   }
 }
 
 .order--button__box {
-  display: inline-block;
+  text-align: center;
   border-radius: 4px;
-  margin: 10px;
+  margin: $defaultButtonMargin;
 
   .order--button {
-    width: $defaultButtonSize;
+    width: $defaultButtonWidth;
+    height: $defaultButtonHeight;
   }
 
   .order--price {
     text-align: center;
     padding-top: 5px;
+  }
+}
+
+.operating--window__container {
+  @include defaultBorder();
+  border-radius: $defaultBorderRadius;
+  padding: 5px;
+  margin-top: 10px;
+  height: fit-content;
+
+  .form-group-div {
+    display: block;
+  }
+
+  .insert--money__form {
+    padding: 5px;
+  }
+  .insert--money__input {
+    width: 100%;
+    height: 80px;
+  }
+
+  input::placeholder {
+    text-align: right;
+    font-size: 2rem;
+  }
+
+  input {
+    font-size: 2rem;
   }
 }

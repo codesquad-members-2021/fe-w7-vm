@@ -1,6 +1,16 @@
 import "../style/style.scss";
+import { createSectionWithClassname, drawHtml } from "./DOM.js";
+import { _ } from "./utils.js";
 
-const main = document.createElement("div");
+// import Currency from "./Currency.js";
 
-document.body.appendChild(main);
-main.classList.add("square");
+const app = _.$("#app");
+
+async function init() {
+  // addEventListener, dom 다 하기
+  const views = ["productView", "conductionView", "walletView"];
+  views.forEach((e) => createSectionWithClassname(app, e));
+  await drawHtml(views);
+}
+
+init();

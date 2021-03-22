@@ -8,7 +8,7 @@ module.exports = {
   mode: "development", // production ? develop ? 선택
   // prod: 기본적으로 설정해주는 default 들이 있음
   // dev: 그게 없음 -> 찾아볼 것
-  entry: "./src/js/main.js", // 번들링 시작점을 알려주는 곳
+  entry: ["babel-polyfill", "./src/js/main.js"], // 번들링 시작점을 알려주는 곳
   // js 파일을 읽어들이는 것이므로  js 파일로 해야함
   devtool: "inline-source-map",
   output: {

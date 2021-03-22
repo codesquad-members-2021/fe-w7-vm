@@ -6,6 +6,8 @@ const express = require("express");
 // const path = require("path");
 const port = 9000;
 const app = express();
+const fs = require("fs");
+app.use(express.json());
 
 app.get("/", (req, res, next) => {
   console.log("here!!!!");
@@ -13,6 +15,10 @@ app.get("/", (req, res, next) => {
 });
 // 요청을 보낼 때 여기에 들어오고 나가는지 확인하려면 디버깅을 해야하는데, 이게 없으면 콘솔 넣을 구간없이 넘어가버리니까 확인이 어려움
 // 없어도 돌아가긴 하는데, 디버깅을 위해 좋음
+
+app.get("/prod", (req, res, next) => {
+  res.json(JSON.parse(fs.readFileSync("./data/products.json")));
+});
 
 app.use(
   middleware(compiler, {

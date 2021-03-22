@@ -6,7 +6,7 @@ export default class OrderScreen {
     this.price = 'price';
   }
 
-  orderTitle() {
+  renderOrderTitle() {
     return `
       <div class="order--title">
         ${this.title}
@@ -26,12 +26,17 @@ export default class OrderScreen {
 
   renderOrderButtonGroup() {
     const tempArray = Array(this.buttonNumber).fill();
-    const buttonGroup = tempArray.map((acc, cur) => {
+    const buttonGroup = tempArray.reduce((acc, cur) => {
       cur = this.getOrderButton();
       acc += cur;
       return acc;
     }, ``);
-    return buttonGroup;
+
+    return `
+    <div class="order--button__container">
+      ${buttonGroup}
+    </div>
+    `;
   }
 
   etc() {

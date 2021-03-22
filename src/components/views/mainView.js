@@ -1,7 +1,7 @@
 import OrderScreen from './orderScreen';
 
 const orderScreen = new OrderScreen();
-const orderTitle = orderScreen.orderTitle();
+const orderTitle = orderScreen.renderOrderTitle();
 const buttonGroup = orderScreen.renderOrderButtonGroup();
 export default class MainView {
   init() {

@@ -1,5 +1,5 @@
 $background: #222;
-$defaultButtonSize: 80px;
+$defaultButtonSize: 70px;
 $defaultFontSize: 16px;
 $defaultBorderRadius: 10px;
 
@@ -27,9 +27,19 @@ body {
   margin-bottom: 20px;
 }
 
+.order--button__container {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+
+  .list-group-item:last-child {
+    margin: 10px;
+  }
+}
+
 .order--button__box {
   display: inline-block;
   border-radius: 4px;
+  margin: 10px;
 
   .order--button {
     width: $defaultButtonSize;

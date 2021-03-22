@@ -137,6 +137,29 @@ input {
     .products .product-item .product-item__title {
       border: 1px solid black; }
 
+.monitor .monitor-money {
+  border: 1px solid black; }
+
+.monitor .monitor-btn {
+  border: 1px solid black; }
+
+.monitor .monitor-status {
+  border: 1px solid black; }
+
+.wallet {
+  border: 1px solid black; }
+  .wallet > div {
+    margin-top: 30px;
+    display: flex;
+    padding: 10px; }
+    .wallet > div .wallet__money-type {
+      border: 1px solid black;
+      margin-right: 10px; }
+    .wallet > div .wallet__type-count {
+      border: 1px solid black; }
+  .wallet .wallet__total-money {
+    border: 1px solid black; }
+
 * {
   box-sizing: border-box; }
 

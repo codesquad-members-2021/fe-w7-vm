@@ -1,3 +1,4 @@
+import { _ } from '../util/util.js';
 import VendingMachineView from './VendingMachineView.js';
 import ProgressScreenModel from './progress-screen/ProgressScreenModel.js';
 
@@ -10,7 +11,9 @@ export default class VendingMachine {
 
   init() {
     this.progressScreenModel = new ProgressScreenModel();
-    this.view = new VendingMachineView();
+    this.view = new VendingMachineView({
+      progressScreenView: this.progressScreenModel.getView()
+    });
   }
 
   insertMoney(money) {

@@ -18,16 +18,12 @@ export default class ProgressScreenView {
     this.render();
   }
 
-  onUpdateMoneySum({ evt }) {
-    this.moneySumView.setSum(evt.detail.moneySum);
+  updateMoneySum(moneySum) {
+    this.moneySumView.updateSum(moneySum);
   }
 
-  onUpdateLogs({ evt }) {
-    this.logListView.setLogs(evt.detail.logs);
-  }
-
-  onAppendLog({ evt }) {
-    this.logListView.appendLog(evt.detail.log);
+  appendLog(log) {
+    this.logListView.appendLog(log);
   }
 
   createEl() {

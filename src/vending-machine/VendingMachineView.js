@@ -3,9 +3,10 @@ import { _ }  from '../util/util.js';
 import ProgressScreenView from './progress-screen/ProgressScreenView.js';
 
 export default class VendingMachineView {
-  constructor() {
+  constructor({ productContainerView, progressScreenView }) {
     this.$target;
-    this.progressScreenView;
+    this.productContainerView = productContainerView;
+    this.progressScreenView = progressScreenView;
     this.init();
   }
 

@@ -20,12 +20,8 @@ export default class MoneySumView {
     });
   }
 
-  setSum(sum) {
+  updateSum(sum) {
     this.$sum.textContent = sum;
-  }
-
-  getSum() {
-    return parseInt(this.$sum.textContent);
   }
 
   getEl() {

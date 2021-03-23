@@ -1,11 +1,18 @@
 import _ from '../../util/util.js';
 import Observable from '../../util/Observable.js';
+import ProgressScreenView from './ProgressScreenView.js';
 
 export default class ProgressScreenModel extends Observable {
-  constructor ({ moneySum, logs } = {}) {
+  constructor({ moneySum, logs } = {}) {
     super();
-    this.moneySum = moneySum ?? 0;
-    this.logs = logs ?? [];
+    this.view;
+    this.moneySum = moneySum;
+    this.logs = logs;
+    this.init();
+  }
+
+  init() {
+    this.view = new ProgressScreenView();
   }
 
   addMoney(money) {
@@ -14,6 +21,8 @@ export default class ProgressScreenModel extends Observable {
 
   setMoneySum(moneySum) {
     this.moneySum = moneySum;
+    this.view.updateMoneySum(this.moneySum);
+
     this.dispatchEvent(
       new CustomEvent('update-money-sum', {
         detail: { moneySum: this.moneySum }
@@ -21,21 +30,18 @@ export default class ProgressScreenModel extends Observable {
     );
   }
 
-  setLogs(logs) {
-    this.logs = logs;
-    this.dispatchEvent(
-      new CustomEvent('update-logs', {
-        detail: { logs: this.logs }
-      })
-    );
-  }
-
   appendLog(log) {
     this.logs.push(log);
+    this.view.appendLog(log);
+
     this.dispatchEvent(
       new CustomEvent('append-log', {
         detail: { log: this.log }
       })
     );
+  }
+
+  getView() {
+    return this.view;
   }
 }

@@ -23,8 +23,7 @@ class ProductView {
     getProductAllItems = async () => {
         try {
             const url = '/api/getProductAllItems';
-            const data = await fetchData(url);
-            return data;
+            return await fetchData(url);
         } catch (error) {
             console.error(error);
         }

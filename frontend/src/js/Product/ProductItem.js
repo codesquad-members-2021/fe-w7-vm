@@ -9,9 +9,10 @@ class ProductItem {
     };
 
     createHtml = (data) => {
-        const {name, price} = data;
+        const {name, price, imgurl} = data;
         const html = `
         <li>
+            <img src=${imgurl} width="300px"/>
             <button class="btn btn-secondary">
                 <span>${name}</span>
             </button>

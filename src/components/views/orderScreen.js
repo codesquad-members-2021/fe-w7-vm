@@ -1,4 +1,4 @@
-import { _ } from "../../util/const";
+import { _ } from '../../util/const';
 
 export default class OrderScreen {
   constructor() {
@@ -22,7 +22,6 @@ export default class OrderScreen {
   }
 
   getOrderButton(order, price) {
-    // data는 fetch로 받아올 것
     return `
     <div class="list-group-item order--button__box">
       <button type="button" class="btn btn-default order--button">${order}</button>

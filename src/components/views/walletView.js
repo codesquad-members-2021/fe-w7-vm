@@ -27,7 +27,7 @@ export default class WalletView {
     return `
     <form class="navbar-form wallet--money__form" role="search">
       <div class="form-group form-group-div">
-        <input type="text" class="form-control wallet--money__input" placeholder="${_.money}" value="${this.myMoney}">
+        <input type="text" class="form-control wallet--money__input" placeholder="${_.money}" value="${this.myMoney} ${_.money}">
       </div>
     </form>
       `;

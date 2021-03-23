@@ -1,4 +1,3 @@
-import { createRandomNumber } from '../../util/util';
 import CreateMoneyData from '../models/createMoneyData';
 import CreateWalletData from '../models/createWalletData';
 import OperatingView from './operatingView';

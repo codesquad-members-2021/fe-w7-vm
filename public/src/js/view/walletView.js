@@ -1,5 +1,5 @@
 import { _ } from '../utill.js'
-import { renderWalletTpl, totalWalletTpl } from '../HtmlTemplate.js'
+import { renderWalletTpl, totalWalletTpl } from '../htmlTemplate.js'
 
 class WalletView {
   constructor(walletModel) {

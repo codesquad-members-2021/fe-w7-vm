@@ -19,7 +19,9 @@ class VendingModel extends Observable {
   getVendingMoney() {
     return this.vendingMoney
   }
-  setVendingMoney() {}
+  setVendingMoney(money) {
+    this.vendingMoney = money
+  }
   getVendingStatus() {
     return this.vendingStatus
   }

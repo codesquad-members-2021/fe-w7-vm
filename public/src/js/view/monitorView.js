@@ -9,6 +9,7 @@ class MonitorView {
     this.monitorMoneyArea = _.$('.monitor-money');
     this.monitorStatusArea = _.$('.monitor-status');
     this.monitorBtn = _.$('.monitor-btn');
+    this.maxStatus = 10;
     this.init();
   }
   init() {
@@ -63,14 +64,20 @@ class MonitorView {
     this.vendingModel.setVendingMoney(newVendingMoney);
   }
   setPlusMoneyStatus(money) {
+    const vendingStatus = this.vendingModel.getVendingStatus();
+    if (vendingStatus.length > this.maxStatus) this.vendingModel.clearVendingStatus();
     const plusMoneyStatus = `${money}원이 투입됐음`;
     this.vendingModel.setVendingStatus(plusMoneyStatus);
   }
   setReturnStatus(money) {
+    const vendingStatus = this.vendingModel.getVendingStatus();
+    if (vendingStatus.length > this.maxStatus) this.vendingModel.clearVendingStatus();
     const returnStatus = `잔돈 ${money}원이 반환됐음`;
     this.vendingModel.setVendingStatus(returnStatus);
   }
   setFoodStatus(food) {
+    const vendingStatus = this.vendingModel.getVendingStatus();
+    if (vendingStatus.length > this.maxStatus) this.vendingModel.clearVendingStatus();
     const foodStatus = `${food}가 선택됨`;
     this.vendingModel.setVendingStatus(foodStatus);
   }

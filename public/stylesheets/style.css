@@ -1,3 +1,48 @@
+.vending {
+  margin-top: 1rem;
+  margin-left: 1rem;
+  border: 1px solid black;
+  width: 800px;
+  height: 600px;
+}
+.vending__product {
+  border: 5px solid black;
+  padding: 5px;
+  width: 500px;
+  height: 580px;
+}
+.vending__product--item-list {
+  display: flex;
+  justify-content: space-evenly;
+  flex-direction: row;
+  flex-wrap: wrap;
+}
 
+.product__item {
+  display: flex;
+  flex-wrap: wrap;
+  width: 80px;
+  margin: 15px;
+}
+.product__item--name {
+  display: flex;
+  width: 80px;
+  height: 40px;
+  padding: 5px;
+  border: 2px solid gray;
+  justify-content: center;
+  align-items: center;
+}
+.product__item .product__item--price {
+  display: flex;
+  width: 80px;
+  height: 30px;
+  justify-content: center;
+  align-items: center;
+}
+
+.highlighted {
+  border: 3px solid red;
+}
 
 /*# sourceMappingURL=style.css.map */

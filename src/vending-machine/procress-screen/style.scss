@@ -1,4 +1,16 @@
 .progress-screen {
   width: 300px;
   height: 600px;
+
+  .money-sum {
+    display: inline-block;
+    text-align: right;
+    background-color: black;
+
+    .sum,
+    .currency {
+      font-size: 24px;
+      color: green;
+    }
+  }
 }

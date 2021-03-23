@@ -1,18 +1,17 @@
-import './style.scss';
-import { _ } from '../../util/util.js';
+import _ from '../../util/util.js';
 import Observable from '../../util/Observable.js';
 
 export default class ProgressScreenModel extends Observable {
-  constructor ({ sum, logs }) {
-    this.sum = sum ?? 0;
+  constructor ({ moneySum, logs }) {
+    this.moneySum = moneySum ?? 0;
     this.logs = logs ?? [];
   }
 
-  setSum(sum) {
-    this.sum = sum;
+  setMoneySum(moneySum) {
+    this.moneySum = moneySum;
     this.dispatchEvent(
-      new CustomEvent('update-logs', {
-        detail: { sum: this.sum }
+      new CustomEvent('update-money-sum', {
+        detail: { moneySum: this.moneySum }
       })
     );
   }

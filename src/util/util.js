@@ -1,7 +1,7 @@
-export const _ = {
+export default _ = {
   $: (selector, base = document) => base.querySelector(selector),
   $All: (selector, base = document) => base.querySelectorAll(selector),
-  genEl: (tagName, { classNames, template, attributes } = {}) => { // classNames: array
+  genEl: (tagName, { classNames, template, attributes } = {}) => { // classNames: array, template: string, attributes: object
     const $el = document.createElement(tagName);
     if (classNames) $el.classList.add(...classNames);
     if (template) $el.innerHTML = template;

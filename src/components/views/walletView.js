@@ -1,4 +1,5 @@
 import { _ } from '../../util/const';
+import { moneyComma } from '../../util/util';
 
 export default class WalletView {
   constructor(unitMoneyArray, myMoney = 25000) {
@@ -27,7 +28,9 @@ export default class WalletView {
     return `
     <form class="navbar-form wallet--money__form" role="search">
       <div class="form-group form-group-div">
-        <input type="text" class="form-control wallet--money__input" placeholder="${_.money}" value="${this.myMoney} ${_.money}">
+        <input type="text" class="form-control wallet--money__input" placeholder="${
+          _.money
+        }" value="${moneyComma(this.myMoney)} ${_.money}">
       </div>
     </form>
       `;
@@ -44,7 +47,9 @@ export default class WalletView {
   getUnitMoneyButton({ unit, count }) {
     return `
     <div class="list-group-item wallet--button__box">
-      <button type="button" class="btn btn-default wallet--button">${unit} ${_.money}</button>
+      <button type="button" class="btn btn-default wallet--button">${moneyComma(
+        unit
+      )} ${_.money}</button>
       <div class="wallet--count"><span>${count} ${_.count}</span></div>
     </div>
     `;

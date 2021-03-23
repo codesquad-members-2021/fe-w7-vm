@@ -11,11 +11,12 @@ class ProductItem {
     createHtml = (data) => {
         const {name, price} = data;
         const html = `
-        <li>
+        <li class="product-item-container">
+            <img>
             <button class="btn btn-secondary">
                 <span>${name}</span>
             </button>
-            <span>${price}</span>
+            <span class="item-price">${price}</span>
         </li>
         `;
         return html;

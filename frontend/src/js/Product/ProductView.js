@@ -4,7 +4,7 @@ import ProductItem from "./ProductItem.js";
 
 class ProductView {
     constructor(productWrapSelector) {
-        this.productViewWrapper = _.$(productWrapSelector);        
+        this.productViewWrapper = _.$(productWrapSelector);
     };
 
     init = () => {

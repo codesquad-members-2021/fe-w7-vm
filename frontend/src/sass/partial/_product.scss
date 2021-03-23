@@ -1,4 +1,14 @@
 .product-container {
     display: grid;
     grid-template-columns: repeat(4, 1fr);
-};
+}
+
+.product-item-container {
+    border: 1px solid red;
+    display: flex;
+    align-items: flex-start;
+}
+
+.item-price {
+    align-self: flex-end;
+}

@@ -5,6 +5,30 @@
         <%- include('./partial/vendors.html') %>
     </head>
     <body>
-        <%= title %>
+        <div class="container py-3">
+            <div class="row">
+                <div class="col-sm text-center border">
+                    <!-- <p class="h6">상품화면</p> -->
+                    <ul class="product-container my-2">             
+                        <% for(let i=0; i < 30; i++) { %>
+                        <li>
+                            <button class="btn btn-secondary"> 
+                                콜라 <%= i %>
+                            </button>
+                            <span>500</span>
+                        </li>
+                        <% } %>
+                    </ul> 
+                </div>
+                <div class="col-sm text-center border">
+                    <p class="h6">진행화면</p>
+                    <button class="btn btn-primary">1</button>
+                </div>
+                <div class="col-sm text-center border">
+                    <p class="h6">지갑화면</p>
+                    <button class="btn btn-primary">1</button>
+                </div>
+            </div>
+        </div>
     </body>
 </html>

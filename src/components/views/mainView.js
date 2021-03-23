@@ -1,11 +1,7 @@
-import CreateMoneyData from '../models/createMoneyData';
 import CreateWalletData from '../models/createWalletData';
 import OperatingView from './operatingView';
 import OrderScreen from './orderScreen';
 import WalletView from './walletView';
-
-const createMoneyData = new CreateMoneyData();
-createMoneyData.getOrderData().then((res) => console.log(res.data));
 
 const createWalletData = new CreateWalletData();
 const walletData = createWalletData.getWalletMoney();
@@ -14,10 +10,7 @@ export default class MainView {
   constructor() {
     this.orderScreen = new OrderScreen();
     this.operatingScreen = new OperatingView();
-    this.walletScreen = new WalletView(
-      walletData.walletDataArray,
-      walletData.walletMoney
-    );
+    this.walletScreen = new WalletView(walletData.walletDataArray, walletData.walletMoney);
   }
 
   init() {

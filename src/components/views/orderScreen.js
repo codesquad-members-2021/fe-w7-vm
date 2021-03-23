@@ -1,9 +1,11 @@
 import { _ } from '../../util/const';
+import FetchAPI from '../models/fetchAPI';
 
 export default class OrderScreen {
   constructor() {
     this.title = _.vendingMachineTitle;
     this.buttonNumber = 20;
+    this.data = new FetchAPI();
   }
 
   render() {
@@ -31,6 +33,8 @@ export default class OrderScreen {
   }
 
   renderButtonGroup() {
+    // const data = await this.data.fetchOrderData();
+    // console.log(data);
     const tempArray = Array(this.buttonNumber).fill();
     const orderArray = [];
     const priceArray = [];

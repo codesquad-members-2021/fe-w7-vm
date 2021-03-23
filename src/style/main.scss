@@ -145,7 +145,7 @@ body {
 
   .wallet--button {
     width: 100%;
-    height: $defaultButtonHeight + 8px;
+    height: $defaultButtonHeight + 2px;
     border-radius: $defaultBorderRadius;
     margin-right: 10px;
   }
@@ -154,7 +154,7 @@ body {
     @include defaultFelx();
     @include defaultBorder();
     width: 100%;
-    height: $defaultButtonHeight + 8px;
+    height: $defaultButtonHeight + 2px;
     padding: 10px;
     color: #fff;
     border-radius: $defaultBorderRadius;

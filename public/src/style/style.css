@@ -213,6 +213,10 @@ input {
     line-height: 40px;
     border: 1px solid black; }
 
+.disabled {
+  background-color: rgba(0, 0, 0, 0.3);
+  pointer-events: none; }
+
 * {
   box-sizing: border-box; }
 

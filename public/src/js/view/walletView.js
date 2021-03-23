@@ -16,43 +16,44 @@ class WalletView {
   init() {
     this.render();
     this.addEvent();
+    this.walletModel.subscribe(this.walletClickCbFn.bind(this))
   }
   addEvent() {
     this.walletArea.addEventListener('click', this.handleClick.bind(this))
   }
-
   handleClick({
     target
   }) {
-    if (target === target.closest('.wallet__money-type')) {
-      this.setWalletStatusMinus(target)
-      this.render();
+    if (this.isMoneyBtn(target)) {
+      const money = this.getPriceFromTarget(target)
+      this.walletModel.notify(money)
     }
   }
-
-  setWalletStatusMinus(target) {
-    const walletMoney = this.walletModel.getWalletMoney();
-    walletMoney.forEach(el => {
-      if (el.type === target.innerText.slice(0, -1) * 1) {
-        el.count--;
-      }
-    })
-    this.walletModel.setWalletMoney(walletMoney);
+  getPriceFromTarget(target) {
+    return target.innerText.slice(0, -1) * 1
   }
-
+  walletClickCbFn(money) {
+    this.setWalletStatusMinus(money)
+    this.render();
+  }
   render() {
     this.renderWallet()
     this.setTotalMoney()
     this.renderTotalMoney();
   }
-
+  setWalletStatusMinus(money) {
+    const walletMoney = this.walletModel.getWalletMoney();
+    walletMoney.forEach(moneyBtn => {
+      if (moneyBtn.type === money) moneyBtn.count--;
+    })
+    this.walletModel.setWalletMoney(walletMoney);
+  }
   setTotalMoney() {
     const walletMoney = this.walletModel.getWalletMoney();
     const totalMoney = walletMoney.reduce((acc, curr) =>
       acc + curr.type * curr.count, 0)
     this.totalMoney = totalMoney;
   }
-
   renderWallet() {
     const walletMoney = this.walletModel.getWalletMoney();
     const walletStatusTpl = walletMoney.reduce((acc, curr) =>
@@ -60,15 +61,13 @@ class WalletView {
     )
     this.walletArea.innerHTML = walletStatusTpl;
   }
-
   renderTotalMoney() {
     const TotalMoneyTpl = totalWalletTpl(this.totalMoney);
     this.walletArea.innerHTML += TotalMoneyTpl;
   }
-
-
-
-
+  isMoneyBtn(target) {
+    return target === target.closest('.wallet__money-type')
+  }
 }
 
 export default WalletView;

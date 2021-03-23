@@ -12,6 +12,11 @@ class VendingModel extends Observable {
     return this.food;
   }
   setFood() {}
+  getFoodItem(food) {
+    for (const item of this.food) {
+      if (item.name === food) return item;
+    }
+  }
   getVendingMoney() {
     return this.vendingMoney;
   }

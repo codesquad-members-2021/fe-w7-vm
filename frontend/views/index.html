@@ -9,16 +9,8 @@
             <div class="row">
                 <div class="col-sm text-center border">
                     <!-- <p class="h6">상품화면</p> -->
-                    <ul class="product-container my-2">             
-                        <% for(let i=0; i < 30; i++) { %>
-                        <li>
-                            <button class="btn btn-secondary"> 
-                                콜라 <%= i %>
-                            </button>
-                            <span>500</span>
-                        </li>
-                        <% } %>
-                    </ul> 
+                    <ul class="product-container my-2" id="productWrapper">
+                    </ul>
                 </div>
                 <div class="col-sm text-center border">
                     <p class="h6">진행화면</p>

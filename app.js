@@ -6,6 +6,7 @@ const ejs = require('ejs');
 dotenv.config();
 
 const indexRouter = require('./backend/routes');
+const apiRouter = require('./backend/routes/api');
 
 const app = express();
 
@@ -25,6 +26,7 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 
 app.use('/', indexRouter);
+app.use('/api', apiRouter);
 
 const port = app.get('port');
 app.listen(port, () => console.log(`http://localhost:${port}`));

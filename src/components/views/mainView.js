@@ -1,3 +1,4 @@
+import { createRandomNumber } from '../../util/util';
 import CreateMoneyData from '../models/createMoneyData';
 import CreateWalletData from '../models/createWalletData';
 import OperatingView from './operatingView';
@@ -9,12 +10,13 @@ createMoneyData.getOrderData().then((res) => console.log(res.data));
 
 const createWalletData = new CreateWalletData();
 const walletData = createWalletData.getWalletData();
+const walletMoney = createWalletData.getWalletMoney();
 
 export default class MainView {
   constructor() {
     this.orderScreen = new OrderScreen();
     this.operatingScreen = new OperatingView();
-    this.walletScreen = new WalletView(walletData);
+    this.walletScreen = new WalletView(walletData, walletMoney);
   }
 
   init() {

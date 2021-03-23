@@ -1,8 +1,9 @@
 import { _ } from '../../util/const';
 
 export default class WalletView {
-  constructor(data) {
-    this.data = data;
+  constructor(unitMoneyArray, myMoney = 25000) {
+    this.unitMoneyArray = unitMoneyArray;
+    this.myMoney = myMoney;
     this.title = _.walletTitle;
   }
 
@@ -26,7 +27,7 @@ export default class WalletView {
     return `
     <form class="navbar-form wallet--money__form" role="search">
       <div class="form-group form-group-div">
-        <input type="text" class="form-control wallet--money__input" placeholder="${_.money}">
+        <input type="text" class="form-control wallet--money__input" placeholder="${_.money}" value="${this.myMoney}">
       </div>
     </form>
       `;
@@ -50,7 +51,7 @@ export default class WalletView {
   }
 
   renderUnitMoneyButton() {
-    const buttonGroup = this.data.reduce((acc, cur) => {
+    const buttonGroup = this.unitMoneyArray.reduce((acc, cur) => {
       let button = this.getUnitMoneyButton(cur);
       acc += button;
       return acc;

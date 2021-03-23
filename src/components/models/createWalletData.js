@@ -11,4 +11,14 @@ export default class CreateWalletData {
     });
     return walletDataArray;
   }
+
+  getWalletMoney() {
+    const walletDataArray = this.getWalletData();
+    const walletMoney = walletDataArray.reduce((acc, cur) => {
+      const unit = cur.unit * cur.count;
+      acc += unit;
+      return acc;
+    }, 0);
+    return walletMoney;
+  }
 }

@@ -14,6 +14,7 @@ class MonitorView {
   }
   init() {
     this.render()
+    this.addEvent()
     this.walletModel.subscribe(this.walletClickCbFn.bind(this))
     //vending machine에 반환 옵저버에 subsribe - returnClickCbFn
     //vending machine에 vending 옵저버에 subscribe - vendingClickCbFn
@@ -26,16 +27,16 @@ class MonitorView {
     this.renderVendingStatus()
   }
   handleClick() {
-    //옵저버 notify
+    const vendingMoney = this.vendingModel.getVendingMoney()
+    // this.vendingModel.notify(vendingMoney)
   }
   walletClickCbFn(money) {
     this.updateVendingMoney({ money, plus: true })
     this.setPlusMoneyStatus(money)
     this.render()
   }
-  returnClickCbFn() {
-    const vendingMoney = this.vendingModel.getVendingMoney()
-    this.updateVendingMoney({ money: vendingMoney, plus: false })
+  returnClickCbFn(money) {
+    this.updateVendingMoney({ money, plus: false })
     this.setReturnStatus(vendingMoney)
     this.render()
   }

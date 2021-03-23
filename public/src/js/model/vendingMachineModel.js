@@ -4,8 +4,8 @@ class VendingModel extends Observable {
   constructor(food) {
     super()
     this.food = food
-    this.vendingMoney = 10000
-    this.vendingStatus = ['500원이 투입됐음', '500원이 투입됐음']
+    this.vendingMoney = 0
+    this.vendingStatus = []
   }
   getFood() {
     return this.food

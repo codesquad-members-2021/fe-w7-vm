@@ -1,7 +1,7 @@
 import './style.scss';
 import { _ } from '../../util.js';
 
-export class MoneySumView {
+export default class MoneySumView {
   constructor() {
     this.$target;
     this.$sum;

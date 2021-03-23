@@ -20,7 +20,7 @@ export default class WalletView {
       const currencyUnits = [10, 50, 100, 500, 1000, 5000, 10000];
       const walletInnerHTML = (unit) => {
         return `<li class="currency-unit__${unit}">
-                   <div>${unit}</div>
+                   <div>${unit}<span>원</span></div>
                    <div class="currency-unit__count">0<span>개</span></div>
                 </li>`;
       };
@@ -38,8 +38,7 @@ export default class WalletView {
     };
 
     const html = makeWalletHTML();
-
-    this.setValueOnDom($wallet, html);
+    $wallet.innerHTML = html;
   }
 
   setValueOnCurrencyUnit(data) {
@@ -82,9 +81,5 @@ export default class WalletView {
       clearTimeout(debounceTimeoutId);
       debounceTimeoutId = setTimeout(fn.bind(this, e), delay);
     });
-  }
-
-  setValueOnDom(domClass, htmlTemplate) {
-    domClass.innerHTML = htmlTemplate;
   }
 }

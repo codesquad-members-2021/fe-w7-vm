@@ -10,6 +10,7 @@ export default class WalletView {
     this.render();
     this.controllEventListener();
     this.walletModel.subscribe(this.setValueOnCurrencyUnit);
+    this.walletModel.subscribe(this.setValueOnTotalAmount);
   }
 
   render() {
@@ -19,18 +20,16 @@ export default class WalletView {
       const currencyUnits = [10, 50, 100, 500, 1000, 5000, 10000];
       const walletInnerHTML = (unit) => {
         return `<li class="currency-unit__${unit}">
-        <div>${unit}</div>
-       <div class="currency-unit__count">0개</div>
-         </li>
-         `;
+                   <div>${unit}</div>
+                   <div class="currency-unit__count">0<span>개</span></div>
+                </li>`;
       };
-      return `<ul class="wallet__currency-unit"> ${template(
-        currencyUnits,
-        walletInnerHTML
-      )} </ul>
-      <ul>
-         <li class="wallet__total"><input type="text"></li>
-      </ul>`;
+      return `<ul class="wallet__currency-unit"> 
+                ${template(currencyUnits, walletInnerHTML)} 
+              </ul>
+              <ul>
+                <li class="wallet__total"><input type="text"><span>원</span></li>
+              </ul>`;
     };
 
     const template = (data, innerHTML) => {
@@ -43,13 +42,22 @@ export default class WalletView {
     this.setValueOnDom($wallet, html);
   }
 
-  setValueOnCurrencyUnit(currencyUnits) {
+  setValueOnCurrencyUnit(data) {
+    const currencyUnits = data.individualCurrencyUnit;
+
     currencyUnits.map((v) => {
       const $unitCount = document.querySelector(
         `.currency-unit__${v.currencyUnit} .currency-unit__count`
       );
       $unitCount.innerHTML = `${v.count}개`;
     });
+  }
+
+  setValueOnTotalAmount(data) {
+    const totalAmount = data.totalAmount;
+    const $walletInput = document.querySelector('.wallet__total input');
+
+    $walletInput.value = totalAmount;
   }
 
   controllEventListener() {
@@ -61,7 +69,9 @@ export default class WalletView {
     this.debounce(
       $walletInput,
       'keyup',
-      this.walletModel.changeToCurrencyUnit,
+      (e) => {
+        this.walletModel.changeToCurrencyUnit(e);
+      },
       1000
     );
   }

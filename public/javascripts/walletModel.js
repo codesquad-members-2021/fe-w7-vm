@@ -18,9 +18,8 @@ export default class WalletModel extends Observable {
   changeToCurrencyUnit(evt) {
     this.totalAmount = evt.target.value;
     const currencyUnits = [10000, 5000, 1000, 500, 100, 50, 10];
-
     const checkCurrentUnit = () => {
-      const curProperty = this.walletModel.individualCurrencyUnit;
+      const curProperty = this.individualCurrencyUnit;
       let amount = this.totalAmount;
       currencyUnits.map((cur) => {
         const currentUnit = curProperty.find((v) => v.currencyUnit === cur);
@@ -29,18 +28,18 @@ export default class WalletModel extends Observable {
       });
     };
     checkCurrentUnit();
-    this.walletModel.notify(this.walletModel.individualCurrencyUnit);
+    this.notify(this);
   }
 
   deductAmount(e) {
-    const selectedCurrency = e.target.parentNode.className.replace(
-      'currency-unit__',
-      ''
+    const selectedCurrency = parseInt(
+      e.target.parentNode.className.replace('currency-unit__', '')
     );
     const targetUnit = this.individualCurrencyUnit.find(
-      (v) => v.currencyUnit === parseInt(selectedCurrency)
+      (v) => v.currencyUnit === selectedCurrency
     );
     targetUnit.count--;
-    this.notify(this.individualCurrencyUnit);
+    this.totalAmount -= selectedCurrency;
+    this.notify(this);
   }
 }

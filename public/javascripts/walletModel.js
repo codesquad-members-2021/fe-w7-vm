@@ -9,52 +9,29 @@ export default class WalletModel {
       { currencyUnit: 50, count: 0 },
       { currencyUnit: 10, count: 0 },
     ];
+    this.totalAmount = 0;
   }
 
   changeToCurrencyUnit(val) {
-    const totalAmount = val.target.value;
+    this.totalAmount = val.target.value;
+    const currencyUnits = [10000, 5000, 1000, 500, 100, 50, 10];
 
-    function between(x, min, max = Infinity) {
-      return x >= min && x < max;
-    }
-
-    const checkCurrentUnit = (totalAmount) => {
+    const checkCurrentUnit = () => {
       const curProperty = this.walletModel.individualCurrencyUnit;
-      if (between(totalAmount, 10000)) {
-        const currentUnit = curProperty.find((v) => v.currencyUnit === 10000);
-        currentUnit.count = ~~(totalAmount / 10000);
-        checkCurrentUnit(totalAmount % 10000);
-      } else if (between(totalAmount, 5000, 10000)) {
-        const currentUnit = curProperty.find((v) => v.currencyUnit === 5000);
-        currentUnit.count = ~~(totalAmount / 5000);
-        checkCurrentUnit(totalAmount % 5000);
-      } else if (between(totalAmount, 1000, 5000)) {
-        const currentUnit = curProperty.find((v) => v.currencyUnit === 1000);
-        currentUnit.count = ~~(totalAmount / 1000);
-        checkCurrentUnit(totalAmount % 1000);
-      } else if (between(totalAmount, 500, 1000)) {
-        const currentUnit = curProperty.find((v) => v.currencyUnit === 500);
-        currentUnit.count = ~~(totalAmount / 500);
-        checkCurrentUnit(totalAmount % 500);
-      } else if (between(totalAmount, 100, 500)) {
-        const currentUnit = curProperty.find((v) => v.currencyUnit === 100);
-        currentUnit.count = ~~(totalAmount / 100);
-        checkCurrentUnit(totalAmount % 100);
-      } else if (between(totalAmount, 50, 100)) {
-        const currentUnit = curProperty.find((v) => v.currencyUnit === 50);
-        currentUnit.count = ~~(totalAmount / 50);
-        checkCurrentUnit(totalAmount % 50);
-      } else if (between(totalAmount, 10, 50)) {
-        const currentUnit = curProperty.find((v) => v.currencyUnit === 10);
-        currentUnit.count = ~~(totalAmount / 10);
-      }
+      let amount = this.totalAmount;
+      currencyUnits.map((cur) => {
+        const currentUnit = curProperty.find((v) => v.currencyUnit === cur);
+        currentUnit.count = ~~(amount / cur);
+        amount -= currentUnit.count * cur;
+      });
     };
+    checkCurrentUnit();
+  }
 
-    checkCurrentUnit(totalAmount);
-    // console.log(
-    //   this.quotientFor10000,
-    //   this.quotientFor5000,
-    //   this.quotientFor1000
-    // );
+  deductAmount(e) {
+    const targetUnit = this.individualCurrencyUnit.find(
+      (v) => v.currencyUnit === parseInt(e.target.parentNode.className)
+    );
+    targetUnit.count--;
   }
 }

@@ -17,9 +17,9 @@ export default class WalletView {
     const makeWalletHTML = () => {
       const currencyUnits = ['10', '50', '100', '500', '1000', '5000', '10000'];
       const walletInnerHTML = (unit) => {
-        return `<li>
-        <div class="currency-unit__${unit}">${unit}원</div>
-       <div class="currency-unit__${unit}__count">0개</div>
+        return `<li class="${unit}">
+        <div>${unit}원</div>
+       <div class="currency-unit__count">0개</div>
          </li>
          `;
       };
@@ -45,7 +45,9 @@ export default class WalletView {
   controllEventListener() {
     const $walletInput = document.querySelector('.wallet__total input');
     const $currencyUnits = document.querySelector('.wallet__currency-unit');
-    $currencyUnits.addEventListener('click', (e) => console.log(e));
+    $currencyUnits.addEventListener('click', (e) => {
+      this.walletModel.deductAmount(e);
+    });
     this.debounce(
       $walletInput,
       'keyup',

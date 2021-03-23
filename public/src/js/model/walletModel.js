@@ -5,6 +5,9 @@ class WalletModel extends Observable {
     super();
     this.walletMoney = myMoney;
   }
+  getWalletMoney() {
+    return this.walletMoney
+  }
   notify(data) {
     this._observers.forEach((observer) => {
       observer();

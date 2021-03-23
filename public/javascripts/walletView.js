@@ -9,16 +9,17 @@ export default class WalletView {
   init() {
     this.render();
     this.controllEventListener();
+    this.walletModel.subscribe(this.setValueOnCurrencyUnit);
   }
 
   render() {
     const $wallet = document.querySelector('.wallet');
 
     const makeWalletHTML = () => {
-      const currencyUnits = ['10', '50', '100', '500', '1000', '5000', '10000'];
+      const currencyUnits = [10, 50, 100, 500, 1000, 5000, 10000];
       const walletInnerHTML = (unit) => {
-        return `<li class="${unit}">
-        <div>${unit}원</div>
+        return `<li class="currency-unit__${unit}">
+        <div>${unit}</div>
        <div class="currency-unit__count">0개</div>
          </li>
          `;
@@ -40,6 +41,15 @@ export default class WalletView {
     const html = makeWalletHTML();
 
     this.setValueOnDom($wallet, html);
+  }
+
+  setValueOnCurrencyUnit(currencyUnits) {
+    currencyUnits.map((v) => {
+      const $unitCount = document.querySelector(
+        `.currency-unit__${v.currencyUnit} .currency-unit__count`
+      );
+      $unitCount.innerHTML = `${v.count}개`;
+    });
   }
 
   controllEventListener() {

@@ -1,8 +1,8 @@
 import { _ } from '../../util/const';
 
 export default class WalletView {
-  constructor() {
-    this.unitMoneyArray = _.walletMoneyArray;
+  constructor(data) {
+    this.data = data;
     this.title = _.walletTitle;
   }
 
@@ -40,17 +40,17 @@ export default class WalletView {
       `;
   }
 
-  getUnitMoneyButton(unit) {
+  getUnitMoneyButton({ unit, count }) {
     return `
     <div class="list-group-item wallet--button__box">
       <button type="button" class="btn btn-default wallet--button">${unit} ${_.money}</button>
-      <div class="wallet--count"><span>count ${_.count}</span></div>
+      <div class="wallet--count"><span>${count} ${_.count}</span></div>
     </div>
     `;
   }
 
   renderUnitMoneyButton() {
-    const buttonGroup = this.unitMoneyArray.reduce((acc, cur) => {
+    const buttonGroup = this.data.reduce((acc, cur) => {
       let button = this.getUnitMoneyButton(cur);
       acc += button;
       return acc;

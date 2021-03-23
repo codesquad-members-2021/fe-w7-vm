@@ -15,11 +15,9 @@ const webpackDevMiddleware = require("webpack-dev-middleware")(
 )
 
 // 핫 로딩 미들웨어를
-const webpackHotMiddleware = 
-    require("webpack-hot-middleware")(compiler)
+const webpackHotMiddleware = require("webpack-hot-middleware")(compiler)
 
 server.use(webpackDevMiddleware);
- // 웹팩dev 미들웨어 다음, static 미들웨어 이전
 server.use(webpackHotMiddleware);
 server.use(staticMiddleWare);
 

@@ -1,11 +1,9 @@
-import { _ } from '../../util/const';
+import { _ } from "../../util/const";
 
 export default class OrderScreen {
   constructor() {
     this.title = _.vendingMachineTitle;
     this.buttonNumber = 20;
-    this.order = 'order';
-    this.price = 'price';
   }
 
   render() {
@@ -23,20 +21,22 @@ export default class OrderScreen {
       `;
   }
 
-  getOrderButton() {
+  getOrderButton(order, price) {
     // data는 fetch로 받아올 것
     return `
     <div class="list-group-item order--button__box">
-      <button type="button" class="btn btn-default order--button">${this.order}</button>
-      <div class="order--price"><span>${this.price} ${_.money}</span></div>
+      <button type="button" class="btn btn-default order--button">${order}</button>
+      <div class="order--price"><span>${price} ${_.money}</span></div>
     </div>
     `;
   }
 
   renderButtonGroup() {
     const tempArray = Array(this.buttonNumber).fill();
+    const orderArray = [];
+    const priceArray = [];
     const buttonGroup = tempArray.reduce((acc, cur) => {
-      cur = this.getOrderButton();
+      cur = this.getOrderButton(0, 0);
       acc += cur;
       return acc;
     }, ``);

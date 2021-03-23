@@ -1,4 +1,5 @@
 .vending{
+    display: flex;
     margin-top: 1rem;
     margin-left: 1rem;
     border: 1px solid black;
@@ -7,13 +8,40 @@
     &__product{
         border: 5px solid black;
         padding: 5px;
-        width: 500px;
+        width: 60%;
         height: 580px;
         &--item-list{
             display: flex;
             justify-content: space-evenly;
             flex-direction: row;
             flex-wrap: wrap;
+        }
+    }
+    &__display{
+        display: flex;
+        border: 5px solid black;
+        padding: 5px;
+        height: 580px;
+        width: 40%;
+        flex-direction: column;
+        align-items: center;
+        &--money{
+            border: 2px solid gray;
+            width: 90%;
+            height: 10%;
+            margin-top: 15px;
+        }
+        &--return-button{
+            border: 2px solid gray;
+            width: 91.3%;
+            height: 10%;
+            margin-top: 30px;
+        }
+        &--progress{
+            border: 2px solid gray;
+            width: 90%;
+            height: 50%;
+            margin-top: 30px;
         }
     }
 }

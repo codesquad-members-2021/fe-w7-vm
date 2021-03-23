@@ -14,7 +14,7 @@ class MonitorView {
   }
   init() {
     this.render();
-    //wallet에 subscribe - walletClickCbFn
+    this.walletModel.subscribe(this.walletClickCbFn.bind(this));
     //vending machine에 반환 옵저버에 subsribe - returnClickCbFn
     //vending machine에 vending 옵저버에 subscribe - vendingClickCbFn
   }
@@ -30,23 +30,20 @@ class MonitorView {
   }
   walletClickCbFn(money) {
     this.updateVendingMoney({ money, plus: true });
-    this.renderVendingMoney();
     this.setPlusMoneyStatus(money);
-    this.renderVendingStatus();
+    this.render();
   }
   returnClickCbFn() {
     const vendingMoney = this.vendingModel.getVendingMoney();
     this.updateVendingMoney({ money: vendingMoney, plus: false });
-    this.renderVendingMoney();
     this.setReturnStatus(vendingMoney);
-    this.renderVendingStatus();
+    this.render();
   }
   vendingClickCbFn(food) {
     const food = this.vendingModel.getFoodItem(food);
     this.updateVendingMoney({ money: food.price, plus: false });
-    this.renderVendingMoney();
     this.setFoodStatus(food);
-    this.renderVendingStatus();
+    this.render();
   }
   renderVendingMoney() {
     const vendingMoney = this.vendingModel.getVendingMoney();

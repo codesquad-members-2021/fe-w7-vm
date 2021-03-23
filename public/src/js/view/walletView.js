@@ -10,18 +10,40 @@ class WalletView {
   constructor(walletModel) {
     this.walletModel = walletModel;
     this.totalMoney;
-    this.first = document.querySelector('#first');
-
-
+    this.walletArea = _.$('.wallet');
     this.init();
-    console.log(this.first);
   }
   init() {
-    this.renderWallet()
-    this.renderTotalMoney();
+    this.render();
+    this.addEvent();
+  }
+  addEvent() {
+    this.walletArea.addEventListener('click', this.handleClick.bind(this))
+  }
 
-    //this.walletModel.subscribe(this.sayWallet.bind(this));
-    //this.first.addEventListener('click', this.walletModel.notify.bind(this.walletModel));
+  handleClick({
+    target
+  }) {
+    if (target === target.closest('.wallet__money-type')) {
+      this.setWalletStatusMinus(target)
+      this.render();
+    }
+  }
+
+  setWalletStatusMinus(target) {
+    const walletMoney = this.walletModel.getWalletMoney();
+    walletMoney.forEach(el => {
+      if (el.type === target.innerText.slice(0, -1) * 1) {
+        el.count--;
+      }
+    })
+    this.walletModel.setWalletMoney(walletMoney);
+  }
+
+  render() {
+    this.renderWallet()
+    this.setTotalMoney()
+    this.renderTotalMoney();
   }
 
   setTotalMoney() {
@@ -31,27 +53,22 @@ class WalletView {
     this.totalMoney = totalMoney;
   }
 
-  renderTotalMoney() {
-    this.setTotalMoney()
-    const TotalMoneyTpl = totalWalletTpl(this.totalMoney);
-    const walletArea = _.$('.wallet');
-    walletArea.insertAdjacentHTML('beforeEnd', TotalMoneyTpl);
-  }
-
   renderWallet() {
-    const walletArea = _.$('.wallet');
     const walletMoney = this.walletModel.getWalletMoney();
     const walletStatusTpl = walletMoney.reduce((acc, curr) =>
       acc + renderWalletTpl(curr.type, curr.count), ''
     )
-    walletArea.insertAdjacentHTML('afterBegin', walletStatusTpl);
+    this.walletArea.innerHTML = walletStatusTpl;
   }
 
-  sayWallet() {
-    this.setTotalMoney();
-    this.renderWallet();
-    console.log('wallet');
+  renderTotalMoney() {
+    const TotalMoneyTpl = totalWalletTpl(this.totalMoney);
+    this.walletArea.innerHTML += TotalMoneyTpl;
   }
+
+
+
+
 }
 
 export default WalletView;

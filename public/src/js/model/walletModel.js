@@ -8,6 +8,9 @@ class WalletModel extends Observable {
   getWalletMoney() {
     return this.walletMoney
   }
+  setWalletMoney(money) {
+    this.walletMoney = money;
+  }
   notify(data) {
     this._observers.forEach((observer) => {
       observer();

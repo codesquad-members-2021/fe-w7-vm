@@ -12,8 +12,10 @@ class ProductItem {
         const {name, price, imgurl} = data;
         const html = `
         <li class="product-item-container">
-            <img src=${imgurl} width="300px"/>
-            <button class="btn btn-secondary">
+            <div class="product-item-img-container">
+                <img src=${imgurl} width="200px"/>
+            </div>
+            <button class="btn btn-secondary m-auto">
                 <span>${name}</span>
             </button>
             <span class="item-price">${price}</span>

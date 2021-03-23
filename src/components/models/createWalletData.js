@@ -15,10 +15,12 @@ export default class CreateWalletData {
   getWalletMoney() {
     const walletDataArray = this.getWalletData();
     const walletMoney = walletDataArray.reduce((acc, cur) => {
-      const unit = cur.unit * cur.count;
-      acc += unit;
+      const units = cur.unit * cur.count;
+      console.log(cur.unit, cur.count);
+      acc += units;
       return acc;
     }, 0);
-    return walletMoney;
+    const result = { walletDataArray, walletMoney };
+    return result;
   }
 }

@@ -8,14 +8,16 @@ const createMoneyData = new CreateMoneyData();
 createMoneyData.getOrderData().then((res) => console.log(res.data));
 
 const createWalletData = new CreateWalletData();
-const walletData = createWalletData.getWalletData();
-const walletMoney = createWalletData.getWalletMoney();
+const walletData = createWalletData.getWalletMoney();
 
 export default class MainView {
   constructor() {
     this.orderScreen = new OrderScreen();
     this.operatingScreen = new OperatingView();
-    this.walletScreen = new WalletView(walletData, walletMoney);
+    this.walletScreen = new WalletView(
+      walletData.walletDataArray,
+      walletData.walletMoney
+    );
   }
 
   init() {

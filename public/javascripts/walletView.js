@@ -1,5 +1,8 @@
+import WalletModel from './walletModel.js';
+
 export default class WalletView {
   constructor() {
+    this.walletModel = new WalletModel();
     this.init();
   }
 
@@ -41,8 +44,21 @@ export default class WalletView {
 
   controllEventListener() {
     const $walletInput = document.querySelector('.wallet__total input');
-    $walletInput.addEventListener('click', () => {
-      debugger;
+    const $currencyUnits = document.querySelector('.wallet__currency-unit');
+    $currencyUnits.addEventListener('click', (e) => console.log(e));
+    this.debounce(
+      $walletInput,
+      'keyup',
+      this.walletModel.changeToCurrencyUnit,
+      1000
+    );
+  }
+
+  debounce(target, event, fn, delay) {
+    let debounceTimeoutId;
+    target.addEventListener(event, (e) => {
+      clearTimeout(debounceTimeoutId);
+      debounceTimeoutId = setTimeout(fn.bind(this, e), delay);
     });
   }
 

@@ -1,4 +1,4 @@
-export default _ = {
+export const _ = {
   $: (selector, base = document) => base.querySelector(selector),
   $All: (selector, base = document) => base.querySelectorAll(selector),
   genEl: (tagName, { classNames, template, attributes } = {}) => { // classNames: array, template: string, attributes: object

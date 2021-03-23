@@ -2,9 +2,14 @@ import _ from '../../util/util.js';
 import Observable from '../../util/Observable.js';
 
 export default class ProgressScreenModel extends Observable {
-  constructor ({ moneySum, logs }) {
+  constructor ({ moneySum, logs } = {}) {
+    super();
     this.moneySum = moneySum ?? 0;
     this.logs = logs ?? [];
+  }
+
+  addMoney(money) {
+    this.setMoneySum(this.moneySum + money);
   }
 
   setMoneySum(moneySum) {

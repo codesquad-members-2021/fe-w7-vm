@@ -1,5 +1,5 @@
 import './style.scss';
-import { _ } from '../../util.js';
+import { _ } from '../../util/util.js';
 import MoneySumView from './MoneySumView.js';
 import LogListView from './log/LogListView.js';
 
@@ -18,17 +18,16 @@ export default class ProgressScreenView {
     this.render();
   }
 
-  // onEvents() {
-    // this.model.addEventListener('update-sum', this.onUpdateSum.bind(this));
-    // this.model.addEventListener('update-logs', this.onUpdateLogs.bind(this));
-  // }
-
-  onUpdateSum({ evt }) {
-    this.moneySumView.setSum(evt.detail.sum);
+  onUpdateMoneySum({ evt }) {
+    this.moneySumView.setSum(evt.detail.moneySum);
   }
 
-  onUpdateLogs() {
-    this.logListView.set
+  onUpdateLogs({ evt }) {
+    this.logListView.setLogs(evt.detail.logs);
+  }
+
+  onAppendLog({ evt }) {
+    this.logListView.appendLog(evt.detail.log);
   }
 
   createEl() {

@@ -1,5 +1,5 @@
 import '../style.scss';
-import { _ } from '../../../util.js';
+import { _ } from '../../../util/util.js';
 
 export default class LogListItemView {
   constructor({ text }) {

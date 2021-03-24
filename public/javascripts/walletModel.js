@@ -1,6 +1,6 @@
 import Observable from './observable.js';
 
-export default class WalletModel extends Observable {
+export class WalletModel extends Observable {
   constructor() {
     super();
     this.individualCurrencyUnit = [
@@ -31,15 +31,21 @@ export default class WalletModel extends Observable {
     this.notify(this);
   }
 
-  deductAmount(e) {
-    const selectedCurrency = parseInt(
-      e.target.parentNode.className.replace('currency-unit__', '')
-    );
+  deductAmount(selectedCurrency) {
     const targetUnit = this.individualCurrencyUnit.find(
       (v) => v.currencyUnit === selectedCurrency
     );
     targetUnit.count--;
     this.totalAmount -= selectedCurrency;
+    this.notify(this);
+  }
+
+  addAmount(money){
+    this.changeToCurrencyUnit({
+      target:{
+        value: this.totalAmount + money
+      }
+    })
     this.notify(this);
   }
 }

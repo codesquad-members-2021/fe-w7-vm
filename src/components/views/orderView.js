@@ -50,7 +50,6 @@ export default class OrderView {
         price: item.gold.base,
       };
     });
-    console.log(orderDataList);
 
     this.productList = orderDataList.map((el) => {
       const product = new ProductModel(el.order, el.price);
@@ -65,7 +64,6 @@ export default class OrderView {
       return acc;
     }, ``);
 
-    console.log(orderView);
     return `
     <div class="order--button__container">
       ${orderView}

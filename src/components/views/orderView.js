@@ -30,7 +30,7 @@ export default class OrderView {
     return `
     <div class="list-group-item order--button__box">
       <button type="button" class="btn btn-default order--button">
-        <img src=${imgUrl} alt=${order}>
+        <img src=${imgUrl} title=${order} alt=${order}>
       </button>
       <div class="order--price"><span>${price} ${_.money}</span></div>
     </div>
@@ -43,7 +43,7 @@ export default class OrderView {
     const dataListKeys = Object.keys(response.data);
 
     const emptyDataList = Array(_.productItemCount).fill();
-    const orderDataList = emptyDataList.map((el) => {
+    const orderDataList = emptyDataList.map(() => {
       const randomIdx = createRandomNumber(dataListKeys.length);
       const itemKey = dataListKeys[randomIdx];
       const item = dataList[itemKey];

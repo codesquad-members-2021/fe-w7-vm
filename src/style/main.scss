@@ -71,7 +71,7 @@ body {
   }
 
   img {
-    border-radius: 10px;
+    border-radius: $defaultBorderRadius;
     width: 48px;
     height: 48px;
   }
@@ -86,7 +86,6 @@ body {
   .order--button {
     width: $defaultButtonWidth;
     height: $defaultButtonHeight;
-    background: none;
   }
 
   .order--price {

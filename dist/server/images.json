@@ -1,18 +1,20 @@
 {
-    "Kimbap": "https://i.postimg.cc/G2QSVsyq/kimbap.png",
-    "Sushi":"https://i.postimg.cc/VNPGNF9K/sushi.png",
-    "Ramen":"https://i.postimg.cc/gjj47td2/ramen.png",
-    "Noodle": "https://i.postimg.cc/Tw7JnjmM/noodle.png",
-    "Burger set": "https://i.postimg.cc/3JDFDvxV/burger-set.png",
-    "Hamburger": "https://i.postimg.cc/6QzrNVM2/burger.png",
-    "Pancake": "https://i.postimg.cc/hGGrv3zb/pancake.png",
-    "Sandwich": "https://i.postimg.cc/zDhkyhBM/sandwich.png",
-    "Macaron": "https://i.postimg.cc/QCZ1Q6tz/macaron.png",
-    "Berry cake": "https://i.postimg.cc/hjdV7FSx/strawberry-cake.png",
-    "Jam cake": "https://i.postimg.cc/FKqjRFQN/cake.png",
-    "Choco bread": "https://i.postimg.cc/wB3XgyZw/croissant.png",
-    "Hot choco": "https://i.postimg.cc/fRyt94CL/coffee.png",
-    "Rose tea": "https://i.postimg.cc/GmfBPMgj/tea.png",
-    "Peach soda": "https://i.postimg.cc/vm640Wpw/pngegg-4.png",
-    "Berry parfait": "https://i.postimg.cc/RFMX4WBL/parfait.png"
+    "list": [
+        "https://i.postimg.cc/G2QSVsyq/kimbap.png",
+        "https://i.postimg.cc/VNPGNF9K/sushi.png",
+        "https://i.postimg.cc/gjj47td2/ramen.png",
+        "https://i.postimg.cc/Tw7JnjmM/noodle.png",
+        "https://i.postimg.cc/3JDFDvxV/burger-set.png",
+        "https://i.postimg.cc/6QzrNVM2/burger.png",
+        "https://i.postimg.cc/hGGrv3zb/pancake.png",
+        "https://i.postimg.cc/zDhkyhBM/sandwich.png",
+        "https://i.postimg.cc/QCZ1Q6tz/macaron.png",
+        "https://i.postimg.cc/hjdV7FSx/strawberry-cake.png",
+        "https://i.postimg.cc/FKqjRFQN/cake.png",
+        "https://i.postimg.cc/wB3XgyZw/croissant.png",
+        "https://i.postimg.cc/fRyt94CL/coffee.png",
+        "https://i.postimg.cc/GmfBPMgj/tea.png",
+        "https://i.postimg.cc/vm640Wpw/pngegg-4.png",
+        "https://i.postimg.cc/RFMX4WBL/parfait.png"
+    ]
 }

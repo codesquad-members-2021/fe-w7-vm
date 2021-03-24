@@ -12,7 +12,7 @@ class ProductModel extends Observable {
         this.products = productInitData.map((data) => ({
             ...data,
             count: Math.floor(Math.random() * 10) + 1,
-        }));        
+        }));
     };
 
     getProductPrice = (product) => (this.products[product].price);

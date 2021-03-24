@@ -2,8 +2,9 @@ import _ from '../utils/util.js';
 import { fetchData } from '../utils/dataUtil.js';
 
 class ProductView {
-    constructor({ productModel }) {
+    constructor({ productModel, walletModel }) {
         this.productModel = productModel;
+        this.walletModel = walletModel;
         this.productViewWrapper = _.$(this.productModel.productWrapSelector);
 
         this.init();

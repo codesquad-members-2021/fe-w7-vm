@@ -1,6 +1,9 @@
+import _ from "../utils/util.js";
+
 class WalletView {
-    constructor() {
-     
+    constructor(walletModel) {
+        this.walletModel = walletModel;
+        this.walletViewWrapper = _.$(this.walletModel.walletWrapSelector);
     }
 }
 

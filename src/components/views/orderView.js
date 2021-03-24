@@ -1,20 +1,20 @@
 import { _ } from '../../util/const';
+import { createRandomNumber } from '../../util/util';
 import FetchAPI from '../models/fetchAPI';
 import ProductModel from '../models/productModel';
 
-export default class OrderScreen {
+export default class OrderView {
   constructor() {
     this.title = _.vendingMachineTitle;
-    this.buttonNumber = 20;
     this.fetchAPI = new FetchAPI();
     this.productList = [];
   }
 
-  render() {
-    this.getOrderData();
+  async render() {
+    await this.getOrderData();
     return `
       ${this.renderTitle()}
-      ${this.rederOrderScreen()}
+      ${this.renderOrderView()}
     `;
   }
 
@@ -26,7 +26,7 @@ export default class OrderScreen {
       `;
   }
 
-  getOrderProduct(order, price) {
+  getOrderItem(order, price) {
     return `
     <div class="list-group-item order--button__box">
       <button type="button" class="btn btn-default order--button">${order}</button>
@@ -35,31 +35,40 @@ export default class OrderScreen {
     `;
   }
 
-  getOrderData() {
-    // const data = await this.data.fetchOrderData();
-    const data = [
-      { order: 1, price: 20 },
-      { order: 2, price: 30 },
-      { order: 3, price: 40 },
-      { order: 4, price: 50 },
-      { order: 5, price: 60 },
-    ];
-    this.productList = data.map((el) => {
+  async getOrderData() {
+    const response = await this.fetchAPI.fetchOrderData();
+    const dataList = response.data;
+    const dataListKeys = Object.keys(response.data);
+
+    const emptyDataList = Array(_.productItemCount).fill();
+    const orderDataList = emptyDataList.map((el) => {
+      const randomIdx = createRandomNumber(dataListKeys.length);
+      const itemKey = dataListKeys[randomIdx];
+      const item = dataList[itemKey];
+      return {
+        order: item.name,
+        price: item.gold.base,
+      };
+    });
+    console.log(orderDataList);
+
+    this.productList = orderDataList.map((el) => {
       const product = new ProductModel(el.order, el.price);
       return product;
     });
   }
 
-  rederOrderScreen() {
-    const productListHTML = this.productList.reduce((acc, value) => {
+  renderOrderView() {
+    const orderView = this.productList.reduce((acc, value) => {
       const [order, price] = [value.order, value.price];
-      acc += this.getOrderProduct(order, price);
+      acc += this.getOrderItem(order, price);
       return acc;
     }, ``);
 
+    console.log(orderView);
     return `
     <div class="order--button__container">
-      ${productListHTML}
+      ${orderView}
     </div>
     `;
   }

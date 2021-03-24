@@ -7,6 +7,7 @@ export default class ProductView {
         this.menuInfo;
         this.menuImgs;
         this.$container;
+        this.$productsArr = [];
         this.init();
     }
     async init() { // menuInfo에 imgURL을 추가해서 json 하나로 해줘도 될 것 같음
@@ -32,6 +33,7 @@ export default class ProductView {
     }
     appendProduct(i) {
         const $product = this.getContainerEl(i);
+        this.$productsArr.push($product);
         this.$container.appendChild($product);
     }
     getContainerEl(i) {
@@ -43,5 +45,11 @@ export default class ProductView {
                 <div class="product_price">${this.menuInfo.list[i].price}</div>`,
             attributes: {'data-index': `${i}`}
         });
+    }
+    renderAvailable(e) {
+        const indexArr = e.detail.itemIdxArr;
+        this.$productsArr.forEach(e => e.classList.remove('.available'))
+        if(indexArr.length == 0) return;
+        indexArr.forEach(i => this.$productsArr[i].classList.add('.available'));
     }
 }

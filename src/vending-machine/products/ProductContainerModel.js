@@ -37,13 +37,11 @@ export default class ProductContainerModel extends Observable{
     // ProductView에 보냄 - 구매가능 아이템 하이라이트
     sendAvailableItems(moneySum) {
         const itemIdxArr = this.getAvailableItems(moneySum);
-        if(itemIdxArr.length > 0) {
-            this.dispatchEvent(
-                new CustomEvent('render-available-items', {
-                    detail: { itemIdxArr: itemIdxArr }
-                })
-            );
-        }
+        this.dispatchEvent(
+            new CustomEvent('render-available-items', {
+                detail: { itemIdxArr: itemIdxArr }
+            })
+        );
     }
     getAvailableItems(moneySum) {
         let itemIdx = [];

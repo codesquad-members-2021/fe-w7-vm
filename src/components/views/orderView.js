@@ -26,10 +26,12 @@ export default class OrderView {
       `;
   }
 
-  getOrderItem(order, price) {
+  getOrderItem(order, price, imgUrl) {
     return `
     <div class="list-group-item order--button__box">
-      <button type="button" class="btn btn-default order--button">${order}</button>
+      <button type="button" class="btn btn-default order--button">
+        <img src=${imgUrl} alt=${order}>
+      </button>
       <div class="order--price"><span>${price} ${_.money}</span></div>
     </div>
     `;
@@ -48,19 +50,20 @@ export default class OrderView {
       return {
         order: item.name,
         price: item.gold.base,
+        imgUrl: `http://ddragon.leagueoflegends.com/cdn/11.6.1/img/item/${itemKey}.png`,
       };
     });
 
     this.productList = orderDataList.map((el) => {
-      const product = new ProductModel(el.order, el.price);
+      const product = new ProductModel(el.order, el.price, el.imgUrl);
       return product;
     });
   }
 
   renderOrderView() {
     const orderView = this.productList.reduce((acc, value) => {
-      const [order, price] = [value.order, value.price];
-      acc += this.getOrderItem(order, price);
+      const [order, price, imgUrl] = [value.order, value.price, value.imgUrl];
+      acc += this.getOrderItem(order, price, imgUrl);
       return acc;
     }, ``);
 

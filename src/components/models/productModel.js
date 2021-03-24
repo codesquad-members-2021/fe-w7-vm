@@ -1,7 +1,8 @@
 export default class ProductModel {
-  constructor(order, price) {
+  constructor(order, price, imgUrl) {
     this.order = order;
     this.price = price;
+    this.imgUrl = imgUrl;
     this.count = 10;
   }
 

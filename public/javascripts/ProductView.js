@@ -8,7 +8,9 @@ export class ProductView {
 
 	init() {
 		this.render();
-		this.model.subscribe((list) => this.addHighlight(list));
+		this.model.subscribe((data) => {
+			if (data.type === "purchasableList") this.addHighlight(data.value);
+		});
 		this.addEvent();
 	}
 

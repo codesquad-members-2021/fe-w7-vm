@@ -1,5 +1,8 @@
-export default class ProductModel {
+import Observer from '../observer/observer';
+
+export default class ProductModel extends Observer {
   constructor(order, price, imgUrl) {
+    super();
     this.order = order;
     this.price = price;
     this.imgUrl = imgUrl;
@@ -11,6 +14,6 @@ export default class ProductModel {
   }
 
   updateCount() {
-    this.isNotEmpty() && this.count--;
+    this.count--;
   }
 }

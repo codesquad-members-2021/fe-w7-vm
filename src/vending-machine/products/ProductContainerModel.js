@@ -10,11 +10,21 @@ export default class ProductContainerModel extends Observable{
         this.menuInfo = json;
     }
     notifySelectedItem(idx) {
+        this.reduceSum(idx);
+        this.printSelectedLog(idx);
+    }
+    reduceSum(i) {
         this.dispatchEvent(
             new CustomEvent('reduce-money-sum', {
-                detail: { selected: idx }
+                detail: { price: this.menuInfo.list[i].price }
             })
         );
     }
-    
+    printSelectedLog(i) {
+        this.dispatchEvent(
+            new CustomEvent('print-selected', {
+                detail: { name: this.menuInfo.list[i].name }
+            })
+        );
+    }
 }

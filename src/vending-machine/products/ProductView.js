@@ -9,7 +9,7 @@ export default class ProductView {
         this.$container;
         this.init();
     }
-    async init() {
+    async init() { // menuInfo에 imgURL을 추가해서 json 하나로 해줘도 될 것 같음
         this.$contanier = _.$('.products_container')
         const promises = [this.setMenuInfo, this.setMenuImgs];
         Promise.all(promises).then(this.renderDefault);

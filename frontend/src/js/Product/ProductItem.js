@@ -13,12 +13,12 @@ class ProductItem {
         const html = `
         <li class="product-item-container">
             <div class="product-item-img-container">
-                <img src=${imgurl} width="200px"/>
+                <img src=${imgurl} class="img-fluid"/>
             </div>
-            <button class="btn btn-secondary m-auto">
-                <span>${name}</span>
-            </button>
-            <span class="item-price">${price}</span>
+            <div class="product-info-container">
+                <button class="btn btn-secondary">${name}</button>
+                <span class="item-price">${price}</span>
+            </div>
         </li>
         `;
         return html;

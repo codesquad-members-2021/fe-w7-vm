@@ -1,17 +1,19 @@
-import ProductModel from "./Product/ProductModel.js";
+import ProductModel from './models/ProductModel.js';
+import ProductView from './views/ProductView.js';
 
 const REFERENCE = {
-    product: {        
+    product: {
         productWrapSelector: '#productWrapper',
     },
-    
+
     progress: {
         progressWrapSelector: '',
     },
 
     wallet: {
-        walletWrapSelector: '',    
+        walletWrapSelector: '',
     },
 };
 
-new ProductModel(REFERENCE.product).init();
+const productModel = new ProductModel(REFERENCE.product);
+new ProductView({ productModel });

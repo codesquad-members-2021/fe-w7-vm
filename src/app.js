@@ -28,10 +28,9 @@ class App {
       },
 
       process: {
-        $target: this.$target,
-        type: "cash",
-        method: "put",
-        // item : initial setting cash
+        type: "default",
+        method: "default",
+        item: 0
       },
 
     }
@@ -96,7 +95,7 @@ class App {
   // handleChangeGoods({ method, value }) {}
 
   render() {
-    
+
     this.wallet = new WalletContainer({
       $target: this.$target,
       handleChangeWallet: this.handleChangeWallet.bind(this),
@@ -110,9 +109,7 @@ class App {
 
     this.process = new ProcessContainer({
       $target: this.$target,
-      type: this.state.process.type,
-      method: this.state.process.method,
-      // item : this.state.process.item
+      state: this.state.process
     })
   }
 }

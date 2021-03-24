@@ -1,4 +1,4 @@
-import _ from "../util.js";
+import _ from "../util/util.js";
 import { fetchData } from "../dataUtil.js";
 import ProductItem from "./ProductItem.js";
 

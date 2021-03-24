@@ -1,4 +1,4 @@
-import ProductView from "./ProductView.js";
+import ProductView from "../view/ProductView.js";
 
 class ProductModel {
     constructor(productReference) {

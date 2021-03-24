@@ -9,4 +9,12 @@ export default class ProductContainerModel extends Observable{
     setMenuInfo(json) {
         this.menuInfo = json;
     }
+    notifySelectedItem(idx) {
+        this.dispatchEvent(
+            new CustomEvent('reduce-money-sum', {
+                detail: { selected: idx }
+            })
+        );
+    }
+    
 }

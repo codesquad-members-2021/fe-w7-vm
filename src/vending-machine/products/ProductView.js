@@ -7,7 +7,6 @@ export default class ProductView {
         this.menuInfo;
         this.menuImgs;
         this.$container;
-        this.$product;
         this.init();
     }
     async init() {
@@ -32,7 +31,7 @@ export default class ProductView {
         }
     }
     appendProduct(i) {
-        this.$product = this.getContainerEl(i);
+        const $product = this.getContainerEl(i);
         this.$container.appendChild($product);
     }
     getContainerEl(i) {
@@ -41,7 +40,8 @@ export default class ProductView {
             template: `<img src="${this.menuImgs.list[i]}" alt="${this.menuInfo.list[i].name}"
                 class="product_img">
                 <div class="product_name">${this.menuInfo.list[i].name}</div>
-                <div class="product_price">${this.menuInfo.list[i].price}</div>`
+                <div class="product_price">${this.menuInfo.list[i].price}</div>`,
+            attributes: {'data-index': `${i}`}
         });
     }
 }

@@ -1,60 +1,59 @@
-import CurrentMoneyContainer from "./currentMoneyDisplay/currentMoneyContatiner.js";
+import ProcessPresentational from "./processPresentational.js"
+import currentMoneyPresentational from "./currentMoneyDisplay/currentMoneyPresentational.js";
+import ReturnButtonPresentational from "./returnButton/returnButtonPresentational.js"
 import MessagesContainer from "./messages/messagesContainer.js"
-import ReturnButtonContainer from "./returnButton/returnButtonContainer.js"
 
 class ProcessContainer {
-    constructor({ $target, type, method, item }) {
+    constructor({ $target, state }) {
         this.$target = $target;
+        this.initialState = state;
+        this.messagesContainer = MessagesContainer;
         this.moneyPocket = [];
-        this.messages = [];
+        this.currentMoney = null;
 
-        this.setState({ type, method, item });
+        this.components = null;
+        this.presentationals = null;
+
+        this.setState(state)
+        // this.setState({ type, method, item });
+        // 질문 : state를 이렇게 주는 것도 괜찮은가?
     }
 
-    setState({ type, method, item }) {
-        switch (type) {
+    setState(state) {
+        switch (state.type) {
+            case "default":
+                this.messagesContainer.setState(state)
+                break;
             case "cash":
-                // cash 상태 변경
-                this.moneyPocket.push(item);
-                this.currentMoney += this.moneyPocket;
-                // 메시지 상태 변경
-                this.updateMessage({ method, item })
+                if (state.method === "put") {
+                    this.moneyPocket.push(item);
+                    this.currentMoney += this.moneyPocket;
+                }
+                else if (state.method === "take") {
+                    const coin = this.moneyPocket.shift(item);
+                    this.currentMoney -= coin;
+                }
+                this.messagesContainer.setState(state)
                 break;
 
             case "goods":
-                this.updateMessage({ method, item })
-                // this.moneyPocket = this.changeMoney({ currentMoney: this.currentMoney, price: goods.price });
-                // this.currentMoney = 0;
-                // this.currentMoney += changeMoney.reduce((acc, curr) => acc + curr, 0)
+                if (state.method === "selected") {
+                    this.messagesContainer.setState(state)
+                    this.moneyPocket = this.changeMoney({
+                        currentMoney: this.currentMoney,
+                        price: item.price
+                    });
+                    this.currentMoney = 0;
+                    this.currentMoney += this.moneyPocket.reduce((acc, curr) => acc + curr, 0)
+                }
                 break;
 
             default:
-                new Error(`${type} is undefined !`);
+                new Error(`${state.type} || ${state.method} is undefined`);
                 break;
         }
+        // 상태 변경 후 리렌더링
         this.render();
-    }
-
-    selectMessage({ method, item }) {
-        switch (method) {
-            case "put":
-                return `${item}원이 투입 되었습니다.`
-
-            // 현재 return버튼 누르면 message rerendering..
-            // 검토 후 case 삭제 예정..
-            case "return":
-                return `잔돈 ${item}원이 반환 되었습니다.`
-
-            case "selected":
-                return `${item} 선택`
-        }
-    }
-
-    updateMessage({ method, item }) {
-        this.messages.push(
-            this.selectMessage({ method, item })
-        );
-        this.currentMessages += this.messages;
     }
 
     changeMoney({ currentMoney, price }) {
@@ -64,30 +63,36 @@ class ProcessContainer {
 
     render() {
         const $currentMoney = document.createElement("section");
-        $currentMoney.className = "currentMoney-section";
+        $currentMoney.className = "current-money-section";
 
-        const $returnButton = document.createElement("button");
-        $returnButton.className = "returnButton";
+        const $returnButton = document.createElement("section");
+        $returnButton.className = "return-button-section";
 
         const $messages = document.createElement("section");
         $messages.className = "messages-section";
 
-        const nodes = [$currentMoney, $returnButton, $messages]
+        const elements = [$currentMoney, $returnButton, $messages];
 
-        nodes.forEach((node) => this.$target.appendChild(node))
+        elements.forEach((element) => this.$target.appendChild(element))
 
+        // 의문 : 초기 state를 뭘로 주어야 할까?
         this.components = {
-            currentMoney: new CurrentMoneyContainer({
+            messages: new MessagesContainer({
+                $target: $messages,
+                state: this.initialState
+            })
+        };
+
+        this.presentationals = {
+            process: new ProcessPresentational({
+                $target: this.$target
+            }),
+            currentMoney: new currentMoneyPresentational({
                 $target: $currentMoney,
                 currentMoney: this.currentMoney
             }),
-            returnButton: new ReturnButtonContainer({
-                $target: $returnButton,
-                moneyPocket: this.moneyPocket
-            }),
-            messages: new MessagesContainer({
-                $target: $messages,
-                currentMessages: this.currentMessages
+            returnButton: new ReturnButtonPresentational({
+                $target: $returnButton
             })
         }
     }

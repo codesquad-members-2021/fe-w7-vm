@@ -4,8 +4,9 @@ import MoneySumView from './MoneySumView.js';
 import LogListView from './log/LogListView.js';
 
 export default class ProgressScreenView {
-  constructor() {
+  constructor({ model }) {
     this.$target;
+    this.model = model;
     this.moneySumView;
     this.logListView;
     this.init();
@@ -16,6 +17,14 @@ export default class ProgressScreenView {
     this.moneySumView = new MoneySumView();
     this.logListView = new LogListView();
     this.render();
+  }
+
+  onUpdateMoneySum({ evt }) {
+    this.updateMoneySum(evt.detail.moneySum);
+  }
+
+  onAppendLog({ evt }) {
+    this.appendLog(evt.detail.log);
   }
 
   updateMoneySum(moneySum) {

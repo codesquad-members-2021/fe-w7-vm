@@ -12,7 +12,6 @@ export default class VendingMachineView {
 
   init() {
     this.$target = this.createEl();
-    this.progressScreenView = new ProgressScreenView();
     this.render();
   }
 
@@ -27,6 +26,7 @@ export default class VendingMachineView {
   }
 
   render() {
+    // this.$target.appendChild(this.productContainerView.getEl());
     this.$target.appendChild(this.progressScreenView.getEl());
   }
 }

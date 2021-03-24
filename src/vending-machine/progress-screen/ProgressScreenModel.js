@@ -5,15 +5,12 @@ import ProgressScreenView from './ProgressScreenView.js';
 export default class ProgressScreenModel extends Observable {
   constructor({ moneySum, logs } = {}) {
     super();
-    this.view;
-    this.moneySum = moneySum;
-    this.logs = logs;
-    this.init();
+    this.moneySum = moneySum ?? 0;
+    this.logs = logs ?? [];
+    // this.init();
   }
 
-  init() {
-    this.view = new ProgressScreenView();
-  }
+  // init() {};
 
   addMoney(money) {
     this.setMoneySum(this.moneySum + money);
@@ -39,9 +36,5 @@ export default class ProgressScreenModel extends Observable {
         detail: { log: this.log }
       })
     );
-  }
-
-  getView() {
-    return this.view;
   }
 }

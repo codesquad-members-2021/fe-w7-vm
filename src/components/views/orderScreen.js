@@ -1,17 +1,20 @@
 import { _ } from '../../util/const';
 import FetchAPI from '../models/fetchAPI';
+import ProductModel from '../models/productModel';
 
 export default class OrderScreen {
   constructor() {
     this.title = _.vendingMachineTitle;
     this.buttonNumber = 20;
-    this.data = new FetchAPI();
+    this.fetchAPI = new FetchAPI();
+    this.productList = [];
   }
 
   render() {
+    this.getOrderData();
     return `
       ${this.renderTitle()}
-      ${this.renderButtonGroup()}
+      ${this.rederOrderScreen()}
     `;
   }
 
@@ -23,7 +26,7 @@ export default class OrderScreen {
       `;
   }
 
-  getOrderButton(order, price) {
+  getOrderProduct(order, price) {
     return `
     <div class="list-group-item order--button__box">
       <button type="button" class="btn btn-default order--button">${order}</button>
@@ -32,21 +35,31 @@ export default class OrderScreen {
     `;
   }
 
-  renderButtonGroup() {
+  getOrderData() {
     // const data = await this.data.fetchOrderData();
-    // console.log(data);
-    const tempArray = Array(this.buttonNumber).fill();
-    const orderArray = [];
-    const priceArray = [];
-    const buttonGroup = tempArray.reduce((acc, cur) => {
-      cur = this.getOrderButton(0, 0);
-      acc += cur;
+    const data = [
+      { order: 1, price: 20 },
+      { order: 2, price: 30 },
+      { order: 3, price: 40 },
+      { order: 4, price: 50 },
+      { order: 5, price: 60 },
+    ];
+    this.productList = data.map((el) => {
+      const product = new ProductModel(el.order, el.price);
+      return product;
+    });
+  }
+
+  rederOrderScreen() {
+    const productListHTML = this.productList.reduce((acc, value) => {
+      const [order, price] = [value.order, value.price];
+      acc += this.getOrderProduct(order, price);
       return acc;
     }, ``);
 
     return `
     <div class="order--button__container">
-      ${buttonGroup}
+      ${productListHTML}
     </div>
     `;
   }

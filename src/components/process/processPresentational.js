@@ -1,12 +1,15 @@
-class processPresentational {
+class ProcessPresentational {
     constructor($target) {
         this.render($target);
     }
 
-    addEvent() {
-
-    }
-
     render($target) {
+        const $process = `
+            <section class="process"></section>
+        `;
+
+        $target.insertAdjacentHTML("beforeend", $process)
     }
 }
+
+export default ProcessPresentational

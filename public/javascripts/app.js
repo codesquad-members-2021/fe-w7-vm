@@ -1,6 +1,8 @@
+
 import { _ } from "./util.js";
 import { ProductModel } from "./ProductModel.js";
 import { ProductView } from "./ProductView.js";
+import { WalletView } from './walletView.js';
 
 const productData = {
 	productInfo: [
@@ -131,6 +133,8 @@ const productData = {
 
 const foo = new ProductModel(productData)
 const bar = new ProductView(productData, foo);
+const walletView = new WalletView();
 
 // test code
 foo.changeMoneyEvent(1500)
+

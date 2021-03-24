@@ -2,31 +2,39 @@ import "../style/style.scss";
 import { createSectionWithClassname } from "./DOM.js";
 import { _ } from "./utils.js";
 import ProductView from "./ProductView.js";
-import ProcessView from "./ProcessView.js";
+// import ProcessView from "./ProcessView.js";
 import WalletView from "./WalletView.js";
 import Manager from "./Manager.js";
-
-// import Currency from "./Currency.js";
+import WalletModel from "./WalletModel";
+import ProductModel from "./ProductModel";
+import ProcessView from "./ProcessView";
 
 const app = _.$("#app");
-const views = ["productView", "conductionView", "walletView"];
+const views = {
+  PRODUCT: "productView",
+  PROCESS: "processView",
+  WALLET: "walletView",
+};
 
 function init() {
-  // await setDom();
-  views.forEach((e) => createSectionWithClassname(app, e));
-  const manager = new Manager();
-  const productView = new ProductView(_.$(`.${views[0]}`), manager);
-  const processView = new ProcessView(_.$(`.${views[1]}`), manager);
-  const walletView = new WalletView(_.$(`.${views[2]}`), manager);
-  manager.setView(productView, processView, walletView);
-  productView.init();
-  processView.init();
-  walletView.init();
+  Object.values(views).forEach((e) => createSectionWithClassname(app, e));
+  const walletModel = new WalletModel();
+  const productModel = new ProductModel();
+  new WalletView(walletModel, _.$(`.${views.WALLET}`));
+  new ProductView(walletModel, productModel, _.$(`.${views.PRODUCT}`));
+  new ProcessView(walletModel, productModel, _.$(`.${views.PROCESS}`));
 }
 
-// async function setDom() {
-// addEventListener, dom 다 하기
-
+// function init() {
+//   Object.values(views).forEach((e) => createSectionWithClassname(app, e));
+//   const manager = new Manager();
+//   const productView = new ProductView(_.$(`.${views.PRODUCT}`), manager);
+//   const processView = new ProcessView(_.$(`.${views.PROCESS}`), manager);
+//   const walletView = new WalletView(_.$(`.${views.WALLET}`), manager);
+//   manager.setView(productView, processView, walletView);
+//   productView.init();
+//   processView.init();
+//   walletView.init();
 // }
 
 init();

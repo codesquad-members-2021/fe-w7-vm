@@ -1,50 +1,51 @@
+import Observable from "./Observable";
 import { _ } from "./utils.js";
 
-export default class ProcessView {
-  constructor(view, manager) {
-    this.balance = 0;
-    this.inputBalance = null;
-    this.statusBoard = null;
+export default class ProcessView extends Observable {
+  constructor(walletModel, productModel, view) {
+    super();
+    this.walletModel = walletModel;
+    this.productModel = productModel;
+    this.insertedBalanceHtml = null;
     this.returnButton = null;
-    this.manager = manager;
+    this.statusBoard = null;
     this.view = view;
+    this.init();
+  }
+
+  setView({ target }) {
+    // 자판기 잔액에 반영
+    // 현황판
+    this.walletModel.updateInsertBalance(target.value);
+    this.insertedBalanceHtml.value = `${this.walletModel.insertedBalance}원`;
+    this.printMessage("insert", target);
   }
 
   init() {
-    this.render();
-    this.updateBalance();
+    this.setInitialView();
+    this.walletModel.subscribe(this.setView.bind(this));
   }
 
-  render() {
+  setInitialView() {
     const template = (value) => {
       return /*html*/ `
-            <input class="inputBalance" value="${value}원" readonly>
-            <button class="returnButton">반환</button>
-            <div class="statusBoard"></div>
-          `;
+          <input class="inputBalance" value="${value}원" readonly>
+          <button class="returnButton">반환</button>
+          <div class="statusBoard"></div>
+        `;
     };
-    this.view.innerHTML = template(this.balance);
+    this.view.innerHTML = template(this.walletModel.insertedBalance);
     this.returnButton = _.$(".returnButton", this.view);
     this.statusBoard = _.$(".statusBoard", this.view);
-    this.inputBalance = _.$(".inputBalance", this.view);
+    this.insertedBalanceHtml = _.$(".inputBalance", this.view);
   }
 
-  printMessage(message) {
-    this.statusBoard.insertAdjacentHTML("beforeend", `<p class="board__message">${message}</p>`);
-  }
-
-  setBalance(value) {
-    if (value === 0) this.balance = value;
-    else this.balance += Number(value);
-    this.inputBalance.value = `${this.balance}원`;
-    return this.balance;
-  }
-
-  updateBalance() {
-    // 자판기 잔액 반환 이벤트
-    // 지갑에 돈 추가
-    // 자판기 잔액은 0원
-    // 프린트
-    this.returnButton.addEventListener("click", () => this.manager.returnBalance());
+  printMessage(type, target) {
+    const setMsg = (target) => {
+      if (type === "buy") return `<p class="board__message">${target.name}(을/를) 구매하였습니다.</p>`;
+      if (type === "insert") return `<p class="board__message">${target.value}원을 입금하였습니다.</p>`;
+      if (type === "return") return `<p class="board__message">${this.walletModel.insertedBalance}원을 반환하였습니다.</p>`;
+    };
+    this.statusBoard.insertAdjacentHTML("beforeend", setMsg(target));
   }
 }

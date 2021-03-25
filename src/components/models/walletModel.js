@@ -17,6 +17,7 @@ export default class WalletModel extends Observer {
     this.subscribe(this.getExtraMoney.bind(this));
     this.subscribe(this.updateWalletData.bind(this));
     this.subscribe(this.updateWalletMoney.bind(this));
+    this.subscribe(this.toggleDisableButton.bind(this));
   }
 
   updateWalletData() {

@@ -23,6 +23,7 @@ class App {
     
     this.state = { process: {} } // 향후 모델로 옮겨집니다.
     this.init()
+
     this.setState({});
   }
   init() {
@@ -61,6 +62,7 @@ class App {
   }
 
   handleChangeWallet({ method, value }) {
+
     const state = {
       type: "wallet",
       method: method,

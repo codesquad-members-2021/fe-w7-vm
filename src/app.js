@@ -10,4 +10,5 @@ window.addEventListener('DOMContentLoaded', async () => {
   `;
 
   mainView.walletView.addEvent();
+  mainView.walletView.wallet.toggleDisableButton();
 });

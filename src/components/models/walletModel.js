@@ -1,5 +1,5 @@
 import Observer from '../observer/observer';
-import { createWalletData } from '../models/createWalletData';
+import { createWalletData } from '../getData/createWalletData';
 import { _ } from '../../util/const';
 import { $$, updateInputData } from '../../util/util';
 
@@ -45,5 +45,18 @@ export default class WalletModel extends Observer {
 
   getExtraMoney(unit) {
     this.walletMoney -= +unit;
+  }
+
+  checkUnitMoneyCount(idx) {
+    return this.walletData[idx].count === 0;
+  }
+
+  toggleDisableButton() {
+    const walletButtonContainer = $$('.wallet--button__box');
+    walletButtonContainer.forEach((el, idx) => {
+      if (this.checkUnitMoneyCount(idx)) {
+        el.querySelector('.wallet--button').disabled = true;
+      }
+    });
   }
 }

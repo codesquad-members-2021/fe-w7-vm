@@ -1,6 +1,6 @@
 import { _ } from '../../util/const';
 import { createRandomNumber } from '../../util/util';
-import FetchAPI from '../models/fetchAPI';
+import FetchAPI from '../getData/fetchAPI';
 import ProductModel from '../models/productModel';
 
 export default class OrderView {

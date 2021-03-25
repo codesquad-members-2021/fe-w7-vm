@@ -135,7 +135,7 @@ body {
   .operating--window {
     width: 100%;
     height: 300px;
-    font-size: 1.5rem;
+    font-size: 2rem;
     font-weight: 600;
   }
 }
@@ -158,6 +158,12 @@ body {
     height: $defaultButtonHeight - 20px;
     border-radius: $defaultBorderRadius;
     margin-right: 10px;
+    font-weight: 600;
+
+    &:active {
+      background: #222;
+      transition: 0.2s;
+    }
   }
 
   .wallet--count {

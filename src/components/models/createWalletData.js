@@ -8,18 +8,17 @@ function createWalletData() {
       count: createRandomNumber(_.walletMoneyCount),
     };
   });
-  return walletData;
-}
-
-function getWalletMoney() {
-  const walletData = createWalletData();
   const walletMoney = walletData.reduce((acc, cur) => {
     const units = cur.unit * cur.count;
     acc += units;
     return acc;
   }, 0);
-  const wallet = { walletData, walletMoney };
+  const wallet = {
+    walletData,
+    walletMoney,
+  };
+
   return wallet;
 }
 
-export { getWalletMoney };
+export { createWalletData };

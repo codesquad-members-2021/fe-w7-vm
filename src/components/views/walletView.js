@@ -36,7 +36,7 @@ export default class WalletView {
     return `
     <form class="navbar-form wallet--money__form" role="search">
       <div class="form-group form-group-div">
-        <input type="text" class="form-control wallet--money__input" placeholder="${_.money}" value="${moneyComma(this.myMoney)} ${_.money}">
+        <input type="text" class="form-control wallet--money__input" placeholder="${_.money}" value="${moneyComma(this.wallet.walletMoney)} ${_.money}">
       </div>
     </form>
       `;
@@ -45,7 +45,7 @@ export default class WalletView {
   renderWalletMoney() {
     return `
     <div class="wallet__box">
-      ${this.wallet.walletMoney}
+      ${this.getWalletMoney()}
     </div>
       `;
   }

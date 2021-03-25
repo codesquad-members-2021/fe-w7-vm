@@ -1,18 +1,48 @@
 .wallet {
+  display: inline-flex;
+  flex-direction: column;
   width: 200px;
-  height: 600px;
+  margin-left: 20px;
+  border: 3px solid lightgrey;
 
   .money {
-    %font-style {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    padding: 5px;
+
+    &:hover {
+      background-color: lightgray;
+    }
+
+    %common-child-style {
+      display: inline-block;
+      text-align: center;
+      line-height: 30px;
+      font-size: 26px;
+      padding: 5px 10px;
+      border: 1px solid black;
     }
 
     &__kind {
+      @extend %common-child-style;
+      flex: 6;
     }
 
     &__cnt {
+      @extend %common-child-style;
+      flex: 2;
+      margin-left: 10px;
     }
   }
 
   .money-sum {
+    display: inline-block;
+    padding-top: 10px;
+    margin: 5px 10px;
+    text-align: center;
+    font-weight: 800;
+    font-size: 26px;
+    border-top: 3px solid lightgrey;
   }
 }

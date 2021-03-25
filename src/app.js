@@ -43,12 +43,7 @@ class App {
         chocoMilk3: Array(10).fill(new ChocoMilk3()),
       },
 
-      process: {
-        $target: this.$target,
-        type: "cash",
-        method: "put",
-        // item : initial setting cash
-      },
+      process: {},
 
     }
     this.init()
@@ -144,7 +139,7 @@ class App {
   handleChangeGoods({ method, value }) {}
 
   render() {
-    
+
     this.wallet = new WalletContainer({
       $target: this.$target,
       handleChangeWallet: this.handleChangeWallet.bind(this),
@@ -153,15 +148,13 @@ class App {
     this.goods = new GoodsContainer({
       $target: this.$target,
       goods: this.state.goods,
-      handleChangeGoods: this.handleChangeGoods.bind(this),
+      handleChangeGoods: this.handleChangeGoods.bind(this)
     })
 
-    // this.process = new ProcessContainer({
-    //   $target: this.$target,
-    //   type: this.state.process.type,
-    //   method: this.state.process.method,
-    //   // item : this.state.process.item
-    // })
+    this.process = new ProcessContainer({
+      $target: this.$target,
+      state: this.state.process
+    })
   }
 }
 

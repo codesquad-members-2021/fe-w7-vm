@@ -1,9 +1,8 @@
 import Observable from '../utils/Observable.js';
 
 class WalletModel extends Observable {
-    constructor(walletReference) {
+    constructor() {
         super();
-        const { } = walletReference;
     }
 }
 

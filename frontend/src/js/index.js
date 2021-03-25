@@ -9,13 +9,13 @@ const REFERENCE = {
     },
     wallet: {
         // walletWrapSelector: '#walletWrapper',    // 필요없음
-        walletWrapTempSelector: '#walletWrapperTemp',   // 변경가능 *임시
+        walletWrapSelector: '#walletWrapperTemp',   // 변경가능 *임시
         // total이 있을수도..
     },
 };
 
 const productModel = new ProductModel(REFERENCE.product);
-const walletModel = new WalletModel(REFERENCE.wallet);
+const walletModel = new WalletModel();
 
 new ProductView({ productModel, walletModel });
-// new WalletView();
+new WalletView(walletModel, REFERENCE.wallet);

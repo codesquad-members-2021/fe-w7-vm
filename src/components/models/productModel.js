@@ -7,7 +7,7 @@ export default class ProductModel extends Observer {
     this.order = order;
     this.price = price;
     this.imgUrl = imgUrl;
-    this.count = createRandomNumber();
+    this.count = createRandomNumber(10);
   }
 
   isNotEmpty() {

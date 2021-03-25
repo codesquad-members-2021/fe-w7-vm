@@ -57,7 +57,12 @@ export default class WalletModel extends Observer {
     walletButtonContainer.forEach((el, idx) => {
       if (this.checkUnitMoneyCount(idx)) {
         el.querySelector('.wallet--button').disabled = true;
+        this.toggleColorDiasbleButton(el, `wallet--count`, `wallet--count--disabled`);
       }
     });
+  }
+
+  toggleColorDiasbleButton(element, className, addClassName) {
+    element.querySelector(`.${className}`).classList.add(addClassName);
   }
 }

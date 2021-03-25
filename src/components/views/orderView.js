@@ -53,7 +53,6 @@ export default class OrderView {
         imgUrl: `http://ddragon.leagueoflegends.com/cdn/11.6.1/img/item/${itemKey}.png`,
       };
     });
-
     this.productList = orderDataList.map((el) => {
       const product = new ProductModel(el.order, el.price, el.imgUrl);
       return product;

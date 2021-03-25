@@ -1,12 +1,9 @@
-// 0: impossible to buy
-// 1: possible to buy
-
 export default class Product {
   constructor(prod, index) {
     this.name = prod.name;
     this.price = prod.price;
     this.count = prod.count;
-    this.status = 0;
+    this.status = false;
     this.index = index;
   }
 
@@ -14,11 +11,12 @@ export default class Product {
     return this.count === 0;
   }
 
-  setCount(newCount) {
-    this.count = newCount;
+  toggleStatus() {
+    this.status = !this.status;
   }
 
-  setSelf(self) {
-    this.self = self;
+  setCount(count) {
+    this.count += count;
   }
+
 }

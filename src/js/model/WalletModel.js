@@ -47,6 +47,7 @@ export default class WalletModel extends Observable {
 
   // 화폐 개수 갱신, 총액 값 갱신
   // notify productView setView
+  //        walletView setView
   updateCurrency(target, count) {
     target.setCount(count);
     this.updateBalance(target.value * count);

@@ -9,16 +9,17 @@ export default class WalletView {
     this.init();
   }
 
-  setView({ target, balance }) {
-    if (!target) return;
-    this.currencyHtmls[target.index].lastElementChild.innerText = `${target.count}개`;
-    this.walletBalanceHtml.firstElementChild.innerText = `${balance}`;
-  }
-
   init() {
     this.setInitialView();
     this.clickCurrency();
     this.walletModel.subscribe(this.setView.bind(this));
+  }
+
+  // subscribe walletView setView
+  setView({ target, balance }) {
+    if (!target) return;
+    this.currencyHtmls[target.index].lastElementChild.innerText = `${target.count}개`;
+    this.walletBalanceHtml.firstElementChild.innerText = `${balance}`;
   }
 
   setInitialView() {
@@ -48,10 +49,9 @@ export default class WalletView {
       const { target } = e;
       if (!target.classList.contains("currency__unit")) return;
       const sameCurrency = this.walletModel.currencies.find((curr) => curr.value === Number(target.dataset.value));
-      if (sameCurrency.count > 0) {
-        this.walletModel.updateCurrency(sameCurrency, -1);
-        this.walletModel.updateInsertedBalance(sameCurrency.value);
-      }
+      if (!sameCurrency || sameCurrency.count === 0) return;
+      this.walletModel.updateCurrency(sameCurrency, -1);
+      this.walletModel.updateInsertedBalance(sameCurrency.value);
     });
   }
 }

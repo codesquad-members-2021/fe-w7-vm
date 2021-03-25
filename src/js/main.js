@@ -21,6 +21,8 @@ function init() {
   new WalletView(walletModel, _.$(`.${VIEWS.WALLET}`));
   new ProductView(walletModel, productModel, _.$(`.${VIEWS.PRODUCT}`));
   new ProcessView(walletModel, productModel, _.$(`.${VIEWS.PROCESS}`));
+  _.$('body').insertAdjacentHTML("afterbegin","<h1 class='title'>Adela <span>& json</span> Vending Machine</h1>");
+
   setInterval(() => {
     timer.count++;
     if (timer.count >= NUMBERS.TERM) {

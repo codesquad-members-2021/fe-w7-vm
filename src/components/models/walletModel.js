@@ -12,7 +12,7 @@ export default class WalletModel extends Observer {
 
   insertMoneySubscribe() {
     this.subscribe(this.minusMoney.bind(this));
-    // this.subscribe(() => this.getExtraMoney(this.walletData));
+    this.subscribe(this.getExtraMoney.bind(this));
   }
 
   minusMoney(unit) {
@@ -28,12 +28,7 @@ export default class WalletModel extends Observer {
     // 지갑 잔돈을 구해주기
   }
 
-  getExtraMoney(walletData) {
-    const walletMoney = walletData.reduce((acc, cur) => {
-      const units = cur.unit * cur.count;
-      acc += units;
-      return acc;
-    }, 0);
-    return walletMoney;
+  getExtraMoney(unit) {
+    this.walletMoney -= +unit;
   }
 }

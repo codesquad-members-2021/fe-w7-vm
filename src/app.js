@@ -4,14 +4,13 @@ import VendingMachine from './vending-machine/VendingMachine.js';
 import WalletModel from './wallet/WalletModel.js';
 import WalletView from './wallet/WalletView.js';
 
-
-document.addEventListener('DOMContentLoaded', main);
-
 const Setting = {
   URL: 'http://localhost:3000'
 }
 
-const main = function () {
+document.addEventListener('DOMContentLoaded', main);
+
+function main() {
   // DO TEST CODE
   const $mainContainer = _.$('.main-cont');
   const vendingMachine = new VendingMachine(Setting);

@@ -24,6 +24,6 @@ export default class Observable {
   }
 
   dispatchEvent(customEventObj) {
-    this.eventHandlerMap.get(customEventObj.type)?.forEach(callback(customEventObj));
+    this.eventHandlerMap.get(customEventObj.type)?.forEach(callback => callback(customEventObj));
   };
 }

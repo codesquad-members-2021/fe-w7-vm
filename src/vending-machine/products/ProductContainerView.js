@@ -1,23 +1,6 @@
 import { _ } from "../../util/util"
 import ProductView from "./ProductView.js"
 
-/*
-this.json = await fetch();
-...
-
-this.json.forEach(data => {
-    const pv = new ProductView({
-        imgURL..
-        name: ...
-        ...
-    });
-    this.$target.appendChild(pv.getEl());
-    this.productViews.push(pv);
-
-    this.productVIews[0].hilight();
-})
-*/
-
 export default class ProductContainerView {
     constructor(URL, productModel) {
         this.URL = URL

@@ -1,22 +1,23 @@
 import Observable from '../utils/Observable.js';
 
 class ProductModel extends Observable {
-    constructor(productReference) {
+    constructor() {
         super();
-        const { productWrapSelector } = productReference;
-        this.productWrapSelector = productWrapSelector;
         this.products;
     }
 
-    setProductInitData = (productInitData) => {
+    insertProductInitData = (productInitData) => {
         this.products = productInitData.map((data) => ({
             ...data,
             count: Math.floor(Math.random() * 10) + 1,
         }));
     };
 
-    getProductPrice = (product) => (this.products[product].price);
-    setUpdateProductCount = (product) => (this.products[product].count--);
+    updateProductCount = (productData) => {
+        if (!productData || productData.count <= 0) return;
+        productData.count--;
+        console.log(productData)
+    };
 };
 
 export default ProductModel;

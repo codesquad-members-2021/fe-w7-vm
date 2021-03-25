@@ -6,6 +6,7 @@ import WalletView from './views/WalletView.js';
 const REFERENCE = {
     product: {
         productWrapSelector: '#productWrapper',
+        productItemBtnSelector: '#productItem',
     },
     wallet: {
         walletWrapSelector: '#walletWrapper',
@@ -13,8 +14,13 @@ const REFERENCE = {
     },
 };
 
-const productModel = new ProductModel(REFERENCE.product);
-const walletModel = new WalletModel();
+const init = () => {
+    const productModel = new ProductModel();
+    const walletModel = new WalletModel();
+    new ProductView(productModel, walletModel, REFERENCE.product);
+    new WalletView(walletModel, REFERENCE.wallet);
+    // new WalletView();
+};
 
-new ProductView({ productModel, walletModel });
-new WalletView(walletModel, REFERENCE.wallet);
+init();
+

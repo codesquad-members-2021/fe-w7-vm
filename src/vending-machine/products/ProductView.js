@@ -1,17 +1,16 @@
 import { _ } from '../../util/util.js';
 
 export default class ProductView {
-    constructor({URL}, productModel) {
+    constructor(URL, productModel) {
         this.URL = URL;
         this.model = productModel;
         this.menuInfo;
         this.menuImgs;
         this.$container;
         this.$productsArr = [];
-        this.init();
     }
-    async init() { // menuInfo에 imgURL을 추가해서 json 하나로 해줘도 될 것 같음
-        this.$contanier = _.$('.products_container')
+    async init($cont) { 
+        this.$contanier = $cont;
         const promises = [this.setMenuInfo, this.setMenuImgs];
         Promise.all(promises).then(this.renderDefault);
     }
@@ -32,11 +31,11 @@ export default class ProductView {
         }
     }
     appendProduct(i) {
-        const $product = this.getContainerEl(i);
+        const $product = this.getProductEl(i);
         this.$productsArr.push($product);
         this.$container.appendChild($product);
     }
-    getContainerEl(i) {
+    getProductEl(i) {
         return _.genEl('LI', {
             classNames: ['product'],
             template: `<img src="${this.menuImgs.list[i]}" alt="${this.menuInfo.list[i].name}"
@@ -45,11 +44,5 @@ export default class ProductView {
                 <div class="product_price">${this.menuInfo.list[i].price}</div>`,
             attributes: {'data-index': `${i}`}
         });
-    }
-    renderAvailable(e) {
-        const indexArr = e.detail.itemIdxArr;
-        this.$productsArr.forEach(e => e.classList.remove('.available'))
-        if(indexArr.length == 0) return;
-        indexArr.forEach(i => this.$productsArr[i].classList.add('.available'));
     }
 }

@@ -7,10 +7,14 @@ import WalletView from './wallet/WalletView.js';
 
 document.addEventListener('DOMContentLoaded', main);
 
-function main() {
+const Setting = {
+  URL: 'http://localhost:3000'
+}
+
+const main = function () {
   // DO TEST CODE
   const $mainContainer = _.$('.main-cont');
-  const vendingMachine = new VendingMachine();
+  const vendingMachine = new VendingMachine(Setting);
 
   const moneyData = [
     [100, 13],

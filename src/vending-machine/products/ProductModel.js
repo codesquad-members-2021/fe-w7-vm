@@ -1,7 +1,7 @@
 import { _ } from '../../util/util.js';
 import Observable from '../../util/Observable.js';
 
-export default class ProductContainerModel extends Observable{
+export default class ProductModel extends Observable{
     constructor() {
         super();
         this.menuInfo;

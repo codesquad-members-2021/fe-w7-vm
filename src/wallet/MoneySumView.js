@@ -1,35 +1,30 @@
 import './style.scss';
 import { _ } from '../util/util.js';
+import StringUtil from '../util/StringUtil.js';
 
 export default class MoneySumView {
-  constructor() {
+  constructor({ currency }) {
     this.$target;
-    this.$sum;
+    this.currency = currency;
     this.init();
   }
 
   init() {
     this.$target = this.createEl();
-    this.$sum = _.$('.sum', this.$target);
   }
 
   createEl() {
     return _.genEl('DIV', {
       classNames: ['money-sum'],
-      template: this.template({ sum : 0, currency: '원' }),
+      template: StringUtil.getLocaleMoney({ money: 0, currency: this.currency }),
     });
   }
 
   updateSum(sum) {
-    this.$sum.textContent = sum;
+    this.$target.textContent = StringUtil.getLocaleMoney({ money: sum, currency: this.currency });
   }
 
   getEl() {
     return this.$target;
-  }
-
-  template({ sum, currency }) {
-    return `<span class="sum">${sum}</span>
-            <span class="currency">${currency}</span>`
   }
 }

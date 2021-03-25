@@ -55,6 +55,7 @@ export default class ProcessView extends Observable {
     };
     if(type === 'insert' && target < 0) return;
     this.statusBoard.insertAdjacentHTML("beforeend", setMsg(target));
+    this.statusBoard.scrollTop = this.statusBoard.scrollHeight;
   }
 
   returnInsertedBalance() {

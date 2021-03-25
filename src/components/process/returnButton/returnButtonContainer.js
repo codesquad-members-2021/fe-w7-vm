@@ -25,7 +25,7 @@ class ReturnButtonContainer {
         };
         this.presentational = new ReturnButtonPresentational({
             $target: this.$target,
-            moneyPocket = this.moneyPocket
+            moneyPocket: this.moneyPocket
         });
     }
 

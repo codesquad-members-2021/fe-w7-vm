@@ -1,6 +1,6 @@
 $background: #222;
 $defaultButtonWidth: 95px;
-$defaultButtonHeight: 60px;
+$defaultButtonHeight: 83px;
 $defaultFontSize: 16px;
 $defaultBorderRadius: 10px;
 $defaultButtonMargin: 5px;
@@ -86,11 +86,26 @@ body {
   .order--button {
     width: $defaultButtonWidth;
     height: $defaultButtonHeight;
+    border-radius: 7px;
+
+    &:disabled {
+      background: #ff6347;
+    }
+
+    &--possible {
+      @extend .order--button;
+      background: rgba(158, 226, 0, 0.6);
+    }
+
+    &--possible:hover {
+      background: rgba(158, 226, 0, 0.8);
+    }
   }
 
   .order--price {
     text-align: center;
     padding-top: 5px;
+    font-weight: 600;
   }
 }
 
@@ -155,7 +170,7 @@ body {
 
   .wallet--button {
     width: 100%;
-    height: $defaultButtonHeight - 20px;
+    height: $defaultButtonHeight - 35px;
     border-radius: $defaultBorderRadius;
     margin-right: 10px;
     font-weight: 600;
@@ -170,7 +185,7 @@ body {
     @include defaultFelx();
     @include defaultBorder();
     width: 100%;
-    height: $defaultButtonHeight - 20px;
+    height: $defaultButtonHeight - 35px;
     padding: 10px;
     color: #fff;
     border-radius: $defaultBorderRadius;

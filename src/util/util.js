@@ -21,4 +21,7 @@ const updateInputData = (className, data) => {
   inputClassName.value = `${moneyComma(data)} ${_.money}`;
 };
 
-export { $, $$, createRandomNumber, moneyComma, updateInputData };
+const isEmpty = (data) => +data === 0;
+const changeSoldOutColor = (element) => (element.disabled = true);
+
+export { $, $$, createRandomNumber, moneyComma, updateInputData, isEmpty, changeSoldOutColor };

@@ -1,5 +1,6 @@
 import { createRandomNumber } from '../../util/util';
 import Observer from '../observer/observer';
+import { $ } from '../../util/util';
 
 export default class ProductModel extends Observer {
   constructor(order, price, imgUrl) {
@@ -10,8 +11,15 @@ export default class ProductModel extends Observer {
     this.count = createRandomNumber(10);
   }
 
-  isNotEmpty() {
-    return this.count > 0;
+  isEmpty() {
+    return this.count === 0;
+  }
+
+  changeSoldOutColor() {
+    console.log(this.count);
+    if (this.isEmpty()) {
+      $(`.order--button`).disabled = true;
+    }
   }
 
   updateCount() {

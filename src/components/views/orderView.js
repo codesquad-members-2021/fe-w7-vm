@@ -29,7 +29,7 @@ export default class OrderView {
   getOrderItem(order, price, imgUrl, count) {
     return `
     <div class="list-group-item order--button__box">
-      <button type="button" class="btn btn-default order--button" data-count="${count}">
+      <button type="button" class="btn btn-default order--button" data-count="${count}" data-price="${price}">
         <img src=${imgUrl} title="${order}" alt="${order}">
         <div class="order--price"><span>${price} ${_.money}</span></div>
       </button>

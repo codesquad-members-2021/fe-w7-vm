@@ -1,4 +1,4 @@
-import { createRandomNumber } from '../../util/util';
+import { addClassName, createRandomNumber } from '../../util/util';
 import Observer from '../observer/observer';
 import { $ } from '../../util/util';
 
@@ -11,15 +11,8 @@ export default class ProductModel extends Observer {
     this.count = createRandomNumber(10);
   }
 
-  isEmpty() {
-    return this.count === 0;
-  }
-
-  changeSoldOutColor() {
-    console.log(this.count);
-    if (this.isEmpty()) {
-      $(`.order--button`).disabled = true;
-    }
+  changeStatePossible() {
+    addClassName(`order--button`, `order--button--possible`);
   }
 
   updateCount() {

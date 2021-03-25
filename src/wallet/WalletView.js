@@ -1,6 +1,8 @@
+import './style.scss';
 import { _ } from '../util/util.js';
 import WalletModel from './WalletModel.js';
 import MoneyView from './MoneyView.js';
+import MoneySumView from './MoneySumView.js';
 
 export default class WalletView {
   constructor({ model }) {
@@ -15,6 +17,7 @@ export default class WalletView {
     this.$target = this.createEl();
     this.$money = this.$target.firstElementChild;
     this.appendMoneyViews(this.model.getMoneyData());
+    this.appendMoneySumView(this.model.getMoneyData());
     this.model.subscribeEvent({ event: 'use-money', callback: this.onUseMoney.bind(this) });
     this.$target.addEventListener('click', this.onClick.bind(this));
   }
@@ -35,6 +38,17 @@ export default class WalletView {
       this.moneyViewMap.set(money, moneyView);
       this.$target.appendChild(moneyView.getEl());
     }
+  }
+
+  appendMoneySumView(moneyData) {
+    const moneySumView = new MoneySumView();
+    const moneySum = moneyData.reduce((result, data) => {
+      const [money, moneyCnt] = data;
+      return result +  money * moneyCnt;
+    }, 0);
+
+    moneySumView.updateSum(moneySum);
+    this.$target.appendChild(moneySumView.getEl());
   }
 
   createEl() {

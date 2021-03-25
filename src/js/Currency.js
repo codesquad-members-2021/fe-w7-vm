@@ -4,9 +4,6 @@ export default class Currency {
     this.count = count;
     this.index = index;
   }
-  isEmpty() {
-    return this.count === 0;
-  }
   setCount(count) {
     this.count += count;
   }

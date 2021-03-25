@@ -3,6 +3,7 @@
 const _ = {
     $: (selector, target = document) => target.querySelector(selector),
     $all: (selector, target = document) => target.querySelectorAll(selector),
+    getId: (attributeName, node) => node.getAttribute(attributeName),
     addClass: (node, ...className) => node.classList.add(...className),
     removeClass: (node, ...className) => node.classList.remove(...className),
     setToggle: (node, className) => node.classList.toggle(className),

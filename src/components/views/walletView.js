@@ -17,11 +17,13 @@ export default class WalletView {
   }
 
   addEvent() {
-    $('.wallet--button__container').addEventListener('click', this.callback);
+    this.clickUnitMoneyButton();
   }
 
-  callback() {
-    console.log('here');
+  clickUnitMoneyButton() {
+    $('.wallet--button__container').addEventListener('click', (e) => {
+      this.wallet.fire(e.target.id);
+    });
   }
 
   renderTitle() {
@@ -53,7 +55,7 @@ export default class WalletView {
   getUnitMoneyButton({ unit, count }) {
     return `
     <div class="list-group-item wallet--button__box">
-      <button type="button" class="btn btn-default wallet--button">${moneyComma(unit)} ${_.money}</button>
+      <button type="button" class="btn btn-default wallet--button" id=${unit}>${moneyComma(unit)} ${_.money}</button>
       <div class="wallet--count"><span>${count} ${_.count}</span></div>
     </div>
     `;

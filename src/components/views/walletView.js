@@ -1,11 +1,13 @@
 import { _ } from '../../util/const';
 import { $, moneyComma } from '../../util/util';
+import OperationModel from '../models/operationModel';
 import WalletModel from '../models/walletModel';
 
 export default class WalletView {
   constructor() {
     this.title = _.walletTitle;
     this.wallet = new WalletModel();
+    this.display = new OperationModel();
   }
 
   render() {
@@ -21,9 +23,8 @@ export default class WalletView {
   }
 
   clickUnitMoneyButton() {
-    $('.wallet--button__container').addEventListener('click', (e) => {
-      this.wallet.fire(e.target.id);
-    });
+    $('.wallet--button__container').addEventListener('click', (e) => this.wallet.fire(e.target.id));
+    $('.wallet--button__container').addEventListener('click', (e) => this.display.fire(e.target.id));
   }
 
   renderTitle() {

@@ -3,6 +3,7 @@ const _ = {
   count: '개',
   return: 'Return',
   info: 'Info',
+  infoMessage: `I'm not alone, I'm not lonely...`,
   vendingMachineTitle: 'Lonely Vending Machine',
   walletTitle: 'Lonely Wallet',
   walletMoneyList: [10, 50, 100, 500, 1000, 5000, 10000],

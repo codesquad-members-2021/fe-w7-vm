@@ -1,3 +1,5 @@
+import { _ } from './const';
+
 const $ = document.querySelector.bind(document);
 const $$ = document.querySelectorAll.bind(document);
 
@@ -14,4 +16,9 @@ const moneyComma = (num) => {
   return comma;
 };
 
-export { $, $$, createRandomNumber, moneyComma };
+const updateInputData = (className, data) => {
+  const inputClassName = $(`.${className}`);
+  inputClassName.value = `${moneyComma(data)} ${_.money}`;
+};
+
+export { $, $$, createRandomNumber, moneyComma, updateInputData };

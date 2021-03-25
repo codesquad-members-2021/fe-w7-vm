@@ -1,7 +1,7 @@
 import Observer from '../observer/observer';
 import { createWalletData } from '../models/createWalletData';
 import { _ } from '../../util/const';
-import { $, $$, moneyComma } from '../../util/util';
+import { $$, updateInputData } from '../../util/util';
 
 export default class WalletModel extends Observer {
   constructor() {
@@ -9,10 +9,10 @@ export default class WalletModel extends Observer {
     this.wallet = createWalletData();
     this.walletData = this.wallet.walletData;
     this.walletMoney = this.wallet.walletMoney;
-    this.insertMoneySubscribe();
+    this.subscribeInsertMoney();
   }
 
-  insertMoneySubscribe() {
+  subscribeInsertMoney() {
     this.subscribe(this.minusMoney.bind(this));
     this.subscribe(this.getExtraMoney.bind(this));
     this.subscribe(this.updateWalletData.bind(this));
@@ -27,8 +27,7 @@ export default class WalletModel extends Observer {
   }
 
   updateWalletMoney() {
-    const walletBox = $('.wallet__box');
-    walletBox.querySelector('input').value = `${moneyComma(this.walletMoney)} ${_.money}`;
+    updateInputData(`wallet--money__input`, this.walletMoney);
   }
 
   minusMoney(unit) {

@@ -1,7 +1,7 @@
-import ITEM from '../enums/item.js';
+import { ITEM } from '../enums/item.js';
 
 class Good {
-  constructor({name, price}) {
+  constructor({ name, price }) {
     this.name = name;
     this.price = price;
   }

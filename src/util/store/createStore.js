@@ -6,23 +6,38 @@ const createStore = (reducer) => {
   const getState = () => {
     // return {...state};
     return state[Object.keys(state)[0]]
-    // return state;
   }
+  
   const dispatch = (action) => {
     state = reducer(state, action);
+    notify(action);
   }
-  const subscribe = (func) => {
-    listeners.push(func);
+  
+  const subscribe = (actionType, func) => {
+    console.log(func)
+    if (!listeners[actionType]) {
+      listeners[actionType] = [func];
+    } else {
+      listeners[actionType].push(func);
+    }
+    
+    // listeners.push({
+    //   subscriber: func, 
+    //   context
+    // });
   }
+
   const unsubscribe = (observer) => {
-    listeners = listeners.filter((listener) => {
-      return listener !== observer;
-    });
+    // listeners = listeners.filter((listener) => {
+    //   return listener !== observer;
+    // });
   }
-  const notify = (data) => {
-    listeners.forEach((listener) => {
-      listener(data);
-    })
+
+  const notify = ({type, payload}) => {
+    listeners[type]?.forEach((subscriber) => {
+      // subscriber.call(context);
+      subscriber(payload);
+    });
   }
   
   return { getState, dispatch, subscribe, unsubscribe, notify }

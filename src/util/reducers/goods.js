@@ -1,5 +1,4 @@
-const ADD_ITEM = "goods/ADD_ITEM";
-const OUT_ITEM = "goods/OUT_ITEM";
+import * as ACTION from "../enums/action.js"
 
 const initialState = {
   goods: []
@@ -8,7 +7,7 @@ const initialState = {
 const goods = (state = initialState, { type, payload }) => {
   
   switch(type) {
-    case ADD_ITEM:
+    case ACTION.ADD_ITEM:
       // 처음 들어올 때
       const name = Object.keys(payload)[0];
       const value = Object.values(payload)[0];
@@ -29,7 +28,7 @@ const goods = (state = initialState, { type, payload }) => {
         }
       }
     
-    case OUT_ITEM:
+    case ACTION.OUT_ITEM:
       console.log(state.goods)
       console.log(payload)
       const returnItem = state.goods[payload].pop();

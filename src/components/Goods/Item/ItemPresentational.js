@@ -1,11 +1,11 @@
 import * as ITEM_ENUM from "../../../util/enums/item.js";
 
 class ItemPresentational {
-  constructor({ $target, korean, name, status, isSelected }) {
-    this.render($target, korean, name, status, isSelected);
+  constructor({ $target, korean, name, status, amount, isSelected }) {
+    this.render($target, korean, name, status, amount, isSelected);
   }
   
-  render($target, korean, name, status, isSelected) {
+  render($target, korean, name, status, amount, isSelected) {
     $target.innerHTML = ""; // 초기화
     
     const $item = document.createElement("div");
@@ -15,7 +15,7 @@ class ItemPresentational {
     switch (status) {
       case ITEM_ENUM.STATUS.default:
         $itemContents = /* html */ `
-          <span> ${korean} </span>
+          <span> ${korean}, ${amount} </span>
         `;
         break;
       case ITEM_ENUM.STATUS.isAbleToBuy:

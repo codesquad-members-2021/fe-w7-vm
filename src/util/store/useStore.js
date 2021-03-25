@@ -9,8 +9,11 @@ class useDispatchInit {
     return this.appStore[storeName].dispatch;
   }
   useSelector(selectFunc) {
-    return selectFunc(this.appStore)
-    return this.appStore[storeName];
+    return selectFunc(this.appStore);
+  }
+  
+  useSubscribe(storeName) {
+    return this.appStore[storeName].subscribe;
   }
 }
 
@@ -23,8 +26,11 @@ const useDispatch = (storeName) => {
 }
 
 const useSelector = (selectFunc) => {
-  console.log(selectFunc)
   return myStore.useSelector(selectFunc)
 }
 
-export {useStore, useDispatch, useSelector };
+const useSubscribe = (storeName) => {
+  return myStore.useSubscribe(storeName);
+}
+
+export {useStore, useDispatch, useSelector, useSubscribe };

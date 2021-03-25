@@ -1,0 +1,84 @@
+{
+    "list": [
+        {
+            "name": "Kimbap",
+            "price": 4000,
+            "stock": 3
+        },
+        {
+            "name": "Sushi",
+            "price": 12000,
+            "stock": 3
+        },
+        {
+            "name": "Ramen",
+            "price": 8500,
+            "stock": 3
+        },
+        {
+            "name": "Noodle",
+            "price": 7000,
+            "stock": 3
+        },
+        {
+            "name": "Burger set",
+            "price": 7600,
+            "stock": 3
+        },
+        {
+            "name": "Hamburger",
+            "price": 4000,
+            "stock": 3
+        },
+        {
+            "name": "Pancake",
+            "price": 7500,
+            "stock": 3
+        },
+        {
+            "name": "Sandwich",
+            "price": 9800,
+            "stock": 3
+        },
+        {
+            "name": "Macaron",
+            "price": 4000,
+            "stock": 3
+        },
+        {
+            "name": "Berry cake",
+            "price": 5500,
+            "stock": 3
+        },
+        {
+            "name": "Jam cake",
+            "price": 6400,
+            "stock": 3
+        },
+        {
+            "name": "Choco bread",
+            "price": 3800,
+            "stock": 3
+        },
+        {
+            "name": "Hot choco",
+            "price": 4200,
+            "stock": 3
+        },
+        {
+            "name": "Rose tea",
+            "price": 3800,
+            "stock": 3
+        },
+        {
+            "name": "Peach soda",
+            "price": 1800,
+            "stock": 3
+        },
+        {
+            "name": "Berry parfait",
+            "price": 5800,
+            "stock": 3
+        }
+    ]
+}

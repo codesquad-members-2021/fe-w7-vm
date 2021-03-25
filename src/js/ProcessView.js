@@ -13,17 +13,23 @@ export default class ProcessView extends Observable {
     this.init();
   }
 
-  setView({ target }) {
-    // 자판기 잔액에 반영
-    // 현황판
-    this.walletModel.updateInsertBalance(target.value);
+  // insertedBalance 변할 때
+  // 상품을 클릭하면 insertedBalance 변화, 현황판에 "콜라"를 구매했다
+
+  setView({ flag, status, insertedBalance }) {
+    // 상품 클릭했을 때
+
+    // insertedBalance가 변했을 때
+    if (!flag) return;
     this.insertedBalanceHtml.value = `${this.walletModel.insertedBalance}원`;
     this.printMessage("insert", target);
   }
 
   init() {
     this.setInitialView();
-    this.walletModel.subscribe(this.setView.bind(this));
+    this.walletModel.subscribe(this.setView.bind(this)); // <- walletModel : flag, insertedBalance
+    this.productModel.subscribe();
+    // this.productModel.subscribe(this.buyView.bind(this)) // <- productModel : item:target:product 를 받아서 그 이름을 갖고 printMessage 수행
   }
 
   setInitialView() {

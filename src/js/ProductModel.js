@@ -11,8 +11,10 @@ export default class ProductModel extends Observable {
     return this.productList[index].price;
   }
 
-  updateCount(index) {
-    return this.productList[index].count--;
+  updateCount(target) {
+    // 상품이 구매되었을 때
+    this.notify(target);
+    return target.count--;
   }
 
   setInitialData(data) {
@@ -20,14 +22,13 @@ export default class ProductModel extends Observable {
   }
 
   updateStatus(balance) {
-    this.productList.forEach((item) => {
-      if (item.status && (item.price > balance || !item.count)) {
-        item.status = 0;
-        this.notify(item);
-      }
-      if (!item.status && item.price <= balance && item.count > 0) {
-        item.status = 1;
-        this.notify(item);
+    this.productList.forEach((target) => {
+      if (target.status && (target.price > balance || !target.count)) {
+        target.status = 0;
+        this.notify({ target });
+      } else if (!target.status && target.price <= balance && target.count > 0) {
+        target.status = 1;
+        this.notify({ target });
       }
     });
   }

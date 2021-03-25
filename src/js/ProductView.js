@@ -9,10 +9,17 @@ export default class ProductView {
     this.init();
   }
 
-  setView(target) {
+  setView({ target }) {
+    // debugger;
+    if (!target) return;
     const currHtml = this.productHtmls[target.index];
     currHtml.classList.remove("active", "disable");
     currHtml.classList.add(target.status ? "active" : "disable");
+  }
+
+  updateProductState({ flag, insertedBalance }) {
+    if (!flag || !insertedBalance) return;
+    this.productModel.updateStatus(insertedBalance);
   }
 
   async init() {
@@ -21,6 +28,7 @@ export default class ProductView {
     this.setInitialView();
     this.buyProduct();
     this.productModel.subscribe(this.setView.bind(this));
+    this.walletModel.subscribe(this.updateProductState.bind(this));
   }
 
   setInitialView() {
@@ -38,11 +46,16 @@ export default class ProductView {
 
   buyProduct() {
     this.view.addEventListener("click", ({ target }) => {
+      console.log(target);
       const itemBox = target.closest(".item");
-      const sameProduct = this.products.productList.find((item) => item.self === itemBox);
+      console.log(itemBox);
+      const sameProduct = this.productModel.productList.find((item) => item.name === itemBox.firstElementChild.innerText);
+      console.log(sameProduct);
       if (!sameProduct) return;
-      this.walletModel.updateInsertBalance(-1 * sameProduct.price);
-      this.productModel.updateStatus(this.walletModel.insertedBalance);
+      this.walletModel.updateInsertedBalance(-1 * sameProduct.price);
+      // 여기서 처리하지 않거나
+
+      this.productModel.updateCount(sameProduct);
     });
   }
 }

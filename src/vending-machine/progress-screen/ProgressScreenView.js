@@ -17,22 +17,17 @@ export default class ProgressScreenView {
     this.moneySumView = new MoneySumView();
     this.logListView = new LogListView();
     this.render();
+
+    this.model.subscribeEvent({ event: 'update-money-sum', callback: this.onUpdateMoneySum.bind(this) });
+    this.model.subscribeEvent({ event: 'append-log', callback: this.onAppendLog.bind(this) });
   }
 
-  onUpdateMoneySum({ evt }) {
-    this.updateMoneySum(evt.detail.moneySum);
+  onUpdateMoneySum(evt) {
+    this.moneySumView.updateSum(evt.detail.moneySum);
   }
 
-  onAppendLog({ evt }) {
-    this.appendLog(evt.detail.log);
-  }
-
-  updateMoneySum(moneySum) {
-    this.moneySumView.updateSum(moneySum);
-  }
-
-  appendLog(log) {
-    this.logListView.appendLog(log);
+  onAppendLog(evt) {
+    this.logListView.appendLog(evt.detail.log);
   }
 
   createEl() {

@@ -20,6 +20,7 @@ export default class LogListView {
   appendLog(log) {
     const li = new LogListItemView({ text: log });
     this.$target.appendChild(li.getEl());
+    li.getEl().scrollIntoView();
   }
 
   createEl() {

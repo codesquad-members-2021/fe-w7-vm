@@ -4,7 +4,7 @@ import { _ } from '../../../util/util.js';
 export default class LogListItemView {
   constructor({ text }) {
     this.$target;
-    this.text;
+    this.text = text;
     this.init();
   }
 
@@ -21,5 +21,9 @@ export default class LogListItemView {
 
   setText(text) {
     this.$target.textContent = text;
+  }
+
+  getEl() {
+    return this.$target;
   }
 }

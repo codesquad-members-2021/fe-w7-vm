@@ -1,24 +1,21 @@
 import _ from '../../util/util.js';
 import Observable from '../../util/Observable.js';
-import ProgressScreenView from './ProgressScreenView.js';
 
 export default class ProgressScreenModel extends Observable {
-  constructor({ moneySum, logs } = {}) {
+  constructor({ moneySum, logs, currency }) {
     super();
     this.moneySum = moneySum ?? 0;
+    this.currency = currency;
     this.logs = logs ?? [];
-    // this.init();
   }
-
-  // init() {};
 
   addMoney(money) {
     this.setMoneySum(this.moneySum + money);
+    this.appendLog(`${money} ${this.currency}이 투입되었습니다.`);
   }
 
   setMoneySum(moneySum) {
     this.moneySum = moneySum;
-    this.view.updateMoneySum(this.moneySum);
 
     this.dispatchEvent(
       new CustomEvent('update-money-sum', {
@@ -29,12 +26,15 @@ export default class ProgressScreenModel extends Observable {
 
   appendLog(log) {
     this.logs.push(log);
-    this.view.appendLog(log);
 
     this.dispatchEvent(
       new CustomEvent('append-log', {
-        detail: { log: this.log }
+        detail: { log }
       })
     );
+  }
+
+  getCurrency() {
+    return this.currency;
   }
 }

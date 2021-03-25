@@ -75,4 +75,5 @@ export class WalletView {
   inputMoney() {
     this.walletModel.setAccount(_.$('.wallet__total input').value);
   }
+
 }

@@ -1,3 +1,4 @@
+
 import { _ } from './util.js';
 export class ProductView {
   constructor(selectors, { productInfo }, model) {
@@ -45,4 +46,5 @@ export class ProductView {
   addEvent() {
     _.on(this.$.$itemList, 'click', this.bindedEvent);
   }
+
 }

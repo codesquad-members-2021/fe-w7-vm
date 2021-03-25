@@ -1,3 +1,4 @@
+
 import { _ } from './util';
 
 export class ProgressView {
@@ -34,4 +35,5 @@ export class ProgressView {
   updateLog(message) {
     this.$.$display.innerHTML += `${message} <br>`;
   }
+
 }

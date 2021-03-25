@@ -1,3 +1,4 @@
+
 import { _ } from './util.js';
 import Observable from './observable.js';
 
@@ -62,4 +63,5 @@ export class VendingModel extends Observable {
       value: itemName,
     });
   }
+
 }

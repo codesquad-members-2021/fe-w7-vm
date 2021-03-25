@@ -1,3 +1,4 @@
+
 import { _ } from './util.js';
 import { VendingModel } from './vendingModel.js';
 import { ProductView } from './productView.js';
@@ -144,3 +145,4 @@ const vendingModel = new VendingModel(productData, walletModel);
 new WalletView(selectors, vendingModel, walletModel);
 new ProductView(selectors, productData, vendingModel);
 new ProgressView(vendingModel, selectors);
+

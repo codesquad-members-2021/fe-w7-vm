@@ -27,4 +27,5 @@ export const _ = {
         res();
       }, time);
     }),
+
 };

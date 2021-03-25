@@ -1,20 +1,20 @@
 import ItemContainer from "./Item/ItemContainer.js";
+import { useSelector } from "../../util/store/useStore.js";
 
 class GoodsContainer {
-  constructor({ $target, goods }) {
+  constructor({$target}) {
     this.$target = $target;
     this.items = [];
 
     // state
-    console.log(goods)
-    this.goods = goods;
-
+    this.goods = useSelector((state) => state.goods.getState());
     this.setState();
   }
 
   setState() {
     this.render();
   }
+
   render() {
     const $goods = document.createElement("ul");
     $goods.className = "goods"
@@ -23,7 +23,8 @@ class GoodsContainer {
       const $good = document.createElement("li");
       const item = new ItemContainer({
         $target: $good,
-        name: name,
+        name: name, 
+        korean: this.goods[name][0].korean,
         amount: this.goods[name].length,
       });
 

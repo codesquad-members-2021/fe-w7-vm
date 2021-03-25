@@ -13,7 +13,7 @@ export default class ProductModel extends Observable {
 
   updateCount(target) {
     // 상품이 구매되었을 때
-    this.notify(target);
+    this.notify({type : 'buy', target});
     return target.count--;
   }
 

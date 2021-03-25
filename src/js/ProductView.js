@@ -1,4 +1,4 @@
-import { _, url, request } from "./utils.js";
+import { _, url, request, delay, NUMBERS } from "./utils.js";
 
 export default class ProductView {
   constructor(walletModel, productModel, view) {
@@ -17,8 +17,8 @@ export default class ProductView {
     currHtml.classList.add(target.status ? "active" : "disable");
   }
 
-  updateProductState({ flag, insertedBalance }) {
-    if (!flag || !insertedBalance) return;
+  updateProductState({ flag, insertedBalance = null }) {
+    if (!flag || insertedBalance === null) return;
     this.productModel.updateStatus(insertedBalance);
   }
 
@@ -45,17 +45,19 @@ export default class ProductView {
   }
 
   buyProduct() {
-    this.view.addEventListener("click", ({ target }) => {
-      console.log(target);
+    this.view.addEventListener("click", async ({ target }) => {
       const itemBox = target.closest(".item");
-      console.log(itemBox);
+      if(!itemBox) return;
       const sameProduct = this.productModel.productList.find((item) => item.name === itemBox.firstElementChild.innerText);
-      console.log(sameProduct);
-      if (!sameProduct) return;
-      this.walletModel.updateInsertedBalance(-1 * sameProduct.price);
+      if (!sameProduct || sameProduct.price > this.walletModel.insertedBalance) return;
+      
+      // 상태값 변경으로 막기
+      this.walletModel.timer.count = 0;
+      await delay(NUMBERS.BUYPRODUCT);
+      this.walletModel.updateInsertedBalance(-1 * sameProduct.price, 'buy');
       // 여기서 처리하지 않거나
-
       this.productModel.updateCount(sameProduct);
+      // 다시 5초짜리 타임아웃 생성
     });
   }
 }

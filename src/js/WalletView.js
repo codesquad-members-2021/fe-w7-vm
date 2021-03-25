@@ -52,6 +52,7 @@ export default class WalletView {
       const sameCurrency = this.walletModel.currencies.find((curr) => curr.value === Number(target.dataset.value));
       if (sameCurrency.count > 0) {
         this.walletModel.updateCurrency(sameCurrency, -1);
+        this.walletModel.updateInsertedBalance(sameCurrency.value);
         // processView에 반영
       }
     });

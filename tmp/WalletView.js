@@ -1,5 +1,5 @@
 import Currency from "./Currency.js";
-import { _, initNum } from "./utils.js";
+import { _, INITNUM } from "./utils.js";
 
 export default class WalletView {
   constructor(view, manager) {

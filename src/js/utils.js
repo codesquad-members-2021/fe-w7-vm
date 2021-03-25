@@ -16,8 +16,12 @@ export const currency = {
   units: [10, 50, 100, 500, 1000, 5000, 10000],
 };
 
-export const initNum = 0;
-
-export const defaultValue = 100000;
+export const NUMBERS = {
+  INITNUM: 0,
+  DEFAULTVALUE: 100000,
+  BUYPRODUCT: 2000
+};
 
 export const getRandom = (value) => parseInt(Math.random().toFixed(2) * value + 1000);
+
+export const delay = ms => new Promise(resolve => setTimeout(resolve, ms));

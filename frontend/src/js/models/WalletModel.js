@@ -12,18 +12,20 @@ class WalletModel extends Observable {
     createBudget = async () => {
         this.budgetData = this.currencyTypes.map((type) => {
             return new Currency(type, this.getRandomNumBtOneToNine());
-        })
-        this.totalBudget = await this.calculateTotalBudgetValue(this.budgetData);
-    }
+        });
+        this.totalBudget = await this.calculateTotalBudgetValue(
+            this.budgetData,
+        );
+    };
 
     calculateTotalBudgetValue = () => {
-        console.log(this.budgetData);
-        const total = this.budgetData.reduce((acc, currency) => {
-            console.log(currency);
-            acc += (currency[type] * currency[count]);
-        }, 0);
+        const total = this.budgetData.reduce(
+            (initValue, currencyData) =>
+                (initValue += currencyData['type'] * currencyData['count']),
+            0,
+        );
         return total;
-    }
+    };
 
     getRandomNumBtOneToNine = () => Math.floor(Math.random() * 9) + 1;
 }

@@ -16,7 +16,6 @@ class ProductModel extends Observable {
     updateProductCount = (productData) => {
         if (!productData || productData.count <= 0) return;
         productData.count--;
-        console.log(productData)
     };
 };
 

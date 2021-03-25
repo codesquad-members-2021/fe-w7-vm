@@ -1,6 +1,5 @@
 import './style.scss';
 import { _ }  from '../util/util.js';
-import ProgressScreenView from './progress-screen/ProgressScreenView.js';
 
 export default class VendingMachineView {
   constructor({ productContainerView, progressScreenView }) {
@@ -26,7 +25,7 @@ export default class VendingMachineView {
   }
 
   render() {
-    // this.$target.appendChild(this.productContainerView.getEl());
+    this.$target.appendChild(this.productContainerView.getEl());
     this.$target.appendChild(this.progressScreenView.getEl());
   }
 }

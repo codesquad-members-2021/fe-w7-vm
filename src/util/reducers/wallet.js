@@ -1,5 +1,4 @@
-const ADD_MONEY = "wallet/ADD_MONEY";
-const OUT_MONEY = "wallet/OUT_MONEY";
+import * as ACTION from "../enums/action.js"
 
 const initialState = {
   wallet: []
@@ -10,7 +9,7 @@ const wallet = (state = initialState, { type, payload }) => {
   const value = Object.values(payload)[0];
   
   switch(type) {
-    case ADD_MONEY:
+    case ACTION.ADD_MONEY:
       // 처음 들어올 때
       if (!state.wallet?.[name]) {
         return  { 
@@ -28,7 +27,7 @@ const wallet = (state = initialState, { type, payload }) => {
         }
       }
     
-    case OUT_MONEY:
+    case ACTION.OUT_MONEY:
       const returnItem = state.wallet[name].pop();
       return {
         wallet: {

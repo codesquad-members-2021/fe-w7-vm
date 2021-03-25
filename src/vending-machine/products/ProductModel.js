@@ -6,11 +6,11 @@ export default class ProductModel extends Observable{
         super();
         this.menuInfo;
     }
-    setMenuInfo(json) {
-        this.menuInfo = json;
+    setMenuInfo(list) {
+        this.menuInfo = list;
     }
     notifySelectedItem(idx) {
-        if(this.menuInfo.list[idx].stock == 0) return;
+        if(this.menuInfo[idx].stock == 0) return;
         this.reduceSum(idx);
         this.printSelectedLog(idx);
         this.reduceStock(idx);
@@ -19,7 +19,7 @@ export default class ProductModel extends Observable{
     reduceSum(i) {
         this.dispatchEvent(
             new CustomEvent('reduce-money-sum', {
-                detail: { price: this.menuInfo.list[i].price }
+                detail: { price: this.menuInfo[i].price }
             })
         );
     }
@@ -27,12 +27,12 @@ export default class ProductModel extends Observable{
     printSelectedLog(i) {
         this.dispatchEvent(
             new CustomEvent('print-selected', {
-                detail: { name: this.menuInfo.list[i].name }
+                detail: { name: this.menuInfo[i].name }
             })
         );
     }
     reduceStock(i) { 
-        this.menuInfo.list[i].stock--;
+        this.menuInfo[i].stock--;
     }
     // ProductView에 보냄 - 구매가능 아이템 하이라이트
     sendAvailableItems(moneySum) {
@@ -45,7 +45,7 @@ export default class ProductModel extends Observable{
     }
     getAvailableItems(moneySum) {
         let itemIdx = [];
-        this.menuInfo.list.forEach((e, i) => {
+        this.menuInfo.forEach((e, i) => {
             if(e.price <= moneySum) itemIdx.push(i)
         })
         return itemIdx;

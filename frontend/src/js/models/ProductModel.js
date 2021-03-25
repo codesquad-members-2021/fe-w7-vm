@@ -14,8 +14,11 @@ class ProductModel extends Observable {
     };
 
     updateProductCount = (productData) => {
-        if (!productData || productData.count <= 0) return;
-        productData.count--;
+        if (!productData) return;
+        const findData = this.products.find((product) => product.name === productData.name);
+        (findData.count > 0) && findData.count--;
+
+        this.notify(productData);
     };
 };
 

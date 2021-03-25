@@ -21,9 +21,7 @@ class ProductView {
         this.renderInitView(this.productViewWrapper, productItemData);
         this.setProductViewBtnClickEvent(this.productViewWrapper);
 
-        // this.productModel.subscribe(() =>
-        //     renderUpdateView(구입 가능한 상품일때!!) View,
-        // );
+        this.productModel.subscribe(this.renderDisableItem.bind(this));
     };
 
     // renderInitView, 상품들 초기 Render
@@ -47,12 +45,12 @@ class ProductView {
     // setCreateProductHtml, 상품의 HTML 생성
     setCreateProductHtml = ({ name, price, imgurl }) => {
         const html = `
-        <li class="product-item-container disabled__item">
+        <li class="product-item-container">
             <div class="product-item-img-container">
                 <img src=${imgurl} class="img-fluid"/>
             </div>
             <div class="product-info-container">
-                <button class="btn btn-secondary disabled disabled__item"">${name}</button>
+                <button class="btn btn-secondary">${name}</button>
                 <span class="item-price">${price}</span>
             </div>
         </li>
@@ -76,29 +74,37 @@ class ProductView {
         const clickProductData = productDatas.find(
             (productData) => productData.name === targetName,
         );
-        if (!clickProductData || clickProductData <= 0) return;
+        if (!clickProductData) return;
 
-        // (observe로 변경해야할수도 ======================= )
-        this.productModel.updateProductCount(clickProductData);
-        this.renderDisableItem(target, rootBtnWrap, clickProductData);
+        this.productModel.updateProductCount({
+            ...clickProductData,
+            target,
+            targetRootWrap: rootBtnWrap,
+        });
+
         // this.walletModel.[update내돈마이너스func](-1 * clickProductData.price);
     };
 
     // 재고 없을 시 비활성
-    renderDisableItem = (target, targetRootWrap, { count }) => {
+    renderDisableItem = (data) => {
+        const { count, target, targetRootWrap } = data;
+
         if (count > 0) return;
+
         _.addClass(target, 'disabled', 'disabled__item');
         _.addClass(targetRootWrap, 'disabled__item');
     };
 
     // 상품 구매 가능할떄 다시 활성화해주는 이벤트 필요
 
-
     // Disabled 관련 className 체크
     isDisabledItem = (target) => {
         const findDisabled = target.className
             .split(' ')
-            .find((className) => className === 'disabled' || className === 'disabled__item');
+            .find(
+                (className) =>
+                    className === 'disabled' || className === 'disabled__item',
+            );
         return findDisabled;
     };
 }

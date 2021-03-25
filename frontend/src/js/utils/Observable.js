@@ -3,7 +3,7 @@ class Observable {
         this._observers = [];
     }
 
-    subscribe = (observer) => this._observers.push(observer);
+    subscribe = (...observer) => this._observers.push(...observer);
     unsubscribe = (observer) => {
         this._observers = this._observers.filter(
             (subscriber) => subscriber !== observer,

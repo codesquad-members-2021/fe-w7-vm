@@ -1,19 +1,20 @@
 export default class Observer {
   constructor() {
-    this.observers = [];
+    this.walletButtonObservers = [];
+    this.returnButtonObservers = [];
   }
 
-  subscribe(fn) {
-    this.observers.push(fn);
+  subscribe(observers, fn) {
+    observers.push(fn);
   }
 
-  unsubscribe(fnToRemove) {
-    this.observers.filter((fn) => {
+  unsubscribe(observers, fnToRemove) {
+    observers.filter((fn) => {
       if (fn !== fnToRemove) fn;
     });
   }
 
-  fire(data) {
-    this.observers.forEach((fn) => fn(data));
+  fire(observers, data) {
+    observers.forEach((fn) => fn(data));
   }
 }

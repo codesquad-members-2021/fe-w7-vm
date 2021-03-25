@@ -1,9 +1,18 @@
 import { _ } from '../../util/const';
+import { $ } from '../../util/util';
 import OperationModel from '../models/operationModel';
 
 export default class OperationView {
   constructor() {
     this.display = new OperationModel();
+  }
+
+  addEvent() {
+    this.clickReturnButton();
+  }
+
+  clickReturnButton() {
+    $(`.extra--money__button`).addEventListener('click', () => this.display.fire(this.display.returnButtonObservers));
   }
 
   render() {

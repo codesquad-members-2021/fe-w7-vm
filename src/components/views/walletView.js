@@ -23,8 +23,8 @@ export default class WalletView {
   }
 
   clickUnitMoneyButton() {
-    $('.wallet--button__container').addEventListener('click', (e) => this.wallet.fire(e.target.id));
-    $('.wallet--button__container').addEventListener('click', (e) => this.display.fire(e.target.id));
+    $('.wallet--button__container').addEventListener('click', (e) => this.wallet.fire(this.wallet.walletButtonObservers, e.target.id));
+    $('.wallet--button__container').addEventListener('click', (e) => this.display.fire(this.display.walletButtonObservers, e.target.id));
   }
 
   renderTitle() {

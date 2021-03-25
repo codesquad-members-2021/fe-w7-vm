@@ -8,9 +8,8 @@ const REFERENCE = {
         productWrapSelector: '#productWrapper',
     },
     wallet: {
-        // walletWrapSelector: '#walletWrapper',    // 필요없음
-        walletWrapSelector: '#walletWrapperTemp',   // 변경가능 *임시
-        // total이 있을수도..
+        walletWrapSelector: '#walletWrapper',
+        budgetTotalSelector: '#budgetContainer'
     },
 };
 

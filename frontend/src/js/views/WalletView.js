@@ -4,17 +4,24 @@ class WalletView {
     constructor(walletModel, walletReference) {
         this.walletModel = walletModel;
         this.walletViewWrapper = _.$(walletReference.walletWrapSelector);
-        this.currencyTypes = [10, 50, 100, 500, 1000, 5000, 10000];
+        this.budgetTotalContainer = _.$(walletReference.budgetTotalSelector);
+        this.currencyTypes = walletModel.currencyTypes;
 
         this.init();
     }
 
     init = () => {
         this.renderInitView(this.walletViewWrapper, this.currencyTypes);
+        this.renderBudgetInfo();
+        // this.walletModel.subscribe()
     }
 
-    splitTotalIntoCurrency = () => {
+    renderBudgetInfo = () => {
+        this.walletModel.createBudget();
+        const budgetTotal = this.walletModel.totalBudget;
 
+        // console.log("budgetData:", budgetData);
+        console.log("budgetTotal:", budgetTotal);
     }
 
     renderInitView = (walletViewWrapper, currencyTypes) => {

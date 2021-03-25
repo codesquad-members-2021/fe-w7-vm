@@ -19,12 +19,11 @@ class WalletModel extends Observable {
     };
 
     calculateTotalBudgetValue = () => {
-        const total = this.budgetData.reduce(
+        this.totalBudget = this.budgetData.reduce(
             (initValue, currencyData) =>
                 (initValue += currencyData['type'] * currencyData['count']),
             0,
         );
-        return total;
     };
 
     getRandomNumBtOneToNine = () => Math.floor(Math.random() * 9) + 1;

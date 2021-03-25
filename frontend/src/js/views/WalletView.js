@@ -11,29 +11,32 @@ class WalletView {
     }
 
     init = () => {
-        this.renderInitView(this.walletViewWrapper, this.currencyTypes);
         this.renderBudgetInfo();
         // this.walletModel.subscribe()
     }
 
     renderBudgetInfo = () => {
+        const countNodes = _.$all('.currency-count');
         this.walletModel.createBudget();
+        this.renderInitView(this.walletViewWrapper, this.walletModel.budgetData);
         const budgetTotal = this.walletModel.totalBudget;
-
-        // console.log("budgetData:", budgetData);
-        console.log("budgetTotal:", budgetTotal);
+        this.budgetTotalContainer.textContent = `${this.addCommaToNumber(budgetTotal)}원`;
     }
 
     renderInitView = (walletViewWrapper, currencyTypes) => {
-        const html = currencyTypes.reduce((acc, type) => acc += this.createWalletHTML(type, 1), '');
+        const html = currencyTypes.reduce((acc, { type, count }) => acc += this.createWalletHTML(type, count), '');
         walletViewWrapper.insertAdjacentHTML('afterbegin', html);
+    }
+
+    addCommaToNumber = (num) => {
+        return num.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
     }
 
     createWalletHTML = (currencyType, count) => {
         const html = `
         <li class="wallet-grid-item">
             <button type="button" class="m-auto py-1 rounded btn btn-success">${currencyType}원</button>
-            <span class="bg-white m-auto py-1 border rounded">${count}개</span>
+            <span class="currency-count bg-white m-auto py-1 border rounded">${count}개</span>
         </li>
         `;
         return html;

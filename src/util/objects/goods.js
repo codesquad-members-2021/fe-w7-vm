@@ -58,6 +58,7 @@ export class ChocoMilk3 extends Good {
 }
 
 // 미완
+/*
 export class StrawberryBananaJuice extends Good {
   constructor() { super(ITEM.STRAWBERRY_BANANA_JUICE); }
 }
@@ -83,3 +84,4 @@ class PotatoChip extends Good {
 class CanCho extends Good {
   constructor() { super(ITEM.PINEAPPLE_FANTA); }
 }
+*/

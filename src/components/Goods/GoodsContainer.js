@@ -8,10 +8,9 @@ class GoodsContainer {
 
     // state
     this.goods = useSelector((state) => state.goods.getState());
-    
     this.setState();
   }
-  
+
   setState() {
     this.render();
   }
@@ -28,12 +27,12 @@ class GoodsContainer {
         korean: this.goods[name][0].korean,
         amount: this.goods[name].length,
       });
-      
+
       this.items.push(item);
       $goods.append($good);
     }
 
-    this.$target.append($goods); 
+    this.$target.append($goods);
   }
 }
 

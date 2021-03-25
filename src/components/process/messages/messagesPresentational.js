@@ -1,15 +1,18 @@
 class MessagesPresentational {
-    constructor({ $target, messages }) {
-        this.render($target, messages);
-    }
+	constructor({ $target, messages }) {
+		this.render($target, messages);
+	}
 
-    render($target, messages) {
-        const $messages = `
-            <div class="message">${messages}</div>
-        `;
+	render($target, messages) {
+		$target.innerHTML = "";
 
-        $target.insertAdjacentHTML("beforeend", $messages)
-    }
+		messages.forEach((message) => {
+			const $message = `
+            <div class="message">${message}</div>
+            `;
+			$target.insertAdjacentHTML("beforeend", $message)
+		})
+	}
 }
 
 export default MessagesPresentational

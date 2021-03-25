@@ -5,7 +5,7 @@ const _ = {
   info: 'Info',
   vendingMachineTitle: 'Lonely Vending Machine',
   walletTitle: 'Lonely Wallet',
-  walletMoneyArray: [10, 50, 100, 500, 1000, 5000, 10000],
+  walletMoneyList: [10, 50, 100, 500, 1000, 5000, 10000],
   walletMoneyCount: 5,
   productItemCount: 20,
   riotDataUrl: 'http://ddragon.leagueoflegends.com/cdn/11.6.1/data/en_US/item.json',

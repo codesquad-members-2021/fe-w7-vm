@@ -1,11 +1,11 @@
 import { _ } from '../../util/const';
-import { moneyComma } from '../../util/util';
+import { $, moneyComma } from '../../util/util';
+import WalletModel from '../models/walletModel';
 
 export default class WalletView {
-  constructor(unitMoneyArray, myMoney) {
-    this.unitMoneyArray = unitMoneyArray;
-    this.myMoney = myMoney;
+  constructor() {
     this.title = _.walletTitle;
+    this.wallet = new WalletModel();
   }
 
   render() {
@@ -14,6 +14,14 @@ export default class WalletView {
       ${this.renderUnitMoneyButton()}
       ${this.renderWalletMoney()}
     `;
+  }
+
+  addEvent() {
+    $('.wallet--button__container').addEventListener('click', this.callback);
+  }
+
+  callback() {
+    console.log('here');
   }
 
   renderTitle() {
@@ -37,7 +45,7 @@ export default class WalletView {
   renderWalletMoney() {
     return `
     <div class="wallet__box">
-      ${this.getWalletMoney()}
+      ${this.wallet.walletMoney}
     </div>
       `;
   }
@@ -52,7 +60,7 @@ export default class WalletView {
   }
 
   renderUnitMoneyButton() {
-    const buttonGroup = this.unitMoneyArray.reduce((acc, cur) => {
+    const buttonGroup = this.wallet.walletData.reduce((acc, cur) => {
       const button = this.getUnitMoneyButton(cur);
       acc += button;
       return acc;

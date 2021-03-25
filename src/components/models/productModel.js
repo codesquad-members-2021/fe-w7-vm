@@ -1,3 +1,4 @@
+import { createRandomNumber } from '../../util/util';
 import Observer from '../observer/observer';
 
 export default class ProductModel extends Observer {
@@ -6,7 +7,7 @@ export default class ProductModel extends Observer {
     this.order = order;
     this.price = price;
     this.imgUrl = imgUrl;
-    this.count = 10;
+    this.count = createRandomNumber();
   }
 
   isNotEmpty() {

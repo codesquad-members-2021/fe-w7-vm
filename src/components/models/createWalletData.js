@@ -1,25 +1,25 @@
 import { _ } from '../../util/const';
 import { createRandomNumber } from '../../util/util';
 
-export default class CreateWalletData {
-  getWalletData() {
-    const walletDataArray = _.walletMoneyArray.map((el) => {
-      return {
-        unit: el,
-        count: createRandomNumber(_.walletMoneyCount),
-      };
-    });
-    return walletDataArray;
-  }
-
-  getWalletMoney() {
-    const walletDataArray = this.getWalletData();
-    const walletMoney = walletDataArray.reduce((acc, cur) => {
-      const units = cur.unit * cur.count;
-      acc += units;
-      return acc;
-    }, 0);
-    const result = { walletDataArray, walletMoney };
-    return result;
-  }
+function createWalletData() {
+  const walletData = _.walletMoneyList.map((el) => {
+    return {
+      unit: el,
+      count: createRandomNumber(_.walletMoneyCount),
+    };
+  });
+  return walletData;
 }
+
+function getWalletMoney() {
+  const walletData = createWalletData();
+  const walletMoney = walletData.reduce((acc, cur) => {
+    const units = cur.unit * cur.count;
+    acc += units;
+    return acc;
+  }, 0);
+  const wallet = { walletData, walletMoney };
+  return wallet;
+}
+
+export { getWalletMoney };

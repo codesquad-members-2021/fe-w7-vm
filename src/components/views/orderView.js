@@ -30,7 +30,7 @@ export default class OrderView {
     return `
     <div class="list-group-item order--button__box">
       <button type="button" class="btn btn-default order--button">
-        <img src=${imgUrl} title=${order} alt=${order}>
+        <img src=${imgUrl} title="${order}" alt="${order}">
       </button>
       <div class="order--price"><span>${price} ${_.money}</span></div>
     </div>
@@ -62,7 +62,7 @@ export default class OrderView {
 
   renderOrderView() {
     const orderView = this.productList.reduce((acc, value) => {
-      const [order, price, imgUrl] = [value.order, value.price, value.imgUrl];
+      const { order, price, imgUrl } = value;
       acc += this.getOrderItem(order, price, imgUrl);
       return acc;
     }, ``);

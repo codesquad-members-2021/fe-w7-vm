@@ -1,5 +1,7 @@
 import Observer from '../observer/observer';
 import { createWalletData } from '../models/createWalletData';
+import { reRender } from '../../util/util';
+import WalletView from '../views/walletView';
 
 export default class WalletModel extends Observer {
   constructor() {
@@ -13,6 +15,7 @@ export default class WalletModel extends Observer {
   insertMoneySubscribe() {
     this.subscribe(this.minusMoney.bind(this));
     this.subscribe(this.getExtraMoney.bind(this));
+    this.subscribe(() => reRender('.wallet--button__container', '.raccoon-wallet', new WalletView().renderUnitMoneyButton.bind(new WalletView())));
   }
 
   minusMoney(unit) {

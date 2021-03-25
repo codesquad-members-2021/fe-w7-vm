@@ -14,4 +14,9 @@ const moneyComma = (num) => {
   return comma;
 };
 
-export { $, $$, createRandomNumber, moneyComma };
+const reRender = (childClassName, parentClassName, renderFn) => {
+  $(childClassName).remove();
+  $(parentClassName).insertAdjacentHTML('beforeEnd', renderFn());
+};
+
+export { $, $$, createRandomNumber, moneyComma, reRender };

@@ -1,5 +1,5 @@
-import Observable from "./Observable";
-import { _ } from "./utils.js";
+import Observable from "../Observable.js";
+import { _ } from "../utils.js";
 
 export default class ProcessView extends Observable {
   constructor(walletModel, productModel, view) {
@@ -13,19 +13,15 @@ export default class ProcessView extends Observable {
     this.init();
   }
 
-  // insertedBalance 변할 때
-  // 상품을 클릭하면 insertedBalance 변화, 현황판에 "콜라"를 구매했다
-
+  // subscribe walletModel updateInsertedBalance
   setViewAboutWallet({ flag, type, insertedCurrency }) {
-    // 상품 클릭했을 때
-    // insertedBalance가 변했을 때
     if (!flag || type === 'buy') return;
     this.insertedBalanceHtml.value = `${this.walletModel.insertedBalance}원`;
     this.printMessage(type, insertedCurrency);
   }
 
-  setViewAboutProduct({flag, type, target}) {
-    if(flag || !type || type !== 'buy') return;
+  setViewAboutProduct({type, target}) {
+    if(!type || type !== 'buy') return;
     this.insertedBalanceHtml.value = `${this.walletModel.insertedBalance}원`;
     this.printMessage(type, target);
   }
@@ -33,10 +29,8 @@ export default class ProcessView extends Observable {
   init() {
     this.setInitialView();
     this.returnInsertedBalance();
-    this.walletModel.subscribe(this.setViewAboutWallet.bind(this)); // <- walletModel : flag, insertedBalance
+    this.walletModel.subscribe(this.setViewAboutWallet.bind(this));
     this.productModel.subscribe(this.setViewAboutProduct.bind(this));
-    
-    // this.productModel.subscribe(this.buyView.bind(this)) // <- productModel : item:target:product 를 받아서 그 이름을 갖고 printMessage 수행
   }
 
   setInitialView() {
@@ -64,10 +58,6 @@ export default class ProcessView extends Observable {
   }
 
   returnInsertedBalance() {
-    // 자판기 잔액 반환 이벤트
-    // 지갑에 돈 추가
-    // 자판기 잔액은 0원
-    // 프린트
     this.returnButton.addEventListener("click", () => this.walletModel.returnBalance());
   }
 }

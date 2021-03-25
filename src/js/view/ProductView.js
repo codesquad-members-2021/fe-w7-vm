@@ -1,4 +1,5 @@
-import { _, url, request, delay, NUMBERS } from "./utils.js";
+import { _, request, delay } from "../utils.js";
+import { URL, NUMBERS } from "../variables.js";
 
 export default class ProductView {
   constructor(walletModel, productModel, view) {
@@ -9,9 +10,8 @@ export default class ProductView {
     this.init();
   }
 
-  setView({ target }) {
-    // debugger;
-    if (!target) return;
+  setView({ target, type }) {
+    if (!target || type) return;
     const currHtml = this.productHtmls[target.index];
     currHtml.classList.remove("active", "disable");
     currHtml.classList.add(target.status ? "active" : "disable");
@@ -23,7 +23,7 @@ export default class ProductView {
   }
 
   async init() {
-    const data = await request(url.prod);
+    const data = await request(URL.PROD);
     this.productModel.setInitialData(data.product);
     this.setInitialView();
     this.buyProduct();
@@ -48,16 +48,12 @@ export default class ProductView {
     this.view.addEventListener("click", async ({ target }) => {
       const itemBox = target.closest(".item");
       if(!itemBox) return;
-      const sameProduct = this.productModel.productList.find((item) => item.name === itemBox.firstElementChild.innerText);
-      if (!sameProduct || sameProduct.price > this.walletModel.insertedBalance) return;
-      
-      // 상태값 변경으로 막기
       this.walletModel.timer.count = 0;
       await delay(NUMBERS.BUYPRODUCT);
+      const sameProduct = this.productModel.productList.find((item) => item.name === itemBox.firstElementChild.innerText);
+      if (!sameProduct || sameProduct.price > this.walletModel.insertedBalance) return;
       this.walletModel.updateInsertedBalance(-1 * sameProduct.price, 'buy');
-      // 여기서 처리하지 않거나
       this.productModel.updateCount(sameProduct);
-      // 다시 5초짜리 타임아웃 생성
     });
   }
 }

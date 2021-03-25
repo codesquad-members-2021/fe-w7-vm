@@ -1,4 +1,4 @@
-import { _ } from "./utils.js";
+import { _ } from "../utils.js";
 
 export default class WalletView {
   constructor(walletModel, view) {
@@ -19,7 +19,6 @@ export default class WalletView {
     this.setInitialView();
     this.clickCurrency();
     this.walletModel.subscribe(this.setView.bind(this));
-    //   this.walletModel.subscribe(this.setView.bind(this))
   }
 
   setInitialView() {
@@ -45,7 +44,6 @@ export default class WalletView {
   }
 
   clickCurrency() {
-    // 화폐 클릭 이벤트
     this.view.addEventListener("click", (e) => {
       const { target } = e;
       if (!target.classList.contains("currency__unit")) return;
@@ -53,7 +51,6 @@ export default class WalletView {
       if (sameCurrency.count > 0) {
         this.walletModel.updateCurrency(sameCurrency, -1);
         this.walletModel.updateInsertedBalance(sameCurrency.value);
-        // processView에 반영
       }
     });
   }

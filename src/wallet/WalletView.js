@@ -33,6 +33,10 @@ export default class WalletView {
     this.moneySumView.updateSum(this.calculateMoneySum(this.model.getMoneyData()));
   }
 
+  onReturnMoney(evt) {
+    //TODO
+  }
+
   appendMoneyViews({ moneyData, currency }) {
     for (const [money, moneyCnt] of moneyData) {
       const moneyView = new MoneyView({ money, moneyCnt, currency });

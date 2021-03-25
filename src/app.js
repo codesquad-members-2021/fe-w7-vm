@@ -1,4 +1,4 @@
-// IMPORT MODULES TO TEST
+import './style.scss';
 import { _ } from './util/util.js';
 import VendingMachine from './vending-machine/VendingMachine.js';
 import WalletModel from './wallet/WalletModel.js';
@@ -11,7 +11,6 @@ const Setting = {
 document.addEventListener('DOMContentLoaded', main);
 
 function main() {
-  // DO TEST CODE
   const $mainContainer = _.$('.main-cont');
   const vendingMachine = new VendingMachine(Setting);
 
@@ -23,8 +22,13 @@ function main() {
     [10000, 3],
     [50000, 1],
   ];
-  const walletModel = new WalletModel({ moneyData });
+  const walletModel = new WalletModel({ moneyData, currency: 'KRW' });
   const walletView = new WalletView({ model: walletModel });
+
+  walletModel.subscribeEvent({
+    event: 'use-money',
+    callback: vendingMachine.onUseMoney.bind(vendingMachine)
+  });
 
   $mainContainer.appendChild(vendingMachine.getViewEl());
   $mainContainer.appendChild(walletView.getEl());

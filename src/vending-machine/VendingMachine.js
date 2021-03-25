@@ -18,7 +18,7 @@ export default class VendingMachine {
   init(URL) {
     this.productModel = new ProductModel();
     this.productContainerView = new ProductContainerView(URL, this.productModel);
-    this.progressScreenModel = new ProgressScreenModel();
+    this.progressScreenModel = new ProgressScreenModel({ currency: '원' });
     this.progressScreenView = new ProgressScreenView({ model: this.progressScreenModel });
     this.view = new VendingMachineView({
       productContainerView: this.productContainerView,
@@ -26,8 +26,8 @@ export default class VendingMachine {
     });
   }
 
-  insertMoney(money) {
-    this.progressScreenModel.addMoney(money);
+  onUseMoney(evt) {
+    this.progressScreenModel.addMoney(evt.detail.money);
   }
 
   getViewEl() {

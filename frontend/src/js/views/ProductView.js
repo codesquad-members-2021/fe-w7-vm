@@ -2,10 +2,14 @@ import _ from '../utils/util.js';
 import { fetchData } from '../utils/dataUtil.js';
 
 class ProductView {
-    constructor({ productModel, walletModel }) {
+    constructor(productModel, walletModel, productReference) {
         this.productModel = productModel;
         this.walletModel = walletModel;
-        this.productViewWrapper = _.$(this.productModel.productWrapSelector);
+        this.productReference = productReference;
+
+        this.productViewWrapper = _.$(
+            this.productReference.productWrapSelector,
+        );
 
         this.init();
     }
@@ -13,11 +17,12 @@ class ProductView {
     init = async () => {
         const productItemData = await this.getProductInitData();
 
-        this.productModel.setProductInitData(productItemData.data);
+        this.productModel.insertProductInitData(productItemData.data);
         this.renderInitView(this.productViewWrapper, productItemData);
+        this.setProductViewBtnClickEvent(this.productViewWrapper);
 
         // this.productModel.subscribe(() =>
-        //     updateRender(구입 가능한 상품일때!!) View,
+        //     renderUpdateView(구입 가능한 상품일때!!) View,
         // );
     };
 
@@ -42,17 +47,59 @@ class ProductView {
     // setCreateProductHtml, 상품의 HTML 생성
     setCreateProductHtml = ({ name, price, imgurl }) => {
         const html = `
-        <li class="product-item-container">
+        <li class="product-item-container disabled__item">
             <div class="product-item-img-container">
                 <img src=${imgurl} class="img-fluid"/>
             </div>
             <div class="product-info-container">
-                <button class="btn btn-secondary">${name}</button>
+                <button class="btn btn-secondary disabled disabled__item"">${name}</button>
                 <span class="item-price">${price}</span>
             </div>
         </li>
         `;
         return html;
+    };
+
+    // 상품을 클릭했을 시 이벤트 (구매 시)
+    setProductViewBtnClickEvent = (productViewWrapper) =>
+        _.addEvent(productViewWrapper, 'click', (e) =>
+            this.productViewBtnClickEventHandler(e),
+        );
+    productViewBtnClickEventHandler = ({ target }) => {
+        if (this.isDisabledItem(target)) return;
+
+        const rootBtnWrap = target.closest('li');
+        if (target.tagName !== 'BUTTON' || rootBtnWrap.tagName !== 'LI') return;
+
+        const targetName = target.innerText;
+        const productDatas = this.productModel.products;
+        const clickProductData = productDatas.find(
+            (productData) => productData.name === targetName,
+        );
+        if (!clickProductData || clickProductData <= 0) return;
+
+        // (observe로 변경해야할수도 ======================= )
+        this.productModel.updateProductCount(clickProductData);
+        this.renderDisableItem(target, rootBtnWrap, clickProductData);
+        // this.walletModel.[update내돈마이너스func](-1 * clickProductData.price);
+    };
+
+    // 재고 없을 시 비활성
+    renderDisableItem = (target, targetRootWrap, { count }) => {
+        if (count > 0) return;
+        _.addClass(target, 'disabled', 'disabled__item');
+        _.addClass(targetRootWrap, 'disabled__item');
+    };
+
+    // 상품 구매 가능할떄 다시 활성화해주는 이벤트 필요
+
+
+    // Disabled 관련 className 체크
+    isDisabledItem = (target) => {
+        const findDisabled = target.className
+            .split(' ')
+            .find((className) => className === 'disabled' || className === 'disabled__item');
+        return findDisabled;
     };
 }
 

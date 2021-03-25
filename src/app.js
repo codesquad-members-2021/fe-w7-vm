@@ -27,11 +27,7 @@ class App {
         pineappleFanta: Array(10).fill(new PineappleFanta()),
       },
 
-      process: {
-        type: "default",
-        method: "default",
-        item: 0
-      },
+      process: {},
 
     }
     this.setState({});
@@ -92,7 +88,7 @@ class App {
     this.setState(state);
   }
 
-  // handleChangeGoods({ method, value }) {}
+  handleChangeGoods({ method, value }) { }
 
   render() {
 
@@ -104,7 +100,7 @@ class App {
     this.goods = new GoodsContainer({
       $target: this.$target,
       goods: this.state.goods,
-      handleChangeGoods: this.handleChangeGoods.bind(this),
+      handleChangeGoods: this.handleChangeGoods.bind(this)
     })
 
     this.process = new ProcessContainer({

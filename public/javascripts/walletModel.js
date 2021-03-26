@@ -1,6 +1,6 @@
 import Observable from './observable.js';
 
-export class WalletModel extends Observable {
+class WalletModel extends Observable {
   constructor() {
     super();
     this.wallet = {
@@ -40,3 +40,5 @@ export class WalletModel extends Observable {
     this.notify(this.wallet);
   }
 }
+
+export default WalletModel;

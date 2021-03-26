@@ -24,6 +24,11 @@ export default class VendingMachine {
       productContainerView: this.productContainerView,
       progressScreenView: this.progressScreenView
     });
+
+    this.progressScreenModel.subscribeEvent({
+      event: 'update-money-sum',
+      callback: this.productContainerView.renderAvailable.bind(this.productContainerView)
+    });
   }
 
   onUseMoney(evt) {

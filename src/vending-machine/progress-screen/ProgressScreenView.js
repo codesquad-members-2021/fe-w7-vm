@@ -24,6 +24,7 @@ export default class ProgressScreenView {
 
   onProductSelect(evt) {
     this.model.reduceMoney(evt.detail.price);
+    this.model.appendLog(`${evt.detail.name} 상품이 선택되었습니다.`)
   }
 
   onUpdateMoneySum(evt) {

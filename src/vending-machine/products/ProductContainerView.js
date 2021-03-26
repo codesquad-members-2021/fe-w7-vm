@@ -15,6 +15,17 @@ export default class ProductContainerView {
         this.$container = this.getContainerEl();
         this.setEvent();
         this.fetchInfo();
+        this.model.subscribeEvent({
+            event: 'product-sold-out',
+            callback: this.renderSoldOut.bind(this)
+          });
+    }
+    renderSoldOut(e) {
+        const i = e.detail.soldOutIdx;
+        const product = this.$products[i];
+        product.classList.add('sold_out');
+        product.lastElementChild.textContent = '매진';
+    
     }
     getContainerEl() {
         return _.genEl('UL', {

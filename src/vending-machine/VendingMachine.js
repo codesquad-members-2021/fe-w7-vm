@@ -31,7 +31,7 @@ export default class VendingMachine {
     });
 
     this.productModel.subscribeEvent({
-      event: 'reduce-money-sum',
+      event: 'product-select',
       callback: this.progressScreenView.onProductSelect.bind(this.progressScreenView)
     });
   }

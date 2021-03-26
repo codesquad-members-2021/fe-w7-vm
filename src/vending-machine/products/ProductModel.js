@@ -12,27 +12,28 @@ export default class ProductModel extends Observable{
     notifySelectedItem(idx) {
         if(this.menuInfo[idx].stock == 0) return;
         this.reduceSum(idx);
-        this.printSelectedLog(idx);
         this.reduceStock(idx);
     }
     // progressScreenView에 보냄 - 투입금액 줄이기
     reduceSum(i) {
         this.dispatchEvent(
-            new CustomEvent('reduce-money-sum', {
-                detail: { price: this.menuInfo[i].price }
-            })
-        );
-    }
-    // logView에 보냄 - 선택, 배출 로그 출력
-    printSelectedLog(i) {
-        this.dispatchEvent(
-            new CustomEvent('print-selected', {
-                detail: { name: this.menuInfo[i].name }
+            new CustomEvent('product-select', {
+                detail: { 
+                    price: this.menuInfo[i].price,
+                    name: this.menuInfo[i].name
+                }
             })
         );
     }
     reduceStock(i) { 
         this.menuInfo[i].stock--;
+        if(this.menuInfo[i].stock === 0) {
+            this.dispatchEvent(
+                new CustomEvent('product-sold-out', {
+                    detail: { soldOutIdx: i}
+                })
+            )
+        }
     }
     // ProductContainerView에 계산해서 보내줌
     getAvailableItems(moneySum) {

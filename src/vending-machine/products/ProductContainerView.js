@@ -14,7 +14,7 @@ export default class ProductContainerView {
     init() {
         this.$container = this.getContainerEl();
         this.setEvent();
-        this.fetchInfo()
+        this.fetchInfo();
     }
     getContainerEl() {
         return _.genEl('UL', {

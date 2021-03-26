@@ -29,7 +29,7 @@ export default class ProductView extends ProductListModel {
 
   clickProductButton() {
     $('.order--button__container').addEventListener('click', (e) => {
-        productButtonObservers.fire(e.target.closest('.order--button'))
+        productButtonObservers.fire(e.target.closest('.order--button').id)
       });
   }
 

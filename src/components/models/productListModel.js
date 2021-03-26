@@ -1,5 +1,5 @@
 import { _ } from '../../util/const';
-import { createRandomNumber } from '../../util/util';
+import { createRandomNumber, isEmpty } from '../../util/util';
 import FetchProductData from '../getData/fetchProductData';
 import ProductModel from './productModel';
 
@@ -10,9 +10,12 @@ export default class ProductListModel extends ProductModel {
     this.productList = [];
   }
 
-  changeCount(data) {
-    console.log(data)
-    console.log(this.productList)
+  changeCount(id) {
+    if (isEmpty(this.productList[id].count)) {
+      console.log('empty');
+      return;
+    }
+    this.productList[id].count--;
   }
 
 

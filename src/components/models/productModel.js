@@ -1,4 +1,4 @@
-import { addClassName, createRandomNumber, isEmpty } from '../../util/util';
+import { $, createRandomNumber } from '../../util/util';
 
 export default class ProductModel {
   constructor(order, price, imgUrl) {
@@ -9,7 +9,7 @@ export default class ProductModel {
   }
 
   changeStatePossible() {
-    addClassName(`order--button`, `order--button--possible`);
+    $(`.order--button`).classList.add(`order--button--possible`);
   }
 
 

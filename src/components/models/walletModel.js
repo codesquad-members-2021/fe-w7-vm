@@ -28,9 +28,8 @@ export default class WalletModel {
     }
   }
 
-  plusMoney() {
-    // 반환되는 잔돈을 unit별로 나눠서 더해주고
-    // 지갑 잔돈을 구해주기
+  plusMoney(data) {
+    console.log(data);
   }
 
   getExtraMoney(unit) {

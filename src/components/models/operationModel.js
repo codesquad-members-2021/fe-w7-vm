@@ -1,6 +1,6 @@
 import { _ } from '../../util/const';
 import { updateInputData } from '../../util/util';
-import { $, $$ } from '../../util/util';
+import { $$ } from '../../util/util';
 
 export default class OperationModel {
   constructor() {
@@ -29,7 +29,23 @@ export default class OperationModel {
     updateInputData(`insert--money__input`, this.insertMoney);
   }
 
-  currentMoney() {
-    console.log(this.insertMoney);
+  initCurrentMoney() {
+    this.insertMoney = 0;
+  }
+
+  calculateReturnMoney() {
+    const unitMoneyList = _.walletMoneyList.reverse();
+    const returnMoneyData = {};
+    let returnMoney = +this.insertMoney;
+    unitMoneyList.forEach((el) => {
+      debugger;
+      if (returnMoney >= el) {
+        returnMoneyData[el] = parseInt(returnMoney / el);
+        returnMoney %= el;
+        debugger;
+      }
+    });
+    console.log(returnMoneyData);
+    return returnMoneyData;
   }
 }

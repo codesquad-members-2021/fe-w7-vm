@@ -1,6 +1,6 @@
 import { _ } from '../../util/const';
 import { $, moneyComma } from '../../util/util';
-import { walletButtonObservers } from '../observer/observer';
+import { walletButtonObservers, returnButtonObservers } from '../observer/observer';
 import WalletModel from '../models/walletModel';
 
 export default class WalletView extends WalletModel {
@@ -8,6 +8,7 @@ export default class WalletView extends WalletModel {
     super();
     this.title = _.walletTitle;
     this.subscribeInsertMoney();
+    this.subscribeReturnMoney();
   }
 
   subscribeInsertMoney() {
@@ -16,6 +17,10 @@ export default class WalletView extends WalletModel {
     walletButtonObservers.subscribe(this.updateWalletData.bind(this));
     walletButtonObservers.subscribe(this.updateWalletMoney.bind(this));
     walletButtonObservers.subscribe(this.toggleDisableButton.bind(this));
+  }
+
+  subscribeReturnMoney() {
+    returnButtonObservers.subscribe(this.plusMoney.bind(this));
   }
 
   render() {
@@ -28,10 +33,15 @@ export default class WalletView extends WalletModel {
 
   addEvent() {
     this.clickUnitMoneyButton();
+    this.clickReturnButton();
   }
 
   clickUnitMoneyButton() {
     $('.wallet--button__container').addEventListener('click', (e) => walletButtonObservers.fire(e.target.id));
+  }
+
+  clickReturnButton() {
+    $(`.extra--money__button`).addEventListener('click', () => returnButtonObservers.fire());
   }
 
   renderTitle() {

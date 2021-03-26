@@ -6,19 +6,18 @@ import { returnButtonObservers, walletButtonObservers } from '../observer/observ
 export default class OperationView extends OperationModel {
   constructor() {
     super();
-    this.displayMoneySubscribe();
-    this.returnMoneySubscribe();
+    this.subscribeDisplayMoney();
+    this.subscribeReturnMoney();
   }
 
-  displayMoneySubscribe() {
+  subscribeDisplayMoney() {
     walletButtonObservers.subscribe(this.plusDisplayMoney.bind(this));
     walletButtonObservers.subscribe(this.updateDisplayMoney.bind(this));
     walletButtonObservers.subscribe(this.changeStatePossible.bind(this));
   }
 
-  returnMoneySubscribe() {
-    console.log(this);
-    returnButtonObservers.subscribe(this.currentMoney.bind(this));
+  subscribeReturnMoney() {
+    returnButtonObservers.subscribe(this.initCurrentMoney.bind(this));
     returnButtonObservers.subscribe(this.updateDisplayMoney.bind(this));
   }
 
@@ -27,11 +26,7 @@ export default class OperationView extends OperationModel {
   }
 
   clickReturnButton() {
-    $(`.extra--money__button`).addEventListener('click', () => returnButtonObservers.fire());
-  }
-
-  clickUnitMoneyButton() {
-    $('.wallet--button__container').addEventListener('click', (e) => walletButtonObservers.fire(e.target.id));
+    $(`.extra--money__button`).addEventListener('click', returnButtonObservers.fire(this.calculateReturnMoney()));
   }
 
   render() {

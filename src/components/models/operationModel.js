@@ -30,8 +30,6 @@ export default class OperationModel {
   }
 
   currentMoney() {
-    const currentMoney = $(`.insert--money__input`).value;
-    console.log(currentMoney);
     console.log(this.insertMoney);
   }
 }

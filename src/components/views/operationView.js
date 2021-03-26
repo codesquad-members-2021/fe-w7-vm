@@ -18,6 +18,7 @@ export default class OperationView extends OperationModel {
 
   subscribeReturnMoney() {
     returnButtonObservers.subscribe(this.updateDisplayMoney.bind(this));
+    returnButtonObservers.subscribe(this.changeStateImpossible.bind(this));
   }
 
   addEvent() {

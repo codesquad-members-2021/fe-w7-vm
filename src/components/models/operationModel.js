@@ -34,18 +34,23 @@ export default class OperationModel {
   }
 
   calculateReturnMoney() {
-    const unitMoneyList = _.walletMoneyList.reverse();
-    const returnMoneyData = {};
     let returnMoney = +this.insertMoney;
-    unitMoneyList.forEach((el) => {
-      debugger;
+    const returnMoneyData = _.walletMoneyList.map((el) => {
+      const moneyData = {
+        unit: 0,
+        count: 0,
+      };
       if (returnMoney >= el) {
-        returnMoneyData[el] = parseInt(returnMoney / el);
+        moneyData.unit = el;
+        moneyData.count = parseInt(returnMoney / el);
         returnMoney %= el;
-        debugger;
+      } else {
+        moneyData.unit = el;
+        moneyData.count = parseInt(returnMoney / el);
       }
+      return moneyData;
     });
-    console.log(returnMoneyData);
+    this.initCurrentMoney();
     return returnMoneyData;
   }
 }

@@ -8,7 +8,7 @@ export default class WalletView extends WalletModel {
     super();
     this.title = _.walletTitle;
     this.subscribeInsertMoney();
-    this.subscribeReturnMoney();
+    this.subscribeReturnMoneyData();
   }
 
   subscribeInsertMoney() {
@@ -19,8 +19,11 @@ export default class WalletView extends WalletModel {
     walletButtonObservers.subscribe(this.toggleDisableButton.bind(this));
   }
 
-  subscribeReturnMoney() {
+  subscribeReturnMoneyData() {
     returnButtonObservers.subscribe(this.plusMoney.bind(this));
+    returnButtonObservers.subscribe(this.getReturnExtraMoney.bind(this));
+    returnButtonObservers.subscribe(this.updateWalletData.bind(this));
+    returnButtonObservers.subscribe(this.updateWalletMoney.bind(this));
   }
 
   render() {

@@ -29,7 +29,20 @@ export default class WalletModel {
   }
 
   plusMoney(data) {
-    console.log(data);
+    if (data === undefined) return;
+    for (const key in this.walletData) {
+      if (this.walletData[key].unit === data[key].unit) {
+        this.walletData[key].count += data[key].count;
+      }
+    }
+  }
+
+  getReturnExtraMoney() {
+    this.walletMoney = this.walletData.reduce((acc, cur) => {
+      const units = cur.unit * cur.count;
+      acc += units;
+      return acc;
+    }, 0);
   }
 
   getExtraMoney(unit) {

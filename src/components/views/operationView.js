@@ -17,7 +17,6 @@ export default class OperationView extends OperationModel {
   }
 
   subscribeReturnMoney() {
-    returnButtonObservers.subscribe(this.initCurrentMoney.bind(this));
     returnButtonObservers.subscribe(this.updateDisplayMoney.bind(this));
   }
 
@@ -26,7 +25,9 @@ export default class OperationView extends OperationModel {
   }
 
   clickReturnButton() {
-    $(`.extra--money__button`).addEventListener('click', returnButtonObservers.fire(this.calculateReturnMoney()));
+    $(`.extra--money__button`).addEventListener('click', () => {
+      returnButtonObservers.fire(this.calculateReturnMoney());
+    });
   }
 
   render() {

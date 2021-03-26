@@ -1,7 +1,7 @@
 import { _ } from './util.js';
 import { VendingModel } from './vendingModel.js';
 import { ProductView } from './productView.js';
-import { WalletModel } from './walletModel.js';
+import WalletModel from './walletModel.js';
 import { WalletView } from './walletView.js';
 import { ProgressView } from './progressView.js';
 

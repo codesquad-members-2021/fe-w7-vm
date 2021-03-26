@@ -7,6 +7,11 @@ export default class ProgressScreenModel extends Observable {
     this.moneySum = moneySum ?? 0;
     this.currency = currency;
     this.logs = logs ?? [];
+    this.returnMoneyTimer; 
+  }
+
+  reduceMoney(price) {
+    this.setMoneySum(this.moneySum - price);
   }
 
   addMoney(money) {
@@ -32,6 +37,10 @@ export default class ProgressScreenModel extends Observable {
         detail: { log }
       })
     );
+  }
+
+  getMoneySum() {
+    return this.moneySum;
   }
 
   getCurrency() {

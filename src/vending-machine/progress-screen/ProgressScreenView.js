@@ -22,6 +22,10 @@ export default class ProgressScreenView {
     this.model.subscribeEvent({ event: 'append-log', callback: this.onAppendLog.bind(this) });
   }
 
+  onProductSelect(evt) {
+    this.model.reduceMoney(evt.detail.price);
+  }
+
   onUpdateMoneySum(evt) {
     this.moneySumView.updateSum(evt.detail.moneySum);
   }

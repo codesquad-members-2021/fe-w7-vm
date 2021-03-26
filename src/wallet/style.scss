@@ -1,80 +1,81 @@
 .wallet {
-  display: inline-flex;
-  flex-direction: column;
-  width: 200px;
-  margin-left: 20px;
-  border: 3px solid lightgrey;
+    margin-top: 37px;
+    display: inline-flex;
+    flex-direction: column;
+    width: 200px;
+    margin-left: 20px;
+    border: 1px solid lightgrey;
 
-  * {
-    user-select: none;
-  }
-
-  .money {
-    display: flex;
-    flex-direction: row;
-    justify-content: space-between;
-    padding: 5px;
-
-    &:hover {
-      background-color: rgb(235, 235, 235);
+    * {
+        user-select: none;
     }
 
-    &.disable {
-      background-color: rgb(228, 159, 159);
-      pointer-events: none;
+    .money {
+        display: flex;
+        flex-direction: row;
+        justify-content: space-between;
+        padding: 5px;
+
+        &:hover {
+            background-color: rgb(235, 235, 235);
+        }
+
+        &.disable {
+            background-color: rgb(228, 159, 159);
+            pointer-events: none;
+        }
+
+        %common-child-style {
+            display: inline-block;
+            text-align: center;
+            line-height: 30px;
+            font-size: 26px;
+            padding: 5px 10px;
+            pointer-events: none;
+        }
+
+        &__kind {
+            @extend %common-child-style;
+            flex: 6;
+
+            &.krw-100,
+            &.krw-500 {
+                background-color: lightgray;
+            }
+
+            &.krw-1000 {
+                background-color: rgb(150, 188, 212);
+            }
+
+            &.krw-5000 {
+                background-color: rgb(219, 170, 128);
+            }
+
+            &.krw-10000 {
+                background-color: rgb(91, 163, 125);
+            }
+
+            &.krw-50000 {
+                background-color: rgb(209, 173, 82);
+            }
+        }
+
+        &__cnt {
+            @extend %common-child-style;
+            flex: 2;
+            margin-left: 10px;
+            border: 1px solid black;
+        }
     }
 
-    %common-child-style {
-      display: inline-block;
-      text-align: center;
-      line-height: 30px;
-      font-size: 26px;
-      padding: 5px 10px;
-      pointer-events: none;
+    .money-sum {
+        display: inline-block;
+        padding-top: 10px;
+        margin: 5px 10px;
+        text-align: center;
+        font-weight: 800;
+        font-size: 26px;
+        letter-spacing: 2px;
+        border-top: 3px solid lightgrey;
     }
-
-    &__kind {
-      @extend %common-child-style;
-      flex: 6;
-
-      &.krw-100,
-      &.krw-500 {
-        background-color: lightgray;
-      }
-
-      &.krw-1000 {
-        background-color: rgb(150, 188, 212);
-      }
-
-      &.krw-5000 {
-        background-color: rgb(219, 170, 128);
-      }
-
-      &.krw-10000 {
-        background-color: rgb(91, 163, 125);
-      }
-
-      &.krw-50000 {
-        background-color: rgb(209, 173, 82);
-      }
-    }
-
-    &__cnt {
-      @extend %common-child-style;
-      flex: 2;
-      margin-left: 10px;
-      border: 1px solid black;
-    }
-  }
-
-  .money-sum {
-    display: inline-block;
-    padding-top: 10px;
-    margin: 5px 10px;
-    text-align: center;
-    font-weight: 800;
-    font-size: 26px;
-    letter-spacing: 2px;
-    border-top: 3px solid lightgrey;
-  }
 }

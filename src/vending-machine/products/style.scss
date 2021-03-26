@@ -14,6 +14,7 @@
     margin: 10px;
     cursor: pointer;
     text-align: center;
+    pointer-events: none;
     &_img {
         width: 130px;
         margin-bottom: 5px;
@@ -29,5 +30,12 @@
     }
 }
 .available {
+    pointer-events: auto;
     background-color: rgb(250, 233, 136);
+}
+.sold_out {
+    background-color: #ccc;
+}
+.sold_out > .product_name {
+    color: #ccc;
 }

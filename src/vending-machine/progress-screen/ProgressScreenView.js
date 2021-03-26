@@ -22,6 +22,11 @@ export default class ProgressScreenView {
     this.model.subscribeEvent({ event: 'append-log', callback: this.onAppendLog.bind(this) });
   }
 
+  onProductSelect(evt) {
+    this.model.reduceMoney(evt.detail.price);
+    this.model.appendLog(`${evt.detail.name} 상품이 선택되었습니다.`)
+  }
+
   onUpdateMoneySum(evt) {
     this.moneySumView.updateSum(evt.detail.moneySum);
   }

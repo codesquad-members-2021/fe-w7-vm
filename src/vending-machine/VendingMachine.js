@@ -29,6 +29,11 @@ export default class VendingMachine {
       event: 'update-money-sum',
       callback: this.productContainerView.renderAvailable.bind(this.productContainerView)
     });
+
+    this.productModel.subscribeEvent({
+      event: 'product-select',
+      callback: this.progressScreenView.onProductSelect.bind(this.progressScreenView)
+    });
   }
 
   onUseMoney(evt) {

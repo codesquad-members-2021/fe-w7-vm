@@ -36,6 +36,11 @@
         button, span {
             width: 85%;
         }
+
+        button.disabled__item {
+            cursor: no-drop;
+            opacity: 0.5;
+        };
     }
 }
 

@@ -1,8 +1,5 @@
-import Observable from '../utils/Observable.js';
-
-class ProductModel extends Observable {
+class ProductModel {
     constructor() {
-        super();
         this.products;
     }
 
@@ -14,11 +11,8 @@ class ProductModel extends Observable {
     };
 
     updateProductCount = (productData) => {
-        if (!productData) return;
-        const findData = this.products.find((product) => product.name === productData.name);
-        (findData.count > 0) && findData.count--;
-
-        this.notify(productData);
+        if (!productData || productData.count <= 0) return;
+        productData.count--;
     };
 };
 

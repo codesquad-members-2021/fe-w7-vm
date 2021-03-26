@@ -20,8 +20,6 @@ class ProductView {
         this.productModel.insertProductInitData(productItemData.data);
         this.renderInitView(this.productViewWrapper, productItemData);
         this.setProductViewBtnClickEvent(this.productViewWrapper);
-
-        this.productModel.subscribe(this.renderDisableItem.bind(this));
     };
 
     // renderInitView, 상품들 초기 Render
@@ -45,12 +43,12 @@ class ProductView {
     // setCreateProductHtml, 상품의 HTML 생성
     setCreateProductHtml = ({ name, price, imgurl }) => {
         const html = `
-        <li class="product-item-container">
+        <li class="product-item-container disabled__item">
             <div class="product-item-img-container">
                 <img src=${imgurl} class="img-fluid"/>
             </div>
             <div class="product-info-container">
-                <button class="btn btn-secondary">${name}</button>
+                <button class="btn btn-secondary disabled disabled__item">${name}</button>
                 <span class="item-price">${price}</span>
             </div>
         </li>
@@ -76,19 +74,12 @@ class ProductView {
         );
         if (!clickProductData) return;
 
-        this.productModel.updateProductCount({
-            ...clickProductData,
-            target,
-            targetRootWrap: rootBtnWrap,
-        });
-
-        // this.walletModel.[update내돈마이너스func](-1 * clickProductData.price);
+        this.productModel.updateProductCount(clickProductData);
+        this.renderDisableItem(clickProductData, target, rootBtnWrap);
     };
 
     // 재고 없을 시 비활성
-    renderDisableItem = (data) => {
-        const { count, target, targetRootWrap } = data;
-
+    renderDisableItem = ({count}, target, targetRootWrap) => {
         if (count > 0) return;
 
         _.addClass(target, 'disabled', 'disabled__item');

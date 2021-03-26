@@ -8,7 +8,10 @@ class WalletModel {
 
         this.insertMoneyData;
         this.insertTotal;
+
+        this.clickedCurrency;
     };
+
 
     // 지갑 지폐 단위 및 잔여금액 데이터 생성
     createBudget = () => {
@@ -54,9 +57,15 @@ class WalletModel {
 
     // 지갑 지폐 단위 Decrease Count
     updateDecreaseCurrencyCnt = (clickedCurrencyType) => {
-        const clickedCurrency = this.getClickedCurrency(clickedCurrencyType);
-        (clickedCurrency.count > 0) && clickedCurrency.count--;
+        this.clickedCurrency = this.getClickedCurrency(clickedCurrencyType);
+        this.executeNotificationEvent(this.clickedCurrency);
+        (this.clickedCurrency.count > 0) && this.clickedCurrency.count--;
     };
+
+    executeNotificationEvent = () => {
+        const notification = new Event('notify');
+        document.dispatchEvent(notification);
+    }
 
     updateBudgetTotal = (currencyType) => {
         if (this.totalBudget <= 0) return;

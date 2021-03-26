@@ -1,6 +1,7 @@
 import { _ } from '../../util/const';
 import { createRandomNumber } from '../../util/util';
 import FetchProductData from '../getData/fetchProductData';
+import { productButtonObservers } from '../observer/observer';
 import ProductModel from './productModel';
 
 export default class ProductListModel extends ProductModel {
@@ -8,6 +9,10 @@ export default class ProductListModel extends ProductModel {
     super();
     this.fetchProductData = new FetchProductData();
     this.productList = [];
+  }
+
+  subscribeProductButton() {
+    productButtonObservers;
   }
 
   async getOrderData() {

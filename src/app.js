@@ -12,6 +12,7 @@ window.addEventListener('DOMContentLoaded', async () => {
 
   mainView.walletView.addEvent();
   mainView.operationView.addEvent();
+  mainView.productView.addEvent();
   mainView.walletView.toggleDisableButton();
 
   const orderButtonList = $$(`.order--button`);

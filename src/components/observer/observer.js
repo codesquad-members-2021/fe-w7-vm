@@ -20,5 +20,6 @@ class Observer {
 
 const walletButtonObservers = new Observer();
 const returnButtonObservers = new Observer();
+const productButtonObservers = new Observer();
 
-export { walletButtonObservers, returnButtonObservers };
+export { walletButtonObservers, returnButtonObservers, productButtonObservers };

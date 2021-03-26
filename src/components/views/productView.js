@@ -1,15 +1,12 @@
 import { _ } from '../../util/const';
-import { createRandomNumber } from '../../util/util';
-import FetchProductData from '../getData/fetchProductData';
+import { $, $$ } from '../../util/util';
 import ProductListModel from '../models/productListModel';
-import ProductModel from '../models/productModel';
+import { productButtonObservers } from '../observer/observer';
 
 export default class ProductView extends ProductListModel {
   constructor() {
     super();
     this.title = _.vendingMachineTitle;
-    this.fetchProductData = new FetchProductData();
-    this.productList = [];
   }
 
   async render() {
@@ -18,6 +15,21 @@ export default class ProductView extends ProductListModel {
       ${this.renderTitle()}
       ${this.renderOrderView()}
     `;
+  }
+
+  addEvent() {
+    this.clickProductButton();
+  }
+
+  clickProductButton() {
+    // $$('.order--button__container').addEventListener('click', () => productButtonObservers.fire());
+    $$('.order--button__container').forEach((el) => {
+      el.addEventListener('click', this.test.bind(this));
+    });
+  }
+
+  test() {
+    console.log('a');
   }
 
   renderTitle() {
@@ -38,28 +50,6 @@ export default class ProductView extends ProductListModel {
     </div>
     `;
   }
-
-  // async getOrderData() {
-  //   const response = await this.fetchProductData.fetchProductData();
-  //   const dataList = response.data;
-  //   const dataListKeys = Object.keys(response.data);
-
-  //   const emptyDataList = Array(_.productItemCount).fill();
-  //   const orderDataList = emptyDataList.map(() => {
-  //     const randomIdx = createRandomNumber(dataListKeys.length);
-  //     const itemKey = dataListKeys[randomIdx];
-  //     const item = dataList[itemKey];
-  //     return {
-  //       order: item.name,
-  //       price: item.gold.base,
-  //       imgUrl: `http://ddragon.leagueoflegends.com/cdn/11.6.1/img/item/${itemKey}.png`,
-  //     };
-  //   });
-  //   this.productList = orderDataList.map(({ order, price, imgUrl }) => {
-  //     const product = new ProductModel(order, price, imgUrl);
-  //     return product;
-  //   });
-  // }
 
   renderOrderView() {
     const orderView = this.productList.reduce((acc, value) => {

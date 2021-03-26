@@ -1,7 +1,7 @@
 import { _ } from '../../util/const';
 import { $ } from '../../util/util';
 import OperationModel from '../models/operationModel';
-import { observer } from '../observer/observer';
+import { returnButtonObservers } from '../observer/observer';
 
 export default class OperationView extends OperationModel {
   constructor() {
@@ -11,15 +11,15 @@ export default class OperationView extends OperationModel {
   }
 
   displayMoneySubscribe() {
-    observer.subscribe(observer.walletButtonObservers, this.plusDisplayMoney.bind(this));
-    observer.subscribe(observer.walletButtonObservers, this.updateDisplayMoney.bind(this));
-    observer.subscribe(observer.walletButtonObservers, this.changeStatePossible.bind(this));
+    returnButtonObservers.subscribe(this.plusDisplayMoney.bind(this));
+    returnButtonObservers.subscribe(this.updateDisplayMoney.bind(this));
+    returnButtonObservers.subscribe(this.changeStatePossible.bind(this));
   }
 
   returnMoneySubscribe() {
     console.log(this);
-    observer.subscribe(observer.returnButtonObservers, this.currentMoney.bind(this));
-    observer.subscribe(observer.returnButtonObservers, this.updateDisplayMoney.bind(this));
+    returnButtonObservers.subscribe(this.currentMoney.bind(this));
+    returnButtonObservers.subscribe(this.updateDisplayMoney.bind(this));
   }
 
   addEvent() {
@@ -27,7 +27,7 @@ export default class OperationView extends OperationModel {
   }
 
   clickReturnButton() {
-    $(`.extra--money__button`).addEventListener('click', () => this.fire(this.returnButtonObservers));
+    $(`.extra--money__button`).addEventListener('click', () => returnButtonObservers.fire());
   }
 
   render() {

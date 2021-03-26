@@ -1,6 +1,6 @@
 import { _ } from '../../util/const';
 import { $, moneyComma } from '../../util/util';
-import { observer } from '../observer/observer';
+import { walletButtonObservers } from '../observer/observer';
 import WalletModel from '../models/walletModel';
 
 export default class WalletView extends WalletModel {
@@ -11,11 +11,11 @@ export default class WalletView extends WalletModel {
   }
 
   subscribeInsertMoney() {
-    observer.subscribe(observer.walletButtonObservers, this.minusMoney.bind(this));
-    observer.subscribe(observer.walletButtonObservers, this.getExtraMoney.bind(this));
-    observer.subscribe(observer.walletButtonObservers, this.updateWalletData.bind(this));
-    observer.subscribe(observer.walletButtonObservers, this.updateWalletMoney.bind(this));
-    observer.subscribe(observer.walletButtonObservers, this.toggleDisableButton.bind(this));
+    walletButtonObservers.subscribe(this.minusMoney.bind(this));
+    walletButtonObservers.subscribe(this.getExtraMoney.bind(this));
+    walletButtonObservers.subscribe(this.updateWalletData.bind(this));
+    walletButtonObservers.subscribe(this.updateWalletMoney.bind(this));
+    walletButtonObservers.subscribe(this.toggleDisableButton.bind(this));
   }
 
   render() {
@@ -31,8 +31,7 @@ export default class WalletView extends WalletModel {
   }
 
   clickUnitMoneyButton() {
-    $('.wallet--button__container').addEventListener('click', (e) => observer.fire(observer.walletButtonObservers, e.target.id));
-    // $('.wallet--button__container').addEventListener('click', (e) => this.display.fire(this.display.walletButtonObservers, e.target.id));
+    $('.wallet--button__container').addEventListener('click', (e) => walletButtonObservers.fire(e.target.id));
   }
 
   renderTitle() {

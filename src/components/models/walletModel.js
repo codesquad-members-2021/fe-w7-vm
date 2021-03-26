@@ -1,6 +1,6 @@
-import { createWalletData } from '../getData/createWalletData';
 import { _ } from '../../util/const';
 import { $$, updateInputData } from '../../util/util';
+import { createWalletData } from '../getData/createWalletData';
 
 export default class WalletModel {
   constructor() {

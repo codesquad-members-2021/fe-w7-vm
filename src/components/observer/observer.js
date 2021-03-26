@@ -1,24 +1,24 @@
 class Observer {
   constructor() {
-    this.walletButtonObservers = [];
-    this.returnButtonObservers = [];
+    this.observers = [];
   }
 
-  subscribe(observers, fn) {
-    observers.push(fn);
+  subscribe(fn) {
+    this.observers.push(fn);
   }
 
-  unsubscribe(observers, fnToRemove) {
-    observers.filter((fn) => {
+  unsubscribe(fnToRemove) {
+    this.observers.filter((fn) => {
       if (fn !== fnToRemove) fn;
     });
   }
 
-  fire(observers, data) {
-    observers.forEach((fn) => fn(data));
+  fire(data) {
+    this.observers.forEach((fn) => fn(data));
   }
 }
 
-const observer = new Observer();
+const walletButtonObservers = new Observer();
+const returnButtonObservers = new Observer();
 
-export { observer };
+export { walletButtonObservers, returnButtonObservers };

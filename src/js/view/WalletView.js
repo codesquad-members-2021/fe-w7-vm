@@ -18,6 +18,8 @@ export default class WalletView {
   // subscribe walletView setView
   setView({ target, balance }) {
     if (!target) return;
+    this.currencyHtmls[target.index].classList.remove("disable");
+    if (target.count === 0) this.currencyHtmls[target.index].classList.add("disable");
     this.currencyHtmls[target.index].lastElementChild.innerText = `${target.count}개`;
     this.walletBalanceHtml.firstElementChild.innerText = `${balance}`;
   }
@@ -25,7 +27,7 @@ export default class WalletView {
   setInitialView() {
     const template = (unit, count) => {
       return /*html*/ `
-        <li class="currency">
+        <li class="currency ${count === 0 ? "disable" : ""}">
           <div class="currency__unit" data-value="${unit}">${unit}원</div>
           <div class="currency__count" >${count}개</div>
         </li>

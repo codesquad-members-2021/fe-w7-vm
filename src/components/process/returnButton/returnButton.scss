@@ -8,6 +8,7 @@
 
 .return-button {
   @extend .default-font;
+  cursor: pointer;
   width: 100%;
   border-radius: $default-border-radius;
   padding: $components-padding;

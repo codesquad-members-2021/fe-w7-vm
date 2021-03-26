@@ -30,7 +30,7 @@ class App {
 
     let dispatch = useDispatch("goods");
     const goodsState = useSelector((state) => state.goods);
-
+    
     // goods 추가 과정
     const beverages = [Coke, Cider, PineappleFanta, GrapeFanta, LemonAde, BonBon, CocoaJuice, CokeZero, PowerAde, ChocoMilk1, ChocoMilk2, ChocoMilk3];
     beverages.forEach((item) => {
@@ -40,6 +40,7 @@ class App {
         dispatch(addItem(payload));
       })
     })
+    // console.log("goodsState", goodsState.getState)
 
     // wallet 추가 과정
     dispatch = useDispatch("wallet");

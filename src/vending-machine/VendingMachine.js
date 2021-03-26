@@ -32,12 +32,19 @@ export default class VendingMachine {
 
     this.productModel.subscribeEvent({
       event: 'product-select',
-      callback: this.progressScreenView.onProductSelect.bind(this.progressScreenView)
+      // callback: this.progressScreenView.onProductSelect.bind(this.progressScreenView)
+      callback: this.onProductSelect.bind(this)
     });
+  }
+
+  onProductSelect(evt) {
+    this.progressScreenModel.reduceMoney(evt.detail.price);
+    this.progressScreenModel.appendLog(`${evt.detail.name} 상품이 선택되었습니다.`);
   }
 
   onUseMoney(evt) {
     this.progressScreenModel.addMoney(evt.detail.money);
+    this.progressScreenModel.appendLog(`${money} ${this.currency}이 투입되었습니다.`);
   }
 
   getViewEl() {

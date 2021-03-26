@@ -16,7 +16,6 @@ export default class ProgressScreenModel extends Observable {
 
   addMoney(money) {
     this.setMoneySum(this.moneySum + money);
-    this.appendLog(`${money} ${this.currency}이 투입되었습니다.`);
   }
 
   setMoneySum(moneySum) {

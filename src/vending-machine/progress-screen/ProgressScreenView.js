@@ -15,16 +15,11 @@ export default class ProgressScreenView {
   init() {
     this.$target = this.createEl();
     this.moneySumView = new MoneySumView();
-    this.logListView = new LogListView();
+    this.logListView = new LogListView(); 
     this.render();
 
     this.model.subscribeEvent({ event: 'update-money-sum', callback: this.onUpdateMoneySum.bind(this) });
     this.model.subscribeEvent({ event: 'append-log', callback: this.onAppendLog.bind(this) });
-  }
-
-  onProductSelect(evt) {
-    this.model.reduceMoney(evt.detail.price);
-    this.model.appendLog(`${evt.detail.name} 상품이 선택되었습니다.`)
   }
 
   onUpdateMoneySum(evt) {

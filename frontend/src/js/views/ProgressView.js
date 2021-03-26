@@ -20,7 +20,7 @@ class ProgressView {
 
     //walletView에서 클릭이벤트가 일어난 target이 무엇인지를 파악해서 progress에 보여줘야함.
     setUpUpdateEvent = () => {
-        this.progressStatus.addEventLister('notify', this.renderUpdateMsg)
+        // this.progressStatus.addEventLister('notify', this.renderUpdateMsg)
     }
 
     renderUpdateMsg = () => {

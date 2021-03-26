@@ -43,12 +43,12 @@ class ProductView {
     // setCreateProductHtml, 상품의 HTML 생성
     setCreateProductHtml = ({ name, price, imgurl }) => {
         const html = `
-        <li class="product-item-container">
+        <li class="product-item-container disabled__item">
             <div class="product-item-img-container">
                 <img src=${imgurl} class="img-fluid"/>
             </div>
             <div class="product-info-container">
-                <button class="btn btn-secondary">${name}</button>
+                <button class="btn btn-secondary disabled disabled__item">${name}</button>
                 <span class="item-price">${price}</span>
             </div>
         </li>

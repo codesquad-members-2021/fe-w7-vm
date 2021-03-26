@@ -1,12 +1,12 @@
 import { _ } from '../../util/const';
 import { createRandomNumber } from '../../util/util';
-import FetchproductData from '../getData/fetchProductData';
+import FetchProductData from '../getData/fetchProductData';
 import ProductModel from '../models/productModel';
 
 export default class OrderView {
   constructor() {
     this.title = _.vendingMachineTitle;
-    this.fetchProductData = new FetchproductData();
+    this.fetchProductData = new FetchProductData();
     this.productList = [];
   }
 

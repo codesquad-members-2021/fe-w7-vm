@@ -31,8 +31,10 @@ const REFERENCE = {
 const init = () => {
     const productModel = new ProductModel();
     const walletModel = new WalletModel();
-    new ProductView(productModel, walletModel, REFERENCE.product);
-    new WalletView(walletModel, REFERENCE.wallet);
+    // 임시. 리팩토링 시 구조 바꿔야함!
+    const productView = new ProductView(productModel, walletModel, REFERENCE.product);
+    new WalletView(walletModel, REFERENCE.wallet, productView);
+    // ----
     new ProgressView(walletModel, REFERENCE.progress);
 };
 

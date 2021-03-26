@@ -47,7 +47,7 @@ class ProductView {
             <div class="product-item-img-container">
                 <img src=${imgurl} class="img-fluid"/>
             </div>
-            <div class="product-info-container">
+            <div class="product-info-container" id="product__item">
                 <button class="btn btn-secondary disabled disabled__item">${name}</button>
                 <span class="item-price">${price}</span>
             </div>
@@ -86,7 +86,19 @@ class ProductView {
         _.addClass(targetRootWrap, 'disabled__item');
     };
 
-    // 상품 구매 가능할떄 다시 활성화해주는 이벤트 필요
+    // 상품 구매 가능할 때 다시 활성화 (리팩토링 필요)
+    renderActiveItem = (inputMoney) => {
+        const nInputMoney =  Number(inputMoney.replace(/,|원/g, ''));
+        const productBtnList = _.$all('#product__item button');
+
+        productBtnList.forEach((productBtn) => {
+            const price = Number(productBtn.nextElementSibling.textContent);
+            if (price > nInputMoney) return;
+            const productParentWrap = productBtn.closest('li');
+            _.removeClass(productBtn, 'disabled', 'disabled__item');
+            _.removeClass(productParentWrap, 'disabled__item');
+        })
+    };
 
     // Disabled 관련 className 체크
     isDisabledItem = (target) => {

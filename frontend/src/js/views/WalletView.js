@@ -1,8 +1,10 @@
 import _, {addCommaToNumber} from "../utils/util.js";
 
 class WalletView {
-    constructor(walletModel, walletReference) {
+    constructor(walletModel, walletReference, productView) {
         this.walletModel = walletModel;
+
+        this.productView = productView; // 임시. 리팩토링시 지워야함!!
 
         const { walletWrapSelector, budgetTotalSelector } = walletReference;
         this.walletViewWrapper = _.$(walletWrapSelector);
@@ -95,6 +97,11 @@ class WalletView {
         this.renderProgressStatus(target, clickedCurrency); //투입버튼, 반환버튼, 상품버튼 전부 재사용할 것.
         // ---
 
+        // 임시: 상품 목록 접근, 리팩토링 필요
+        // 투입 금액에 따라 활성
+        this.productView.renderActiveItem(this.inputMoneyStatus.textContent);
+        // =-===
+
         this.renderDisableCurrencyBtn(target);
     };
 
@@ -149,7 +156,6 @@ class WalletView {
     };
 
     createUpdatedMsg = (target, updatedData) => {
-        console.log(target)
         let msg;
         if (_.contains(target, "currency-btn")) msg = `💶 ${updatedData.type}원이 투입되었습니다.<br>`;
         if (target === this.returnMoneyBtn) msg = `반환되었습니다.<br>`;  //테스트 해야함.

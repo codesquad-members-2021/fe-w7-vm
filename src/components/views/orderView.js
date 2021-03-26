@@ -1,12 +1,12 @@
 import { _ } from '../../util/const';
 import { createRandomNumber } from '../../util/util';
-import FetchAPI from '../getData/fetchAPI';
+import FetchproductData from '../getData/fetchProductData';
 import ProductModel from '../models/productModel';
 
 export default class OrderView {
   constructor() {
     this.title = _.vendingMachineTitle;
-    this.fetchAPI = new FetchAPI();
+    this.fetchProductData = new FetchproductData();
     this.productList = [];
   }
 
@@ -38,7 +38,7 @@ export default class OrderView {
   }
 
   async getOrderData() {
-    const response = await this.fetchAPI.fetchOrderData();
+    const response = await this.fetchProductData.fetchProductData();
     const dataList = response.data;
     const dataListKeys = Object.keys(response.data);
 

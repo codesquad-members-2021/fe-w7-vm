@@ -28,6 +28,32 @@ ___CSS_LOADER_EXPORT___.push([module.id, ".item {\n  border: 1px, solid, black;\
 
 /***/ }),
 
+/***/ "./node_modules/css-loader/dist/cjs.js!./node_modules/sass-loader/dist/cjs.js!./src/components/process/scss/styles.scss":
+/*!******************************************************************************************************************************!*\
+  !*** ./node_modules/css-loader/dist/cjs.js!./node_modules/sass-loader/dist/cjs.js!./src/components/process/scss/styles.scss ***!
+  \******************************************************************************************************************************/
+/***/ ((module, __webpack_exports__, __webpack_require__) => {
+
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
+/* harmony export */ });
+/* harmony import */ var _node_modules_css_loader_dist_runtime_cssWithMappingToString_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../../../../node_modules/css-loader/dist/runtime/cssWithMappingToString.js */ "./node_modules/css-loader/dist/runtime/cssWithMappingToString.js");
+/* harmony import */ var _node_modules_css_loader_dist_runtime_cssWithMappingToString_js__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_node_modules_css_loader_dist_runtime_cssWithMappingToString_js__WEBPACK_IMPORTED_MODULE_0__);
+/* harmony import */ var _node_modules_css_loader_dist_runtime_api_js__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../../../../node_modules/css-loader/dist/runtime/api.js */ "./node_modules/css-loader/dist/runtime/api.js");
+/* harmony import */ var _node_modules_css_loader_dist_runtime_api_js__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(_node_modules_css_loader_dist_runtime_api_js__WEBPACK_IMPORTED_MODULE_1__);
+// Imports
+
+
+var ___CSS_LOADER_EXPORT___ = _node_modules_css_loader_dist_runtime_api_js__WEBPACK_IMPORTED_MODULE_1___default()((_node_modules_css_loader_dist_runtime_cssWithMappingToString_js__WEBPACK_IMPORTED_MODULE_0___default()));
+// Module
+___CSS_LOADER_EXPORT___.push([module.id, "html,\nbody,\ndiv,\nspan,\napplet,\nobject,\niframe,\nh1,\nh2,\nh3,\nh4,\nh5,\nh6,\np,\nblockquote,\npre,\na,\nabbr,\nacronym,\naddress,\nbig,\ncite,\ncode,\ndel,\ndfn,\nem,\nimg,\nins,\nkbd,\nq,\ns,\nsamp,\nsmall,\nstrike,\nstrong,\nsub,\nsup,\ntt,\nvar,\nb,\nu,\ni,\ncenter,\ndl,\ndt,\ndd,\nol,\nul,\nli,\nfieldset,\nform,\nlabel,\nlegend,\ntable,\ncaption,\ntbody,\ntfoot,\nthead,\ntr,\nth,\ntd,\narticle,\naside,\ncanvas,\ndetails,\nembed,\nfigure,\nfigcaption,\nfooter,\nheader,\nhgroup,\nmenu,\nnav,\noutput,\nruby,\nsection,\nsummary,\ntime,\nmark,\naudio,\nvideo {\n  margin: 0;\n  padding: 0;\n  border: 0;\n  font-size: 100%;\n  font: inherit;\n  vertical-align: baseline;\n}\n\n/* HTML5 display-role reset for older browsers */\narticle,\naside,\ndetails,\nfigcaption,\nfigure,\nfooter,\nheader,\nhgroup,\nmenu,\nnav,\nsection {\n  display: block;\n}\n\nbody {\n  line-height: 1;\n}\n\nol,\nul {\n  list-style: none;\n}\n\nblockquote,\nq {\n  quotes: none;\n}\n\nblockquote:before,\nblockquote:after,\nq:before,\nq:after {\n  content: \"\";\n  content: none;\n}\n\ntable {\n  border-collapse: collapse;\n  border-spacing: 0;\n}\n\n* {\n  box-sizing: border-box;\n}\n\n.flex-display, .messages-section, .return-button-section, .current-money-section, .process {\n  display: flex;\n  flex-direction: column;\n  align-items: center;\n}\n\n.default-font, .message, .return-button, .current-money {\n  font-size: 36px;\n  font-weight: 700;\n}\n\n.process {\n  border: 3px solid #dee2e6;\n  padding: 30px;\n  width: 50%;\n  height: 100%;\n}\n\n.current-money-section {\n  align-items: flex-end;\n  border: 3px solid #dee2e6;\n  border-radius: 20px;\n  width: 100%;\n  padding: 10px;\n  margin: 10px;\n}\n\n.return-button-section {\n  border: 3px solid #dee2e6;\n  border-radius: 20px;\n  width: 100%;\n  margin: 10px;\n}\n\n.return-button {\n  width: 100%;\n  border-radius: 20px;\n  padding: 10px;\n  outline: none;\n  border: none;\n  color: #fff;\n  background-color: green;\n}\n.return-button:disabled {\n  background-color: #fff;\n  color: #222;\n  opacity: 0.1;\n}\n\n.messages-section {\n  border: 3px solid #dee2e6;\n  border-radius: 20px;\n  width: 100%;\n  height: 100%;\n  padding: 10px;\n  margin: 10px;\n}\n\n.message {\n  font-size: 16px;\n  padding: 10px;\n}", "",{"version":3,"sources":["webpack://./src/components/process/scss/reset.scss","webpack://./src/components/process/scss/styles.scss","webpack://./src/components/process/scss/common.scss","webpack://./src/components/process/scss/process.scss","webpack://./src/components/process/currentMoneyDisplay/currentMoney.scss","webpack://./src/components/process/returnButton/returnButton.scss","webpack://./src/components/process/messages/messages.scss"],"names":[],"mappings":"AAAA;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;EAiFE,SAAA;EACA,UAAA;EACA,SAAA;EACA,eAAA;EACA,aAAA;EACA,wBAAA;ACCF;;ADCA,gDAAA;AACA;;;;;;;;;;;EAWE,cAAA;ACEF;;ADAA;EACE,cAAA;ACGF;;ADDA;;EAEE,gBAAA;ACIF;;ADFA;;EAEE,YAAA;ACKF;;ADHA;;;;EAIE,WAAA;EACA,aAAA;ACMF;;ADJA;EACE,yBAAA;EACA,iBAAA;ACOF;;AC5HA;EACE,sBAAA;AD+HF;;AC5HA;EACE,aAAA;EACA,sBAAA;EACA,mBAAA;AD+HF;;AC5HA;EACE,eAAA;EACA,gBAAA;AD+HF;;AEhJA;EAEE,yBDFe;ECGf,aAAA;EACA,UAAA;EACA,YAAA;AFkJF;;AGvJA;EAEE,qBAAA;EACA,yBFHe;EEIf,mBFHsB;EEItB,WAAA;EACA,aFJmB;EEKnB,YFJkB;AD6JpB;;AIhKA;EAEE,yBHFe;EGGf,mBHFsB;EGGtB,WAAA;EACA,YHFkB;ADoKpB;;AI/JA;EAEE,WAAA;EACA,mBHVsB;EGWtB,aHVmB;EGWnB,aAAA;EACA,YAAA;EACA,WAAA;EACA,uBAAA;AJiKF;AI/JE;EACE,sBAAA;EACA,WAAA;EACA,YAAA;AJiKJ;;AKtLA;EAEE,yBJFe;EIGf,mBJFsB;EIGtB,WAAA;EACA,YAAA;EACA,aJJmB;EIKnB,YJJkB;AD4LpB;;AKrLA;EAEE,eAAA;EACA,aJXmB;ADkMrB","sourcesContent":["html,\nbody,\ndiv,\nspan,\napplet,\nobject,\niframe,\nh1,\nh2,\nh3,\nh4,\nh5,\nh6,\np,\nblockquote,\npre,\na,\nabbr,\nacronym,\naddress,\nbig,\ncite,\ncode,\ndel,\ndfn,\nem,\nimg,\nins,\nkbd,\nq,\ns,\nsamp,\nsmall,\nstrike,\nstrong,\nsub,\nsup,\ntt,\nvar,\nb,\nu,\ni,\ncenter,\ndl,\ndt,\ndd,\nol,\nul,\nli,\nfieldset,\nform,\nlabel,\nlegend,\ntable,\ncaption,\ntbody,\ntfoot,\nthead,\ntr,\nth,\ntd,\narticle,\naside,\ncanvas,\ndetails,\nembed,\nfigure,\nfigcaption,\nfooter,\nheader,\nhgroup,\nmenu,\nnav,\noutput,\nruby,\nsection,\nsummary,\ntime,\nmark,\naudio,\nvideo {\n  margin: 0;\n  padding: 0;\n  border: 0;\n  font-size: 100%;\n  font: inherit;\n  vertical-align: baseline;\n}\n/* HTML5 display-role reset for older browsers */\narticle,\naside,\ndetails,\nfigcaption,\nfigure,\nfooter,\nheader,\nhgroup,\nmenu,\nnav,\nsection {\n  display: block;\n}\nbody {\n  line-height: 1;\n}\nol,\nul {\n  list-style: none;\n}\nblockquote,\nq {\n  quotes: none;\n}\nblockquote:before,\nblockquote:after,\nq:before,\nq:after {\n  content: \"\";\n  content: none;\n}\ntable {\n  border-collapse: collapse;\n  border-spacing: 0;\n}\n","html,\nbody,\ndiv,\nspan,\napplet,\nobject,\niframe,\nh1,\nh2,\nh3,\nh4,\nh5,\nh6,\np,\nblockquote,\npre,\na,\nabbr,\nacronym,\naddress,\nbig,\ncite,\ncode,\ndel,\ndfn,\nem,\nimg,\nins,\nkbd,\nq,\ns,\nsamp,\nsmall,\nstrike,\nstrong,\nsub,\nsup,\ntt,\nvar,\nb,\nu,\ni,\ncenter,\ndl,\ndt,\ndd,\nol,\nul,\nli,\nfieldset,\nform,\nlabel,\nlegend,\ntable,\ncaption,\ntbody,\ntfoot,\nthead,\ntr,\nth,\ntd,\narticle,\naside,\ncanvas,\ndetails,\nembed,\nfigure,\nfigcaption,\nfooter,\nheader,\nhgroup,\nmenu,\nnav,\noutput,\nruby,\nsection,\nsummary,\ntime,\nmark,\naudio,\nvideo {\n  margin: 0;\n  padding: 0;\n  border: 0;\n  font-size: 100%;\n  font: inherit;\n  vertical-align: baseline;\n}\n\n/* HTML5 display-role reset for older browsers */\narticle,\naside,\ndetails,\nfigcaption,\nfigure,\nfooter,\nheader,\nhgroup,\nmenu,\nnav,\nsection {\n  display: block;\n}\n\nbody {\n  line-height: 1;\n}\n\nol,\nul {\n  list-style: none;\n}\n\nblockquote,\nq {\n  quotes: none;\n}\n\nblockquote:before,\nblockquote:after,\nq:before,\nq:after {\n  content: \"\";\n  content: none;\n}\n\ntable {\n  border-collapse: collapse;\n  border-spacing: 0;\n}\n\n* {\n  box-sizing: border-box;\n}\n\n.flex-display, .messages-section, .return-button-section, .current-money-section, .process {\n  display: flex;\n  flex-direction: column;\n  align-items: center;\n}\n\n.default-font, .message, .return-button, .current-money {\n  font-size: 36px;\n  font-weight: 700;\n}\n\n.process {\n  border: 3px solid #dee2e6;\n  padding: 30px;\n  width: 50%;\n  height: 100%;\n}\n\n.current-money-section {\n  align-items: flex-end;\n  border: 3px solid #dee2e6;\n  border-radius: 20px;\n  width: 100%;\n  padding: 10px;\n  margin: 10px;\n}\n\n.return-button-section {\n  border: 3px solid #dee2e6;\n  border-radius: 20px;\n  width: 100%;\n  margin: 10px;\n}\n\n.return-button {\n  width: 100%;\n  border-radius: 20px;\n  padding: 10px;\n  outline: none;\n  border: none;\n  color: #fff;\n  background-color: green;\n}\n.return-button:disabled {\n  background-color: #fff;\n  color: #222;\n  opacity: 0.1;\n}\n\n.messages-section {\n  border: 3px solid #dee2e6;\n  border-radius: 20px;\n  width: 100%;\n  height: 100%;\n  padding: 10px;\n  margin: 10px;\n}\n\n.message {\n  font-size: 16px;\n  padding: 10px;\n}","$default-border: 3px solid #dee2e6;\n$default-border-radius: 20px;\n$components-padding: 10px;\n$components-margin: 10px;\n\n* {\n  box-sizing: border-box;\n}\n\n.flex-display {\n  display: flex;\n  flex-direction: column;\n  align-items: center;\n}\n\n.default-font {\n  font-size: 36px;\n  font-weight: 700;\n}\n",".process {\n  @extend .flex-display;\n  border: $default-border;\n  padding: 30px;\n  width: 50%;\n  height: 100%;\n}\n",".current-money-section {\n  @extend .flex-display;\n  align-items: flex-end;\n  border: $default-border;\n  border-radius: $default-border-radius;\n  width: 100%;\n  padding: $components-padding;\n  margin: $components-margin;\n}\n\n.current-money {\n  @extend .default-font;\n}\n",".return-button-section {\n  @extend .flex-display;\n  border: $default-border;\n  border-radius: $default-border-radius;\n  width: 100%;\n  margin: $components-margin;\n}\n\n.return-button {\n  @extend .default-font;\n  width: 100%;\n  border-radius: $default-border-radius;\n  padding: $components-padding;\n  outline: none;\n  border: none;\n  color: #fff;\n  background-color: green;\n\n  &:disabled {\n    background-color: #fff;\n    color: #222;\n    opacity: 0.1;\n  }\n}\n",".messages-section {\n  @extend .flex-display;\n  border: $default-border;\n  border-radius: $default-border-radius;\n  width: 100%;\n  height: 100%;\n  padding: $components-padding;\n  margin: $components-margin;\n}\n\n.message {\n  @extend .default-font;\n  font-size: 16px;\n  padding: $components-padding;\n}\n"],"sourceRoot":""}]);
+// Exports
+/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (___CSS_LOADER_EXPORT___);
+
+
+/***/ }),
+
 /***/ "./node_modules/css-loader/dist/runtime/api.js":
 /*!*****************************************************!*\
   !*** ./node_modules/css-loader/dist/runtime/api.js ***!
@@ -170,6 +196,35 @@ var update = _node_modules_style_loader_dist_runtime_injectStylesIntoStyleTag_js
 
 
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (_node_modules_css_loader_dist_cjs_js_node_modules_sass_loader_dist_cjs_js_item_scss__WEBPACK_IMPORTED_MODULE_1__.default.locals || {});
+
+/***/ }),
+
+/***/ "./src/components/process/scss/styles.scss":
+/*!*************************************************!*\
+  !*** ./src/components/process/scss/styles.scss ***!
+  \*************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
+/* harmony export */ });
+/* harmony import */ var _node_modules_style_loader_dist_runtime_injectStylesIntoStyleTag_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! !../../../../node_modules/style-loader/dist/runtime/injectStylesIntoStyleTag.js */ "./node_modules/style-loader/dist/runtime/injectStylesIntoStyleTag.js");
+/* harmony import */ var _node_modules_style_loader_dist_runtime_injectStylesIntoStyleTag_js__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_node_modules_style_loader_dist_runtime_injectStylesIntoStyleTag_js__WEBPACK_IMPORTED_MODULE_0__);
+/* harmony import */ var _node_modules_css_loader_dist_cjs_js_node_modules_sass_loader_dist_cjs_js_styles_scss__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! !!../../../../node_modules/css-loader/dist/cjs.js!../../../../node_modules/sass-loader/dist/cjs.js!./styles.scss */ "./node_modules/css-loader/dist/cjs.js!./node_modules/sass-loader/dist/cjs.js!./src/components/process/scss/styles.scss");
+
+            
+
+var options = {};
+
+options.insert = "head";
+options.singleton = false;
+
+var update = _node_modules_style_loader_dist_runtime_injectStylesIntoStyleTag_js__WEBPACK_IMPORTED_MODULE_0___default()(_node_modules_css_loader_dist_cjs_js_node_modules_sass_loader_dist_cjs_js_styles_scss__WEBPACK_IMPORTED_MODULE_1__.default, options);
+
+
+
+/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (_node_modules_css_loader_dist_cjs_js_node_modules_sass_loader_dist_cjs_js_styles_scss__WEBPACK_IMPORTED_MODULE_1__.default.locals || {});
 
 /***/ }),
 
@@ -538,7 +593,6 @@ class App {
   }
 
   render() {
-
     this.wallet = new _components_Wallet_WalletContainer_js__WEBPACK_IMPORTED_MODULE_0__.default({
       $target: this.$target,
       handleChangeWallet: this.handleChangeWallet.bind(this),
@@ -546,9 +600,7 @@ class App {
 
     this.goods = new _components_Goods_GoodsContainer_js__WEBPACK_IMPORTED_MODULE_1__.default({ $target: this.$target });
 
-    this.process = new _components_process_processContainer_js__WEBPACK_IMPORTED_MODULE_2__.default({
-      $target: this.$target
-    })
+    this.process = new _components_process_processContainer_js__WEBPACK_IMPORTED_MODULE_2__.default({ $target: this.$target })
   }
 }
 
@@ -586,7 +638,10 @@ class GoodsContainer {
     this.items = [];
 
     // state
-    this.goods = (0,_util_store_useStore_js__WEBPACK_IMPORTED_MODULE_1__.useSelector)((state) => state.goods.getState());
+    this.goods = (0,_util_store_useStore_js__WEBPACK_IMPORTED_MODULE_1__.useSelector)((state) => {
+      return state.goods.getState();
+    });
+    
     this.setState({});
     
     this.subscribe( _util_enums_action_js__WEBPACK_IMPORTED_MODULE_3__.OUT_ITEM, (name) => {
@@ -881,13 +936,9 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
 /* harmony export */ });
 /* harmony import */ var _processPresentational_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./processPresentational.js */ "./src/components/process/processPresentational.js");
-/* harmony import */ var _currentMoneyDisplay_currentMoneyPresentational_js__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./currentMoneyDisplay/currentMoneyPresentational.js */ "./src/components/process/currentMoneyDisplay/currentMoneyPresentational.js");
-/* harmony import */ var _returnButton_returnButtonPresentational_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./returnButton/returnButtonPresentational.js */ "./src/components/process/returnButton/returnButtonPresentational.js");
-/* harmony import */ var _messages_messagesPresentational_js__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./messages/messagesPresentational.js */ "./src/components/process/messages/messagesPresentational.js");
-/* harmony import */ var _util_store_useStore_js__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ../../util/store/useStore.js */ "./src/util/store/useStore.js");
-/* harmony import */ var _util_enums_action_js__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ../../util/enums/action.js */ "./src/util/enums/action.js");
-
-
+/* harmony import */ var _util_store_useStore_js__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../../util/store/useStore.js */ "./src/util/store/useStore.js");
+/* harmony import */ var _util_enums_action_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../../util/enums/action.js */ "./src/util/enums/action.js");
+/* harmony import */ var _scss_styles_scss__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./scss/styles.scss */ "./src/components/process/scss/styles.scss");
 
 
 
@@ -907,16 +958,17 @@ class ProcessContainer {
 		$target.appendChild(this.$process);
 		this.setState({ type: "INIT" });
 
-		let subscribe = (0,_util_store_useStore_js__WEBPACK_IMPORTED_MODULE_4__.useSubscribe)("goods");
+		let subscribe = (0,_util_store_useStore_js__WEBPACK_IMPORTED_MODULE_1__.useSubscribe)("goods");
 
-		subscribe(_util_enums_action_js__WEBPACK_IMPORTED_MODULE_5__.OUT_ITEM, (name) => {
+		subscribe(_util_enums_action_js__WEBPACK_IMPORTED_MODULE_2__.OUT_ITEM, (payload) => {
+			console.log(payload)
 			this.setState({
 				type: "SELECT_GOODS",
 				method: "select",
-				item: { name: name, price: 700 }
+				item: { name: payload.korean, price: payload.price }
 			})
 		})
-		subscribe(_util_enums_action_js__WEBPACK_IMPORTED_MODULE_5__.OUT_MONEY, (name) => {
+		subscribe(_util_enums_action_js__WEBPACK_IMPORTED_MODULE_2__.OUT_MONEY, (name) => {
 			this.setState({
 				type: "CHANGE_CASH",
 				method: "put",
@@ -1195,13 +1247,16 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */   "ADD_ITEM": () => (/* binding */ ADD_ITEM),
 /* harmony export */   "OUT_ITEM": () => (/* binding */ OUT_ITEM),
 /* harmony export */   "ADD_MONEY": () => (/* binding */ ADD_MONEY),
-/* harmony export */   "OUT_MONEY": () => (/* binding */ OUT_MONEY)
+/* harmony export */   "OUT_MONEY": () => (/* binding */ OUT_MONEY),
+/* harmony export */   "RETURN_MONEY": () => (/* binding */ RETURN_MONEY)
 /* harmony export */ });
 const ADD_ITEM = "goods/ADD_ITEM";
 const OUT_ITEM = "goods/OUT_ITEM";
 
 const ADD_MONEY = "wallet/ADD_MONEY";
 const OUT_MONEY = "wallet/OUT_MONEY";
+
+const RETURN_MONEY = "process/RETURN_MONEY"
 
 
 
@@ -1382,29 +1437,34 @@ const goods = (state = initialState, { type, payload }) => {
   
       if (!state.goods?.[name]) {
         return  { 
-          goods: {
-            ...state.goods,
-            [name]: [value]
-          } 
+          state: {
+            goods: {
+              ...state.goods,
+              [name]: [value]
+            }
+          }
         }
       }
       // 처음 들어오는게 아닐 때
       return {
-        goods: {
-          ...state.goods,
-          [name]: [...state.goods[name], value]   
+        state: {
+          goods: {
+            ...state.goods,
+            [name]: [...state.goods[name], value]   
+          }
         }
       }
     
     case _enums_action_js__WEBPACK_IMPORTED_MODULE_0__.OUT_ITEM:
-      console.log(state.goods)
-      console.log(payload)
-      const returnItem = state.goods[payload].pop();
+      const payloadReturn = state.goods[payload].pop();
       return {
-        goods: {
-          ...state.goods,
-          [payload]: state.goods[payload]
-        }
+        state: {
+          goods: {
+            ...state.goods,
+            [payload]: state.goods[payload]
+          },
+        },
+        payloadReturn: payloadReturn
       }
     default:
       console.log("error");
@@ -1441,27 +1501,34 @@ const wallet = (state = initialState, { type, payload }) => {
       // 처음 들어올 때
       if (!state.wallet?.[name]) {
         return  { 
-          wallet: {
-            ...state.wallet,
-            [name]: [value]
-          } 
+          state: {
+            wallet: {
+              ...state.wallet,
+              [name]: [value]
+            } 
+          }
         }
       }
       // 처음 들어오는게 아닐 때
       return {
-        wallet: {
-          ...state.wallet,
-          [name]: [...state.wallet[name], value]   
+        state: {
+          wallet: {
+            ...state.wallet,
+            [name]: [...state.wallet[name], value]   
+          }
         }
       }
     
     case _enums_action_js__WEBPACK_IMPORTED_MODULE_0__.OUT_MONEY:
-      const returnItem = state.wallet[name].pop();
+      const payloadReturn = state.wallet[name].pop();
       return {
-        wallet: {
-          ...state.wallet,
-          [name]: state.wallet[name]
-        }
+        state: {
+          wallet: {
+            ...state.wallet,
+            [name]: state.wallet[name]
+          }
+        },
+        payloadReturn: payloadReturn
       }
     default:
       console.log("error");
@@ -1493,22 +1560,19 @@ const createStore = (reducer) => {
   }
   
   const dispatch = (action) => {
-    state = reducer(state, action);
-    notify(action);
+    const reducerReturn = reducer(state, action);
+    state = reducerReturn.state; 
+    
+    const payloadReturn = reducerReturn.payloadReturn
+    notify(action, payloadReturn);
   }
   
   const subscribe = (actionType, func) => {
-    console.log(func)
     if (!listeners[actionType]) {
       listeners[actionType] = [func];
     } else {
       listeners[actionType].push(func);
     }
-    
-    // listeners.push({
-    //   subscriber: func, 
-    //   context
-    // });
   }
 
   const unsubscribe = (observer) => {
@@ -1517,10 +1581,13 @@ const createStore = (reducer) => {
     // });
   }
 
-  const notify = ({type, payload}) => {
+  const notify = ({type, payload}, payloadReturn = undefined) => {
     listeners[type]?.forEach((subscriber) => {
-      // subscriber.call(context);
-      subscriber(payload);
+      if (!payloadReturn) {
+        subscriber(payload);
+      } else {
+        subscriber(payloadReturn);
+      }
     });
   }
   

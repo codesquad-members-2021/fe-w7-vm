@@ -1,0 +1,7 @@
+.process {
+  @extend .flex-display;
+  border: $default-border;
+  padding: 30px;
+  width: 50%;
+  height: 100%;
+}

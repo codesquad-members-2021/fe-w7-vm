@@ -1,9 +1,7 @@
 import ProcessPresentational from "./processPresentational.js"
-import CurrentMoneyPresentational from "./currentMoneyDisplay/currentMoneyPresentational.js";
-import ReturnButtonPresentational from "./returnButton/returnButtonPresentational.js"
-import MessagesPresentational from "./messages/messagesPresentational.js"
 import { useSelector, useSubscribe } from "../../util/store/useStore.js";
 import * as ACTION from "../../util/enums/action.js";
+import "./scss/styles.scss"
 
 class ProcessContainer {
 	constructor({ $target }) {
@@ -23,7 +21,7 @@ class ProcessContainer {
 
 		subscribe(ACTION.OUT_ITEM, (payload) => {
 			console.log(payload)
-      this.setState({
+			this.setState({
 				type: "SELECT_GOODS",
 				method: "select",
 				item: { name: payload.korean, price: payload.price }

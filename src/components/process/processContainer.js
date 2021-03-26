@@ -28,11 +28,14 @@ class ProcessContainer {
 				item: { name: payload.korean, price: payload.price }
 			})
 		})
+    
+    subscribe = useSubscribe("wallet");
 		subscribe(ACTION.OUT_MONEY, (volume) => {
+      console.log("서브스크라이브", volume)
 			this.setState({
 				type: "CHANGE_CASH",
 				method: "put",
-				item: { volume }
+				item: {volume}
 			})
 		})
 	}
@@ -44,11 +47,11 @@ class ProcessContainer {
 		switch (state.type) {
 			case "CHANGE_CASH":
 				if (state.method === "put") {
-					this.moneyPocket.push(state.item);
-					this.currentMoney += state.item;
+					this.moneyPocket.push(state.item.volume);
+					this.currentMoney += state.item.volume;
 				}
 				else if (state.method === "return") {
-					this.currentMoney -= state.item;
+					this.currentMoney -= state.item.volume;
 					// this.dispatch(addMoney(state.item.volume))
 				}
 
@@ -84,11 +87,12 @@ class ProcessContainer {
 
 			case "CHANGE_CASH":
 				if (state.method === "put") {
-					return `${state.item}원이 투입 되었습니다.`
+					return `${state.item.volume}원이 투입 되었습니다.`
 				}
 				else if (state.method === "return") {
+          console.log(state)
 					// if (this.currentMoney < 0) { return `자판기 종료` }
-					return `잔돈 ${state.item}원이 반환 되었습니다.`
+					return `잔돈 ${state.item.volume}원이 반환 되었습니다.`
 				}
 				break;
 
@@ -110,7 +114,7 @@ class ProcessContainer {
 		const state = {
 			type: "CHANGE_CASH",
 			method: "return",
-			item: shiftedCoin
+			item: {volume: shiftedCoin}
 		};
 
 		this.setState(state);

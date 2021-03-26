@@ -1,7 +1,6 @@
-import WalletModel from './walletModel.js';
-import { _ } from './util.js';
+import _ from './util';
 
-export class WalletView {
+class WalletView {
   constructor(selectors, vendingModel, walletModel) {
     this.$ = selectors;
     this.walletModel = walletModel;
@@ -31,7 +30,7 @@ export class WalletView {
     return `<ul class="wallet__currency-unit"> 
                 ${this.makeUnitHTML(currencyUnits)} 
               </ul>
-              <ul>
+              <ul class="wallet__total__wrapper">
                 <li class="wallet__total"><input type="text"><span>원</span></li>
               </ul>`;
   }
@@ -76,3 +75,5 @@ export class WalletView {
     this.walletModel.setAccount(_.$('.wallet__total input').value);
   }
 }
+
+export default WalletView;

@@ -100,6 +100,13 @@ body {
   margin: 2px;
 }
 
+.wallet__currency-unit {
+  padding-top: 8px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  height: 500px;
+}
 .wallet__currency-unit li {
   display: flex;
 }
@@ -115,6 +122,12 @@ body {
 }
 .wallet__currency-unit .currency-unit__count {
   cursor: pointer;
+}
+
+.wallet__total__wrapper {
+  display: flex;
+  align-items: center;
+  height: 100px;
 }
 
 .wallet__total {

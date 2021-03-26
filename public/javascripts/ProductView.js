@@ -1,30 +1,30 @@
-import { _ } from './util.js';
-export class ProductView {
-  constructor(selectors, { productInfo }, model) {
+import _ from './util';
+
+// prettier-ignore
+class ProductView {
+  constructor(selectors, { productInfo }, vendingModel) {
     this.$ = selectors;
-    this.model = model;
+    this.model = vendingModel;
     this.itemList = productInfo;
-    this.bindedEvent = this.selectProduct.bind(this);
+    this.isDisabled = false;
     this.init();
   }
 
   init() {
     this.render();
-    this.model.subscribe((data) => {
-      if (data.type === 'purchasableList') this.addHighlight(data.value);
+    this.model.subscribe((productData) => {
+      if (productData.type === 'PURCHASABLE_LIST') this.addHighlight(productData.value);
     });
     this.addEvent();
   }
 
   render() {
-    let html = '';
-    this.itemList.forEach(({ name, price }) => {
-      html += `<li class="product__item">
-               		<div class="product__item--name">${name}</div>
-                    <div class="product__item--price">${price}</div>
-                </li>`;
-    });
-    this.$.$itemList.innerHTML = html;
+    this.$.$itemList.innerHTML = this.itemList.reduce((acc,{ name, price }) => {
+      return acc + `<li class="product__item">
+              		  <div class="product__item--name">${name}</div>
+              		  <div class="product__item--price">${price}</div>
+             		 </li>`;
+    },'');
   }
 
   addHighlight(purchasableList) {
@@ -34,15 +34,17 @@ export class ProductView {
   }
 
   async selectProduct({ target }) {
-    if (target.className !== 'product__item--name highlighted') return;
+    if (this.isDisabled && target.className !== 'product__item--name highlighted') return;
     _.ca(target, 'selected');
-    this.$.$itemList.removeEventListener('click', this.bindedEvent);
+    this.isDisabled = true;
     await _.delay(() => this.model.sell(target.innerHTML), 2000);
     _.cr(target, 'selected');
-    this.addEvent();
+    this.isDisabled = false;
   }
 
   addEvent() {
-    _.on(this.$.$itemList, 'click', this.bindedEvent);
+    _.on(this.$.$itemList, 'click', this.selectProduct.bind(this));
   }
 }
+
+export default ProductView;

@@ -1,9 +1,9 @@
-import { _ } from './util.js';
-import { VendingModel } from './vendingModel.js';
-import { ProductView } from './productView.js';
-import WalletModel from './walletModel.js';
-import { WalletView } from './walletView.js';
-import { ProgressView } from './progressView.js';
+import _ from './util';
+import VendingModel from './vendingModel';
+import ProductView from './productView';
+import WalletModel from './walletModel';
+import WalletView from './walletView';
+import ProgressView from './progressView';
 
 const productData = {
   productInfo: [

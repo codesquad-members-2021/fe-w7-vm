@@ -1,20 +1,20 @@
-import { _ } from './util.js';
-import Observable from './observable.js';
+import _ from './util';
+import Observable from './observable';
 
-export class VendingModel extends Observable {
+class VendingModel extends Observable {
   constructor(data, walletModel) {
     super();
     this.wallet = walletModel;
     this.itemList = data.productInfo;
     this.account = 0;
-    this.timer;
+    this.timer = undefined;
   }
 
   inputMoney(money) {
     this.account += money;
     this.changeMoneyEvent();
     this.notify({
-      type: 'inputMoney',
+      type: 'INPUT_MONEY',
       value: money,
     });
   }
@@ -25,11 +25,11 @@ export class VendingModel extends Observable {
 
   changeMoneyEvent() {
     this.notify({
-      type: 'purchasableList',
+      type: 'PURCHASABLE_LIST',
       value: this.getPurchasableList(this.account),
     });
     this.notify({
-      type: 'accountChange',
+      type: 'ACCOUNT_CHANGE',
       value: this.account,
     });
     this.resetTimer();
@@ -44,7 +44,7 @@ export class VendingModel extends Observable {
     if (this.account === 0) return;
     this.wallet.addAccount(this.account);
     this.notify({
-      type: 'returnMoney',
+      type: 'RETURN_MONEY',
       value: this.account,
     });
     this.account = 0;
@@ -58,8 +58,10 @@ export class VendingModel extends Observable {
     this.account -= targetItem.price;
     this.changeMoneyEvent();
     this.notify({
-      type: 'sell',
+      type: 'SELL',
       value: itemName,
     });
   }
 }
+
+export default VendingModel;

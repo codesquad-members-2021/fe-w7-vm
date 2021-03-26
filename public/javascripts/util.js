@@ -1,4 +1,4 @@
-export const _ = {
+const _ = {
   ca: (target, className) => target.classList.add(className),
 
   cr: (target, className) => target.classList.remove(className),
@@ -28,3 +28,5 @@ export const _ = {
       }, time);
     }),
 };
+
+export default _;

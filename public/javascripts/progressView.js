@@ -1,20 +1,21 @@
-import { _ } from './util';
+import _ from './util';
 
-export class ProgressView {
+class ProgressView {
   constructor(VendingModel, selectors) {
     this.model = VendingModel;
     this.$ = selectors;
     this.init();
   }
 
+  // prettier-ignore
   init() {
-    this.model.subscribe((data) => {
-      if (data.type === 'accountChange') this.updateAccount(data.value);
-      if (data.type === 'inputMoney')
-        this.updateLog(`${data.value}원이 투입되었습니다.`);
-      if (data.type === 'sell') this.updateLog(`${data.value}가 팔렸습니다.`);
-      if (data.type === 'returnMoney')
-        this.updateLog(`${data.value}원만큼 반환되었습니다.`);
+    this.model.subscribe((accountData) => {
+      if (accountData.type === 'ACCOUNT_CHANGE') this.updateAccount(accountData.value);
+    });
+    this.model.subscribe((logData) => {
+      if (logData.type === 'INPUT_MONEY') this.updateLog(`${logData.value}원이 투입되었습니다.`);
+      if (logData.type === 'SELL') this.updateLog(`${logData.value}가 팔렸습니다.`);
+      if (logData.type === 'RETURN_MONEY') this.updateLog(`${logData.value}원만큼 반환되었습니다.`);
     });
     this.addEvent();
   }
@@ -35,3 +36,5 @@ export class ProgressView {
     this.$.$display.innerHTML += `${message} <br>`;
   }
 }
+
+export default ProgressView;

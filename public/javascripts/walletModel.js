@@ -1,4 +1,4 @@
-import Observable from './observable.js';
+import Observable from './observable';
 
 class WalletModel extends Observable {
   constructor() {
@@ -25,13 +25,14 @@ class WalletModel extends Observable {
 
   distributeAccount() {
     let amount = this.wallet.account;
-    this.wallet.currencyUnits.forEach((cur) => {
-      cur.count = ~~(amount / cur.currencyUnit);
-      amount -= cur.count * cur.currencyUnit;
+    this.wallet.currencyUnits.forEach(({ currencyUnit, count }) => {
+      count = ~~(amount / currencyUnit);
+      amount -= count * currencyUnit;
     });
   }
 
   deductAccount(money) {
+    if (this.wallet.account <= 0) return;
     this.setAccount(this.wallet.account - money);
   }
 

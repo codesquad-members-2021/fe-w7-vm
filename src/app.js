@@ -6,8 +6,8 @@ import store from "./util/store/root.js";
 import { useStore, useDispatch, useSelector } from "./util/store/useStore.js";
 
 import { Coke, Cider, PineappleFanta, GrapeFanta, LemonAde, BonBon, CocoaJuice, CokeZero, PowerAde, ChocoMilk1, ChocoMilk2, ChocoMilk3 } from "./util/objects/goods.js";
-import { addItem, outItem } from "./util/actions/goods.js";
-import { addMoney, outMoney } from "./util/actions/wallet.js";
+import { addItem } from "./util/actions/goods.js";
+import { addMoney } from "./util/actions/wallet.js";
 
 class App {
   constructor({ $target }) {
@@ -56,25 +56,13 @@ class App {
     this.render();
   }
 
-  handleChangeWallet({ method, value }) {
-
-    const state = {
-      type: "wallet",
-      method: method,
-      value: value
-    };
-    this.setState(state);
-  }
-
   render() {
-    this.wallet = new WalletContainer({
-      $target: this.$target,
-      handleChangeWallet: this.handleChangeWallet.bind(this),
-    });
-
+    
     this.goods = new GoodsContainer({ $target: this.$target });
 
-    this.process = new ProcessContainer({ $target: this.$target })
+    this.process = new ProcessContainer({ $target: this.$target });
+    
+    this.wallet = new WalletContainer({ $target: this.$target });
   }
 }
 

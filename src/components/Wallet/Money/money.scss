@@ -1,0 +1,15 @@
+.money {
+  width: 100%;
+  min-height: 10px;
+  border: 1px solid black;
+  padding: 10px 10px;
+  
+  display:flex;
+
+  &.is-none {
+    border: 1px solid red;
+  }
+  &.is-able-to-use {
+    border: 1px solid green;
+  }
+}

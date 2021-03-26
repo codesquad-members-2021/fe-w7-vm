@@ -22,11 +22,12 @@ class ProcessContainer {
 
 		let subscribe = useSubscribe("goods");
 
-		subscribe(ACTION.OUT_ITEM, (name) => {
-			this.setState({
+		subscribe(ACTION.OUT_ITEM, (payload) => {
+			console.log(payload)
+      this.setState({
 				type: "SELECT_GOODS",
 				method: "select",
-				item: { name: name, price: 700 }
+				item: { name: payload.korean, price: payload.price }
 			})
 		})
 		//subscribe(ACTION)

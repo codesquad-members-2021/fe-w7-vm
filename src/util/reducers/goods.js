@@ -14,29 +14,34 @@ const goods = (state = initialState, { type, payload }) => {
   
       if (!state.goods?.[name]) {
         return  { 
-          goods: {
-            ...state.goods,
-            [name]: [value]
-          } 
+          state: {
+            goods: {
+              ...state.goods,
+              [name]: [value]
+            }
+          }
         }
       }
       // 처음 들어오는게 아닐 때
       return {
-        goods: {
-          ...state.goods,
-          [name]: [...state.goods[name], value]   
+        state: {
+          goods: {
+            ...state.goods,
+            [name]: [...state.goods[name], value]   
+          }
         }
       }
     
     case ACTION.OUT_ITEM:
-      console.log(state.goods)
-      console.log(payload)
-      const returnItem = state.goods[payload].pop();
+      const payloadReturn = state.goods[payload].pop();
       return {
-        goods: {
-          ...state.goods,
-          [payload]: state.goods[payload]
-        }
+        state: {
+          goods: {
+            ...state.goods,
+            [payload]: state.goods[payload]
+          },
+        },
+        payloadReturn: payloadReturn
       }
     default:
       console.log("error");

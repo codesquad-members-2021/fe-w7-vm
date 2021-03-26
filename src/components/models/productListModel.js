@@ -11,7 +11,7 @@ export default class ProductListModel extends ProductModel {
   }
 
   changeCount(data) {
-    console.log(data.id)
+    console.log(data)
     console.log(this.productList)
   }
 

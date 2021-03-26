@@ -14,6 +14,7 @@ const _ = {
     getStorageItem: (item) => item ? JSON.parse(localStorage.getItem(item)) : []
 };
 
+export const addCommaToNumber = (num) => num.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
 export const delay = (ms, data = null) =>
     new Promise((resolve) => setTimeout(() => resolve(data), ms));
 

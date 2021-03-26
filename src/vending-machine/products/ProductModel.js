@@ -34,15 +34,7 @@ export default class ProductModel extends Observable{
     reduceStock(i) { 
         this.menuInfo[i].stock--;
     }
-    // ProductContainerView에 보냄 - 구매가능 아이템 하이라이트
-    sendAvailableItems(moneySum) {
-        const itemIdxArr = this.getAvailableItems(moneySum);
-        this.dispatchEvent(
-            new CustomEvent('render-available-items', {
-                detail: { itemIdxArr: itemIdxArr }
-            })
-        );
-    }
+    // ProductContainerView에 계산해서 보내줌
     getAvailableItems(moneySum) {
         let itemIdx = [];
         this.menuInfo.forEach((e, i) => {

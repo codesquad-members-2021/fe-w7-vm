@@ -1,4 +1,5 @@
 import Currency from '../utils/Currency.js';
+import _ from '../utils/util.js';
 
 class WalletModel {
     constructor() {
@@ -67,10 +68,13 @@ class WalletModel {
         document.dispatchEvent(notification);
     }
 
-    updateBudgetTotal = (currencyType) => {
+    updateDecreaseTotalBudget = (currencyType) => {
         if (this.totalBudget <= 0) return;
         this.totalBudget -= currencyType;
     };
+
+    updateTotalBudget = () =>
+        (this.totalBudget = this.calculateTotalValue(this.budgetData));
 
     // Progress - 돈 투입되었을 시, 투입금액 Update
     updateInsertMoneyData = (currencyType) => {
@@ -81,6 +85,16 @@ class WalletModel {
     // Progress - 돈 투입되었을 시, 총 투입금액 Update
     updateInsertTotal = () =>
         this.insertTotal = this.calculateTotalValue(this.insertMoneyData);
+
+    // Progress - 반환버튼 클릭 시
+    updateRecoverBudgetData = () => {
+        this.budgetData.forEach((currency, i) => {
+            const tmpCnt = currency.count += this.insertMoneyData[i].count;
+
+            currency.setCurrencyCount(tmpCnt);
+            this.insertMoneyData[i].setCurrencyCount(0);
+        });
+    };
 }
 
 export default WalletModel;

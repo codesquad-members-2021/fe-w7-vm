@@ -30,8 +30,12 @@ class WalletView {
         this.renderBudgetInfo(this.walletModel, this.walletViewWrapper, this.budgetTotalContainer);
         const currencyBtns = _.$all(".currency-btn");
         this.setCurrencyBtnClickEvent(currencyBtns, this.walletModel);
-
         // 동전 개수 빠지기, 토탈금액 변경하기, 현재투입금액총합 보여주기, 진행상태 알려주기, productView에 구입가능 제품 활성화
+
+        // ProgressView 관련
+        this.setReturnMoneyBtnClickEvent(this.returnMoneyBtn, this.walletModel);
+
+        // ---------------
     };
 
     // 지갑 [type | Count] Render
@@ -76,7 +80,7 @@ class WalletView {
         if (clickedCurrency.count <= 0) return;
 
         walletModel.updateDecreaseCurrencyCnt(currencyType);
-        walletModel.updateBudgetTotal(parseInt(currencyType));
+        walletModel.updateDecreaseTotalBudget(parseInt(currencyType));
         walletModel.updateInsertMoneyData(currencyType);
         walletModel.updateInsertTotal();
 
@@ -110,10 +114,35 @@ class WalletView {
     };
 
     // 임시: ProgressView 관련
-    renderUpdateInputMoneyStatus = (insertTotalData) => 
+    renderUpdateInputMoneyStatus = (insertTotalData = 0) => 
         (this.inputMoneyStatus.textContent = `${addCommaToNumber(
             insertTotalData,
         )}원`);
+
+    // 반환 버튼 클릭
+    setReturnMoneyBtnClickEvent = (returnMoneyBtn, walletModel) =>
+        _.addEvent(returnMoneyBtn, 'click', () =>
+            this.returnMoneyBtnClickEventHandler(walletModel),
+        );
+    returnMoneyBtnClickEventHandler = (walletModel) => {
+        walletModel.updateRecoverBudgetData();
+        walletModel.updateTotalBudget();
+        this.renderUpdateInputMoneyStatus();
+        this.renderUpdateTotalBudget(walletModel.totalBudget);
+
+        const currencyBtns = _.$all(".currency-btn");
+        this.renderUpdateCurrencyBtns(currencyBtns, walletModel);
+    };
+
+    // 반환 버튼 누를 시 지갑화면의 버튼, 갯수 Update
+    renderUpdateCurrencyBtns = (currencyBtns, walletModel) => {
+        currencyBtns.forEach((btn) => {
+            const currencyCnt = walletModel.getClickedCurrency(btn.dataset.id).count;
+            if (currencyCnt > 0) _.removeClass(btn, 'disabled', 'disabled__item');
+            const countContainer = btn.nextElementSibling;
+            countContainer.textContent = `${currencyCnt}개`;
+        });
+    }
     // ---
 }
 

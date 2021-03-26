@@ -49,6 +49,7 @@ export default class ProductView {
       const itemBox = target.closest(".item");
       if(!itemBox) return;
       this.walletModel.timer.count = 0;
+      this.walletModel.timer.html.classList.add('hidden');
       await delay(NUMBERS.BUYPRODUCT);
       const sameProduct = this.productModel.productList.find((item) => item.name === itemBox.firstElementChild.innerText);
       if (!sameProduct || sameProduct.price > this.walletModel.insertedBalance) return;

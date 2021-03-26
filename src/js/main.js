@@ -21,14 +21,18 @@ function init() {
   new WalletView(walletModel, _.$(`.${VIEWS.WALLET}`));
   new ProductView(walletModel, productModel, _.$(`.${VIEWS.PRODUCT}`));
   new ProcessView(walletModel, productModel, _.$(`.${VIEWS.PROCESS}`));
-  _.$('body').insertAdjacentHTML("afterbegin","<h1 class='title'>Adela <span>& json</span> Vending Machine</h1>");
-
+  _.$("body").insertAdjacentHTML("afterbegin","<h1 class='title'>Adela <span>& json</span> Vending Machine</h1>");
+  _.$("body").insertAdjacentHTML("afterbegin","<div class='timer hidden'></div>");
+  const timerHtml = _.$(".timer");
+  timer.html = timerHtml;
   setInterval(() => {
-    timer.count++;
     if (timer.count >= NUMBERS.TERM) {
       walletModel.returnBalance();
       timer.count = 0;
+      timer.html.classList.add('hidden');
+      return;
     }
+    timer.html.innerText = ++timer.count;
   }, NUMBERS.INITMS);
 }
 

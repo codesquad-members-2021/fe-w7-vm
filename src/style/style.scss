@@ -7,8 +7,8 @@ $highlightB: #2ec4b6;
   font-family: 'Jua', sans-serif;
 }
 
-html {
-  background-color: #f2ffff;
+.hidden {
+  display: none !important;
 }
 
 .title {
@@ -19,6 +19,14 @@ html {
   span {
     font-size: 1rem;
   }
+}
+
+.timer {
+  position: absolute;
+  font-family: 'Jua', sans-serif;
+  font-size: 3rem;
+  color: red;
+  right: 22rem;
 }
 
 #app {
@@ -58,34 +66,33 @@ section {
   cursor: pointer;
   transition: all 0.15s linear 0s;
   box-shadow: #555 3px 5px 0px 0px;
-  &:hover {
-    border-color: $highlightB;
-    background-color: $highlightB;
-    color: #555;
+  &:active {
     transform: translate3d(2px, 2px, 2px);
     box-shadow: #555 2px 2px 0px 0px;
   }
-  &.active {
+  &:hover:not(.disable) {
+    border-color: $highlightB;
+    background-color: $highlightB;
+    color: #555;
+  }
+  &.active:not(.disable) {
     border: 3px solid $highlightA;
   }
   &.disable {
     cursor: no-drop;
     opacity: 0.5;
-    &:hover {
-      background-color: #fff;
-      color: #333;
-      border-color: #333;
-    }
   }
   &__name {
     line-height: 1.5rem;
     font-size: 1.1rem;
+    user-select: none;
   }
   &__price {
     position: absolute;
     justify-self: center;
     bottom: -1.5rem;
     color: #333;
+    user-select: none;
   }
 }
 
@@ -117,6 +124,7 @@ section {
     width: 95%;
     margin-bottom: 3rem;
     position: relative;
+    user-select: none;
     &::before, &::after {
       position: absolute;
       content: "";
@@ -148,17 +156,19 @@ section {
       border-color: #333;
       background-color: $highlightB;
       color: #555;
+    }
+    &:active {
       transform: translate(9px, 5px);
       box-shadow: #333 7px 4px 0px 0px;
     }
-    &:hover::before {
+    &:active::before {
       left: -1px;
       bottom: -5px;
       border-left-width: 8px;
       border-right-width: 8px;
       border-top-width: 4px;
     }
-    &:hover:after {
+    &:active::after {
       width: 7px;
     }
     &:focus {
@@ -194,9 +204,12 @@ section {
       padding: 1rem 0;
       box-shadow: #555 4px 4px 0px 0px;
       transition: all 0.15s linear 0s;
+      user-select: none;
       &:hover {
         border-color: $highlightB;
         background-color: $highlightB;
+      }
+      &:active {
         color: #fff;
         transform: translate3d(1px, 1px, 1px);
         box-shadow: #555 3px 3px 0px 0px;
@@ -208,6 +221,7 @@ section {
       padding: 1rem;
       font-size: 1.1rem;
       opacity: 0.7;
+      user-select: none;
     }
   }
   .balance {
@@ -220,9 +234,11 @@ section {
       display: inline-block;
       font-size: 1.6rem;
       font-weight: 600;
+      user-select: none;
     }
     span {
       font-size: 1.2rem;
+      user-select: none;
     }
   }
 }

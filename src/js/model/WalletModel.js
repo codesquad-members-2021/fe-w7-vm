@@ -63,6 +63,8 @@ export default class WalletModel extends Observable {
   updateInsertedBalance(value, type = '') {
     if(type !== 'buy') type = this.insertedBalance + value ? 'insert' : 'return';
     this.timer.count = 0;
+    this.timer.html.innerText = this.timer.count;
+    this.timer.html.classList.remove('hidden');
     this.insertedBalance += value;
     this.notify({ flag: true, ...this, type, insertedCurrency : value });
   }

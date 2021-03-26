@@ -24,12 +24,16 @@ export default class ProductContainerView {
     setEvent() {
         this.$container.addEventListener('click', this.sendIdxToModel.bind(this))
     }
-
-
+    sendIdxToModel({target}) {
+        const $product = target.closest('.product')
+        if($product == null) return;
+        const selectedIdx = $product.dataset.index;
+        console.log(selectedIdx)
+        this.model.notifySelectedItem(selectedIdx); // model에 선택된 아이템 인덱스 전달
+    }
     async fetchInfo() {
         const promises = [this.setMenuInfo(), this.setMenuImgs()];
-        const tmp = await Promise.all(promises); //=================tmp 없애도되나
-        console.log(this.menuInfo, this.menuImgs)
+        await Promise.all(promises);
         this.appendProductsEl();
     }
     async setMenuInfo() {
@@ -54,14 +58,6 @@ export default class ProductContainerView {
             this.$container.appendChild(el);
             this.$products.push(el);
         });
-    }
-
-
-    sendIdxToModel({target}) {
-        const $product = target.closest('.product')
-        if($product == null) return;
-        const selectedIdx = $product.dataset.index;
-        this.model.notifySelectedItem(selectedIdx); // model에 선택된 아이템 인덱스 전달
     }
     renderAvailable(e) {
         const indexArr = e.detail.itemIdxArr;

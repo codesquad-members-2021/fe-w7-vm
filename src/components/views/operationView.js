@@ -1,7 +1,7 @@
 import { _ } from '../../util/const';
 import { $ } from '../../util/util';
 import OperationModel from '../models/operationModel';
-import { returnButtonObservers } from '../observer/observer';
+import { returnButtonObservers, walletButtonObservers } from '../observer/observer';
 
 export default class OperationView extends OperationModel {
   constructor() {
@@ -11,9 +11,9 @@ export default class OperationView extends OperationModel {
   }
 
   displayMoneySubscribe() {
-    returnButtonObservers.subscribe(this.plusDisplayMoney.bind(this));
-    returnButtonObservers.subscribe(this.updateDisplayMoney.bind(this));
-    returnButtonObservers.subscribe(this.changeStatePossible.bind(this));
+    walletButtonObservers.subscribe(this.plusDisplayMoney.bind(this));
+    walletButtonObservers.subscribe(this.updateDisplayMoney.bind(this));
+    walletButtonObservers.subscribe(this.changeStatePossible.bind(this));
   }
 
   returnMoneySubscribe() {
@@ -28,6 +28,10 @@ export default class OperationView extends OperationModel {
 
   clickReturnButton() {
     $(`.extra--money__button`).addEventListener('click', () => returnButtonObservers.fire());
+  }
+
+  clickUnitMoneyButton() {
+    $('.wallet--button__container').addEventListener('click', (e) => walletButtonObservers.fire(e.target.id));
   }
 
   render() {

@@ -21,7 +21,6 @@ class App {
     this.store = store;
     useStore(store); // store initialize
 
-    this.state = { process: {} } // 향후 모델로 옮겨집니다.
     this.init()
 
     this.setState({});
@@ -30,7 +29,7 @@ class App {
 
     let dispatch = useDispatch("goods");
     const goodsState = useSelector((state) => state.goods);
-    
+
     // goods 추가 과정
     const beverages = [Coke, Cider, PineappleFanta, GrapeFanta, LemonAde, BonBon, CocoaJuice, CokeZero, PowerAde, ChocoMilk1, ChocoMilk2, ChocoMilk3];
     beverages.forEach((item) => {
@@ -40,7 +39,6 @@ class App {
         dispatch(addItem(payload));
       })
     })
-    // console.log("goodsState", goodsState.getState)
 
     // wallet 추가 과정
     dispatch = useDispatch("wallet");
@@ -69,7 +67,6 @@ class App {
   }
 
   render() {
-
     this.wallet = new WalletContainer({
       $target: this.$target,
       handleChangeWallet: this.handleChangeWallet.bind(this),
@@ -77,10 +74,7 @@ class App {
 
     this.goods = new GoodsContainer({ $target: this.$target });
 
-    this.process = new ProcessContainer({
-      $target: this.$target,
-      state: this.state.process
-    })
+    this.process = new ProcessContainer({ $target: this.$target })
   }
 }
 

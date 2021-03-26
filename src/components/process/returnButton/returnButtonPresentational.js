@@ -1,18 +1,17 @@
 class ReturnButtonPresentational {
-	constructor({ $target, buttonStatus, reset }) {
-		this.render($target, buttonStatus, reset)
+	constructor({ $target, buttonStatus, onClickReturnButton }) {
+		this.render($target, buttonStatus, onClickReturnButton)
 	}
 
-	addEvent($target, reset) {
-		$target.querySelector(".return-button").addEventListener("click", () => reset())
+	addEvent($target, onClickReturnButton) {
+		$target.querySelector(".return-button").addEventListener("click", () => onClickReturnButton())
 	}
 
-	render($target, buttonStatus, reset) {
+	render($target, buttonStatus, onClickReturnButton) {
 		const $returnButton_section = document.createElement("section");
 		$returnButton_section.className = "return-button-section";
 
 		$target.appendChild($returnButton_section)
-
 
 		let $returnButton;
 		if (buttonStatus) {
@@ -21,11 +20,9 @@ class ReturnButtonPresentational {
 			$returnButton = `<button class="return-button">반환</button>`;
 		}
 		$returnButton_section.insertAdjacentHTML("beforeend", $returnButton);
-		this.addEvent($target, reset);
+		// 라이프사이클 mounted
+		this.addEvent($target, onClickReturnButton);
 	}
-
-	// 라이프 사이클
-	// mount() {}
 
 }
 

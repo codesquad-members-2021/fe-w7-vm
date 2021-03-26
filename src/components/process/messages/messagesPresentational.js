@@ -10,9 +10,8 @@ class MessagesPresentational {
 		$target.appendChild($messages_section)
 
 		messages.forEach((message) => {
-			const $message = `
-            <div class="message">${message}</div>
-            `;
+			const $message = `<div class="message">${message}</div>`;
+
 			$messages_section.insertAdjacentHTML("beforeend", $message)
 		})
 	}

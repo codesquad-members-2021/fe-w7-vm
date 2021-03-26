@@ -1,7 +1,6 @@
 import { _ } from '../../util/const';
 import { createRandomNumber } from '../../util/util';
 import FetchProductData from '../getData/fetchProductData';
-import { productButtonObservers } from '../observer/observer';
 import ProductModel from './productModel';
 
 export default class ProductListModel extends ProductModel {
@@ -11,9 +10,12 @@ export default class ProductListModel extends ProductModel {
     this.productList = [];
   }
 
-  subscribeProductButton() {
-    productButtonObservers;
+  changeCount(data) {
+    console.log(data.id)
+    console.log(this.productList)
   }
+
+
 
   async getOrderData() {
     const response = await this.fetchProductData.fetchProductData();

@@ -1,4 +1,4 @@
-import { addClassName, createRandomNumber } from '../../util/util';
+import { addClassName, createRandomNumber, isEmpty } from '../../util/util';
 
 export default class ProductModel {
   constructor(order, price, imgUrl) {
@@ -12,7 +12,5 @@ export default class ProductModel {
     addClassName(`order--button`, `order--button--possible`);
   }
 
-  updateCount() {
-    this.count--;
-  }
+
 }

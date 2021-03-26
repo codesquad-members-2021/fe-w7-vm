@@ -7,6 +7,12 @@ export default class ProductView extends ProductListModel {
   constructor() {
     super();
     this.title = _.vendingMachineTitle;
+    this.subscribeProductButton()
+  }
+
+
+  subscribeProductButton() {
+    productButtonObservers.subscribe(this.changeCount.bind(this));
   }
 
   async render() {
@@ -22,14 +28,9 @@ export default class ProductView extends ProductListModel {
   }
 
   clickProductButton() {
-    // $$('.order--button__container').addEventListener('click', () => productButtonObservers.fire());
-    $$('.order--button__container').forEach((el) => {
-      el.addEventListener('click', this.test.bind(this));
-    });
-  }
-
-  test() {
-    console.log('a');
+    $('.order--button__container').addEventListener('click', (e) => {
+        productButtonObservers.fire(e.target.closest('.order--button'))
+      });
   }
 
   renderTitle() {
@@ -40,10 +41,10 @@ export default class ProductView extends ProductListModel {
       `;
   }
 
-  getOrderItem(order, price, imgUrl, count) {
+  getOrderItem(order, price, imgUrl, count, idx) {
     return `
     <div class="list-group-item order--button__box">
-      <button type="button" class="btn btn-default order--button" data-count="${count}" data-price="${price}" disabled>
+      <button type="button" id="${idx}" class="btn btn-default order--button" data-count="${count}" data-price="${price}" disabled>
         <img src=${imgUrl} title="${order}" alt="${order}">
         <div class="order--price"><span>${price} ${_.money}</span></div>
       </button>
@@ -52,9 +53,9 @@ export default class ProductView extends ProductListModel {
   }
 
   renderOrderView() {
-    const orderView = this.productList.reduce((acc, value) => {
+    const orderView = this.productList.reduce((acc, value, idx) => {
       const { order, price, imgUrl, count } = value;
-      acc += this.getOrderItem(order, price, imgUrl, count);
+      acc += this.getOrderItem(order, price, imgUrl, count, idx);
       return acc;
     }, ``);
 

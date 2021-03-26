@@ -48,7 +48,10 @@ class ItemContainer {
 
 
   isSelected(value) {
-    this.onChangeGoods(value)
+    if (this.amount !== 0) 
+      this.onChangeGoods(value)
+    else
+      alert("품절")
   }
 
   render() {

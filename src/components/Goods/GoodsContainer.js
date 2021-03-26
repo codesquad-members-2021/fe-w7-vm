@@ -4,6 +4,8 @@ import { useSelector, useSubscribe, useDispatch } from "../../util/store/useStor
 import { outItem } from "../../util/actions/goods.js";
 import * as ACTION from "../../util/enums/action.js";
 
+import "./goods.scss";
+
 class GoodsContainer {
   constructor({$target}) {
     this.$target = $target;
@@ -20,8 +22,8 @@ class GoodsContainer {
     
     this.setState({});
     
-    this.subscribe( ACTION.OUT_ITEM, (name) => {
-      this.setState({type: "amount", name});
+    this.subscribe( ACTION.OUT_ITEM, (payload) => {
+      this.setState({type: "amount", name: payload.name});
     });
     
   }
@@ -44,11 +46,20 @@ class GoodsContainer {
   }
 
   render() {
-    const $goods = document.createElement("ul");
-    $goods.className = "goods"
+    const $goodsSection = /* html */`
+      <section class="goods--section">
+        
+        <ul class="goods-list">
+        </ul>
+      </section>
+    `
+    this.$target.insertAdjacentHTML("beforeend", $goodsSection);
+    const $goodsList = this.$target.querySelector("ul.goods-list");
 
     for (const name in this.goods) {
       const $good = document.createElement("li");
+      $good.className = "goods-list-item";
+      
       const item = new ItemContainer({
         $target: $good,
         name: name, 
@@ -58,10 +69,9 @@ class GoodsContainer {
       });
 
       this.items.push(item);
-      $goods.append($good);
+      $goodsList.append($good);
     }
 
-    this.$target.append($goods);
   }
 }
 

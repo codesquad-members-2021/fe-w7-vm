@@ -1,11 +1,15 @@
 .item {
-  border: 1px, solid, black;
-}
+  width: 100%;
+  min-height: 10px;
+  border: 1px solid black;
+  padding: 10px 10px;
+  
+  display:flex;
 
-.item.isSoldOut {
-  border: 1px, solid, red;
-}
-
-.item.isAbleToBuy {
-  border: 1px, solid, green;
+  &.is-sold-out {
+    border: 1px solid red;
+  }
+  &.is-able-to-buy {
+    border: 1px solid green;
+  }
 }

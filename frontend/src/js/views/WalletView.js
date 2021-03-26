@@ -12,12 +12,15 @@ class WalletView {
         const {
             progressWrapSelector,
             inputMoneyStatusSelector,
+            progressStatusSelector,
             returnMoneyBtnSelector,
         } = walletReference;
 
         this.progressWrapper = _.$(progressWrapSelector);
         this.inputMoneyStatus = _.$(inputMoneyStatusSelector, this.progressWrapper);
+        this.progressStatus = _.$(progressStatusSelector, this.progressWrapper);
         this.returnMoneyBtn = _.$(returnMoneyBtnSelector, this.progressWrapper);
+        this.inputTypeInfo = '';
         // =========
 
         this.init();
@@ -89,7 +92,7 @@ class WalletView {
 
         // 임시: ProgressView 관련
         this.renderUpdateInputMoneyStatus(walletModel.insertTotal);
-
+        this.renderProgressStatus(target, clickedCurrency); //투입버튼, 반환버튼, 상품버튼 전부 재사용할 것.
         // ---
 
         this.renderDisableCurrencyBtn(target);
@@ -114,10 +117,11 @@ class WalletView {
     };
 
     // 임시: ProgressView 관련
-    renderUpdateInputMoneyStatus = (insertTotalData = 0) => 
+    renderUpdateInputMoneyStatus = (insertTotalData = 0) =>
         (this.inputMoneyStatus.textContent = `${addCommaToNumber(
             insertTotalData,
         )}원`);
+
 
     // 반환 버튼 클릭
     setReturnMoneyBtnClickEvent = (returnMoneyBtn, walletModel) =>
@@ -142,7 +146,22 @@ class WalletView {
             const countContainer = btn.nextElementSibling;
             countContainer.textContent = `${currencyCnt}개`;
         });
-    }
+    };
+
+    createUpdatedMsg = (target, updatedData) => {
+        console.log(target)
+        let msg;
+        if (_.contains(target, "currency-btn")) msg = `💶 ${updatedData.type}원이 투입되었습니다.<br>`;
+        if (target === this.returnMoneyBtn) msg = `반환되었습니다.<br>`;  //테스트 해야함.
+        //product가 선택되었을 때 조건 추가해야함.
+        this.inputTypeInfo += msg;
+        return this.inputTypeInfo;
+    };
+
+    renderProgressStatus = (target, updatedData) => {
+        const newMsg = this.createUpdatedMsg(target, updatedData);
+        this.progressStatus.innerHTML = newMsg;
+    };
     // ---
 }
 

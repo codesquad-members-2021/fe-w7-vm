@@ -16,7 +16,7 @@ const REFERENCE = {
         // 임시 (ProgressView 관련)
         progressWrapSelector: '#progressWrapper',
         inputMoneyStatusSelector: '.progress-current-value',
-        // progressStatusSelector : '.progress-current-status',
+        progressStatusSelector : '.progress-current-status',
         returnMoneyBtnSelector: '#returnBtn'
         //--------
     },

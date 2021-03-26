@@ -1,24 +1,23 @@
 import ProcessPresentational from "./processPresentational.js"
+import CurrentMoneyPresentational from "./currentMoneyDisplay/currentMoneyPresentational.js";
+import ReturnButtonPresentational from "./returnButton/returnButtonPresentational.js"
+import MessagesPresentational from "./messages/messagesPresentational.js"
 import { useSelector, useSubscribe } from "../../util/store/useStore.js";
 import * as ACTION from "../../util/enums/action.js";
 
 class ProcessContainer {
-	constructor({ $target, state }) {
-
+	constructor({ $target }) {
 		this.moneyPocket = [];
 		this.currentMoney = 0;
 		this.messages = [];
 		this.buttonStatus = false;
-
 		this.presentationals = null;
 
-		// this.setState(state);
-
+		// process 이니셜라이즈
 		this.$process = document.createElement("section");
 		this.$process.className = "process";
 		$target.appendChild(this.$process);
-
-		this.setState({}); // 렌더링 이니셜라이즈
+		this.setState({ type: "INIT" });
 
 		let subscribe = useSubscribe("goods");
 
@@ -29,7 +28,13 @@ class ProcessContainer {
 				item: { name: name, price: 700 }
 			})
 		})
-		//subscribe(ACTION)
+		subscribe(ACTION.OUT_MONEY, (name) => {
+			this.setState({
+				type: "CHANGE_CASH",
+				method: "put",
+				item: { name }
+			})
+		})
 	}
 
 	setState(state) {
@@ -48,8 +53,9 @@ class ProcessContainer {
 
 			case "SELECT_GOODS":
 				if (state.method === "select") {
+					// 현재 이부분이 item.price가 필요합니다.
 					this.currentMoney -= state.item.price;
-					this.moneyPocket = this.changeMoney(this.currentMoney);
+					this.moneyPocket = this.makeChange(this.currentMoney);
 				}
 				break;
 			default:
@@ -67,22 +73,6 @@ class ProcessContainer {
 		this.render();
 	}
 
-	returnMoney() {
-		const shiftedCoin = this.moneyPocket.shift();
-
-		const state = {
-			type: "CHANGE_CASH",
-			method: "return",
-			item: shiftedCoin
-		};
-
-		this.setState(state);
-
-		if (this.moneyPocket.length > 0) {
-			this.returnMoney();
-		}
-	}
-
 	updateMessage(state) {
 		this.messages.push(this.selectMessage(state));
 	}
@@ -91,7 +81,7 @@ class ProcessContainer {
 		switch (state.type) {
 			case "INIT":
 				this.currentMoney = 0;
-				return `자판기 시작`
+				return `-- PPAMPPAM & SWING Vending Machine is on --`
 
 			case "CHANGE_CASH":
 				if (state.method === "put") {
@@ -114,7 +104,23 @@ class ProcessContainer {
 		}
 	}
 
-	changeMoney(currentMoney) {
+	handleReturnButton() {
+		const shiftedCoin = this.moneyPocket.shift();
+
+		const state = {
+			type: "CHANGE_CASH",
+			method: "return",
+			item: shiftedCoin
+		};
+
+		this.setState(state);
+
+		if (this.moneyPocket.length > 0) {
+			this.returnMoney();
+		}
+	}
+
+	makeChange(currentMoney) {
 		const currentMoneyArr = currentMoney.toString().split("").reverse();
 		let zero = "";
 		let change = [];
@@ -140,7 +146,6 @@ class ProcessContainer {
 	}
 
 	render() {
-
 		this.$process.innerHTML = "";
 
 		this.presentationals = {
@@ -149,7 +154,7 @@ class ProcessContainer {
 				currentMoney: this.currentMoney, // 머니 컴포넌트 상태
 				messages: this.messages, // 메세지 컴포넌트 상태
 				buttonStatus: this.buttonStatus, // 버튼 컴포넌트 상태
-				reset: this.returnMoney.bind(this)
+				onClickReturnButton: this.handleReturnButton.bind(this)
 			})
 		}
 	}

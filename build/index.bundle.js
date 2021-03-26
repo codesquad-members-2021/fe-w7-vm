@@ -492,7 +492,6 @@ class App {
     this.store = _util_store_root_js__WEBPACK_IMPORTED_MODULE_3__.default;
     (0,_util_store_useStore_js__WEBPACK_IMPORTED_MODULE_4__.useStore)(_util_store_root_js__WEBPACK_IMPORTED_MODULE_3__.default); // store initialize
 
-    this.state = { process: {} } // 향후 모델로 옮겨집니다.
     this.init()
 
     this.setState({});
@@ -548,8 +547,7 @@ class App {
     this.goods = new _components_Goods_GoodsContainer_js__WEBPACK_IMPORTED_MODULE_1__.default({ $target: this.$target });
 
     this.process = new _components_process_processContainer_js__WEBPACK_IMPORTED_MODULE_2__.default({
-      $target: this.$target,
-      state: this.state.process
+      $target: this.$target
     })
   }
 }
@@ -861,9 +859,8 @@ class MessagesPresentational {
 		$target.appendChild($messages_section)
 
 		messages.forEach((message) => {
-			const $message = `
-            <div class="message">${message}</div>
-            `;
+			const $message = `<div class="message">${message}</div>`;
+
 			$messages_section.insertAdjacentHTML("beforeend", $message)
 		})
 	}
@@ -884,40 +881,48 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
 /* harmony export */ });
 /* harmony import */ var _processPresentational_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./processPresentational.js */ "./src/components/process/processPresentational.js");
-/* harmony import */ var _util_store_useStore_js__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../../util/store/useStore.js */ "./src/util/store/useStore.js");
-/* harmony import */ var _util_enums_action_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../../util/enums/action.js */ "./src/util/enums/action.js");
+/* harmony import */ var _currentMoneyDisplay_currentMoneyPresentational_js__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./currentMoneyDisplay/currentMoneyPresentational.js */ "./src/components/process/currentMoneyDisplay/currentMoneyPresentational.js");
+/* harmony import */ var _returnButton_returnButtonPresentational_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./returnButton/returnButtonPresentational.js */ "./src/components/process/returnButton/returnButtonPresentational.js");
+/* harmony import */ var _messages_messagesPresentational_js__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./messages/messagesPresentational.js */ "./src/components/process/messages/messagesPresentational.js");
+/* harmony import */ var _util_store_useStore_js__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ../../util/store/useStore.js */ "./src/util/store/useStore.js");
+/* harmony import */ var _util_enums_action_js__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ../../util/enums/action.js */ "./src/util/enums/action.js");
+
+
+
 
 
 
 
 class ProcessContainer {
-	constructor({ $target, state }) {
-
+	constructor({ $target }) {
 		this.moneyPocket = [];
 		this.currentMoney = 0;
 		this.messages = [];
 		this.buttonStatus = false;
-
 		this.presentationals = null;
 
-		// this.setState(state);
-
+		// process 이니셜라이즈
 		this.$process = document.createElement("section");
 		this.$process.className = "process";
 		$target.appendChild(this.$process);
+		this.setState({ type: "INIT" });
 
-		this.setState({}); // 렌더링 이니셜라이즈
+		let subscribe = (0,_util_store_useStore_js__WEBPACK_IMPORTED_MODULE_4__.useSubscribe)("goods");
 
-		let subscribe = (0,_util_store_useStore_js__WEBPACK_IMPORTED_MODULE_1__.useSubscribe)("goods");
-
-		subscribe(_util_enums_action_js__WEBPACK_IMPORTED_MODULE_2__.OUT_ITEM, (name) => {
+		subscribe(_util_enums_action_js__WEBPACK_IMPORTED_MODULE_5__.OUT_ITEM, (name) => {
 			this.setState({
 				type: "SELECT_GOODS",
 				method: "select",
 				item: { name: name, price: 700 }
 			})
 		})
-		//subscribe(ACTION)
+		subscribe(_util_enums_action_js__WEBPACK_IMPORTED_MODULE_5__.OUT_MONEY, (name) => {
+			this.setState({
+				type: "CHANGE_CASH",
+				method: "put",
+				item: { name }
+			})
+		})
 	}
 
 	setState(state) {
@@ -936,8 +941,9 @@ class ProcessContainer {
 
 			case "SELECT_GOODS":
 				if (state.method === "select") {
+					// 현재 이부분이 item.price가 필요합니다.
 					this.currentMoney -= state.item.price;
-					this.moneyPocket = this.changeMoney(this.currentMoney);
+					this.moneyPocket = this.makeChange(this.currentMoney);
 				}
 				break;
 			default:
@@ -955,22 +961,6 @@ class ProcessContainer {
 		this.render();
 	}
 
-	returnMoney() {
-		const shiftedCoin = this.moneyPocket.shift();
-
-		const state = {
-			type: "CHANGE_CASH",
-			method: "return",
-			item: shiftedCoin
-		};
-
-		this.setState(state);
-
-		if (this.moneyPocket.length > 0) {
-			this.returnMoney();
-		}
-	}
-
 	updateMessage(state) {
 		this.messages.push(this.selectMessage(state));
 	}
@@ -979,7 +969,7 @@ class ProcessContainer {
 		switch (state.type) {
 			case "INIT":
 				this.currentMoney = 0;
-				return `자판기 시작`
+				return `-- PPAMPPAM & SWING Vending Machine is on --`
 
 			case "CHANGE_CASH":
 				if (state.method === "put") {
@@ -1002,7 +992,23 @@ class ProcessContainer {
 		}
 	}
 
-	changeMoney(currentMoney) {
+	handleReturnButton() {
+		const shiftedCoin = this.moneyPocket.shift();
+
+		const state = {
+			type: "CHANGE_CASH",
+			method: "return",
+			item: shiftedCoin
+		};
+
+		this.setState(state);
+
+		if (this.moneyPocket.length > 0) {
+			this.returnMoney();
+		}
+	}
+
+	makeChange(currentMoney) {
 		const currentMoneyArr = currentMoney.toString().split("").reverse();
 		let zero = "";
 		let change = [];
@@ -1028,7 +1034,6 @@ class ProcessContainer {
 	}
 
 	render() {
-
 		this.$process.innerHTML = "";
 
 		this.presentationals = {
@@ -1037,7 +1042,7 @@ class ProcessContainer {
 				currentMoney: this.currentMoney, // 머니 컴포넌트 상태
 				messages: this.messages, // 메세지 컴포넌트 상태
 				buttonStatus: this.buttonStatus, // 버튼 컴포넌트 상태
-				reset: this.returnMoney.bind(this)
+				onClickReturnButton: this.handleReturnButton.bind(this)
 			})
 		}
 	}
@@ -1065,48 +1070,23 @@ __webpack_require__.r(__webpack_exports__);
 
 
 class ProcessPresentational {
-	constructor({ $target, currentMoney, reset, messages, buttonStatus }) {
+	constructor({ $target, currentMoney, messages, buttonStatus, onClickReturnButton }) {
 		this.presentationals = null;
 
-		this.render($target, currentMoney, reset, messages, buttonStatus)
+		this.render($target, currentMoney, messages, buttonStatus, onClickReturnButton)
 	}
 
-	render($target, currentMoney, reset, messages, buttonStatus) {
-		console.log($target)
-
-		const $wrap_process = document.createElement("section");
-		$wrap_process.className = "wrap-process";
-
-		$target.appendChild($wrap_process)
+	render($target, currentMoney, messages, buttonStatus, onClickReturnButton) {
 
 		this.presentationals = {
-			currentMoney: new _currentMoneyDisplay_currentMoneyPresentational_js__WEBPACK_IMPORTED_MODULE_0__.default({
-				$target: $wrap_process,
-				currentMoney
-			}),
-			returnButton: new _returnButton_returnButtonPresentational_js__WEBPACK_IMPORTED_MODULE_1__.default({
-				$target: $wrap_process,
-				buttonStatus,
-				reset
-			}),
-			messages: new _messages_messagesPresentational_js__WEBPACK_IMPORTED_MODULE_2__.default({
-				$target: $wrap_process,
-				messages
-			})
+			currentMoney: new _currentMoneyDisplay_currentMoneyPresentational_js__WEBPACK_IMPORTED_MODULE_0__.default({ $target, currentMoney }),
+			returnButton: new _returnButton_returnButtonPresentational_js__WEBPACK_IMPORTED_MODULE_1__.default({ $target, buttonStatus, onClickReturnButton }),
+			messages: new _messages_messagesPresentational_js__WEBPACK_IMPORTED_MODULE_2__.default({ $target, messages })
 		}
 	}
 }
 
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (ProcessPresentational);
-
-// handle[함수][상태]
-// 컨테이너의 함수
-/* const handleSubmitMoneyInput */
-/* const handleClickReturnButton */
-
-// 돔을 다루는 프레젠테이셔널 의 함수
-/* const onClickReturnButton */
-/* const onSubmitMoneyInput */
 
 /***/ }),
 
@@ -1121,20 +1101,19 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
 /* harmony export */ });
 class ReturnButtonPresentational {
-	constructor({ $target, buttonStatus, reset }) {
-		this.render($target, buttonStatus, reset)
+	constructor({ $target, buttonStatus, onClickReturnButton }) {
+		this.render($target, buttonStatus, onClickReturnButton)
 	}
 
-	addEvent($target, reset) {
-		$target.querySelector(".return-button").addEventListener("click", () => reset())
+	addEvent($target, onClickReturnButton) {
+		$target.querySelector(".return-button").addEventListener("click", () => onClickReturnButton())
 	}
 
-	render($target, buttonStatus, reset) {
+	render($target, buttonStatus, onClickReturnButton) {
 		const $returnButton_section = document.createElement("section");
 		$returnButton_section.className = "return-button-section";
 
 		$target.appendChild($returnButton_section)
-
 
 		let $returnButton;
 		if (buttonStatus) {
@@ -1143,11 +1122,9 @@ class ReturnButtonPresentational {
 			$returnButton = `<button class="return-button">반환</button>`;
 		}
 		$returnButton_section.insertAdjacentHTML("beforeend", $returnButton);
-		this.addEvent($target, reset);
+		// 라이프사이클 mounted
+		this.addEvent($target, onClickReturnButton);
 	}
-
-	// 라이프 사이클
-	// mount() {}
 
 }
 

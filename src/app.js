@@ -21,7 +21,6 @@ class App {
     this.store = store;
     useStore(store); // store initialize
 
-    this.state = { process: {} } // 향후 모델로 옮겨집니다.
     this.init()
 
     this.setState({});
@@ -77,8 +76,7 @@ class App {
     this.goods = new GoodsContainer({ $target: this.$target });
 
     this.process = new ProcessContainer({
-      $target: this.$target,
-      state: this.state.process
+      $target: this.$target
     })
   }
 }

@@ -14,7 +14,7 @@ export default class ProductContainerView {
     init() {
         this.$container = this.getContainerEl();
         this.setEvent();
-        this.fetchInfo()
+        this.fetchInfo();
     }
     getContainerEl() {
         return _.genEl('UL', {
@@ -28,7 +28,6 @@ export default class ProductContainerView {
         const $product = target.closest('.product')
         if($product == null) return;
         const selectedIdx = $product.dataset.index;
-        console.log(selectedIdx)
         this.model.notifySelectedItem(selectedIdx); // model에 선택된 아이템 인덱스 전달
     }
     async fetchInfo() {
@@ -60,10 +59,11 @@ export default class ProductContainerView {
         });
     }
     renderAvailable(e) {
-        const indexArr = e.detail.itemIdxArr;
-        this.$products.forEach(e => e.classList.remove('.available'))
+        const moneySum = e.detail.moneySum;
+        const indexArr = this.model.getAvailableItems(moneySum);
+        this.$products.forEach(e => e.classList.remove('available'))
         if(indexArr.length == 0) return;
-        indexArr.forEach(i => this.$products[i].classList.add('.available'));
+        indexArr.forEach(i => this.$products[i].classList.add('available'));
     }
     getEl() {
         return this.$container;

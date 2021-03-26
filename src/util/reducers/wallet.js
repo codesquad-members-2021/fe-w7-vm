@@ -5,11 +5,12 @@ const initialState = {
 }
 
 const wallet = (state = initialState, { type, payload }) => {
-  const name = Object.keys(payload)[0];
-  const value = Object.values(payload)[0];
   
   switch(type) {
     case ACTION.ADD_MONEY:
+      const name = Object.keys(payload)[0];
+      const value = Object.values(payload)[0];
+  
       // 처음 들어올 때
       if (!state.wallet?.[name]) {
         return  { 
@@ -32,12 +33,12 @@ const wallet = (state = initialState, { type, payload }) => {
       }
     
     case ACTION.OUT_MONEY:
-      const payloadReturn = state.wallet[name].pop();
+      const payloadReturn = state.wallet[payload].pop();
       return {
         state: {
           wallet: {
             ...state.wallet,
-            [name]: state.wallet[name]
+            [payload]: state.wallet[payload]
           }
         },
         payloadReturn: payloadReturn

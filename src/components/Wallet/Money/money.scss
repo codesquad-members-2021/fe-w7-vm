@@ -1,4 +1,4 @@
-.item {
+.money {
   width: 100%;
   min-height: 10px;
   border: 1px solid black;
@@ -6,10 +6,10 @@
   
   display:flex;
 
-  &.is-sold-out {
+  &.is-none {
     border: 1px solid red;
   }
-  &.is-able-to-buy {
+  &.is-able-to-use {
     border: 1px solid green;
   }
 }

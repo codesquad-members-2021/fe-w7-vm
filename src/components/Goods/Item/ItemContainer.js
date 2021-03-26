@@ -1,13 +1,7 @@
 import ItemPresentational from "./ItemPresentational.js";
 import * as ITME_ENUM from "../../../util/enums/item.js";
 
-// import { useDispatch, useSubscribe, useSelector } from "../../../util/store/useStore.js";
-// import { outItem } from "../../../util/actions/goods.js";
-// import * as ACTION from "../../../util/enums/action.js";
-
 import "./item.scss";
-
-// const STATUS = ["default", "isAbleToBuy", "isSoldOut"];
 
 class ItemContainer {
   constructor({ $target, name, korean, amount, handleChangeGoods }) {
@@ -48,7 +42,10 @@ class ItemContainer {
 
 
   isSelected(value) {
-    this.onChangeGoods(value)
+    if (this.amount !== 0) 
+      this.onChangeGoods(value)
+    else
+      alert("품절")
   }
 
   render() {

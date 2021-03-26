@@ -11,7 +11,14 @@ const REFERENCE = {
     },
     wallet: {
         walletWrapSelector: '#walletWrapper',
-        budgetTotalSelector: '#budgetContainer'
+        budgetTotalSelector: '#budgetContainer',
+
+        // 임시 (ProgressView 관련)
+        progressWrapSelector: '#progressWrapper',
+        inputMoneyStatusSelector: '.progress-current-value',
+        // progressStatusSelector : '.progress-current-status',
+        returnMoneyBtnSelector: '#returnBtn'
+        //--------
     },
     progress: {
         progressWrapSelector: '#progressWrapper',

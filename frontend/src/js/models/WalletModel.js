@@ -5,8 +5,10 @@ class WalletModel {
         this.currencyTypes = [10, 50, 100, 500, 1000, 5000, 10000];
         this.budgetData;
         this.totalBudget;
+
         this.insertMoneyData;
-    }
+        this.insertTotal;
+    };
 
     // 지갑 지폐 단위 및 잔여금액 데이터 생성
     createBudget = () => {
@@ -26,6 +28,13 @@ class WalletModel {
 
     calculateTotalBudgetValue = () =>
         this.budgetData.reduce(
+            (initValue, currencyData) =>
+                (initValue += currencyData['type'] * currencyData['count']),
+            0,
+        );
+
+    calculateTotalValue = (arrCurrencyData) =>      // calculateTotalBudgetValue 지울수도..
+        arrCurrencyData.reduce(
             (initValue, currencyData) =>
                 (initValue += currencyData['type'] * currencyData['count']),
             0,
@@ -59,6 +68,10 @@ class WalletModel {
         const toBeUpdateItem = this.findCurrency(this.insertMoneyData, currencyType);
         toBeUpdateItem.count++;
     };
+
+    // Progress - 돈 투입되었을 시, 총 투입금액 Update
+    updateInsertTotal = () =>
+        this.insertTotal = this.calculateTotalValue(this.insertMoneyData);
 }
 
 export default WalletModel;

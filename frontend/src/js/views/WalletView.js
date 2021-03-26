@@ -3,8 +3,22 @@ import _, {addCommaToNumber} from "../utils/util.js";
 class WalletView {
     constructor(walletModel, walletReference) {
         this.walletModel = walletModel;
-        this.walletViewWrapper = _.$(walletReference.walletWrapSelector);
-        this.budgetTotalContainer = _.$(walletReference.budgetTotalSelector);
+
+        const { walletWrapSelector, budgetTotalSelector } = walletReference;
+        this.walletViewWrapper = _.$(walletWrapSelector);
+        this.budgetTotalContainer = _.$(budgetTotalSelector);
+
+        // ---------- ProgressView 관련
+        const {
+            progressWrapSelector,
+            inputMoneyStatusSelector,
+            returnMoneyBtnSelector,
+        } = walletReference;
+
+        this.progressWrapper = _.$(progressWrapSelector);
+        this.inputMoneyStatus = _.$(inputMoneyStatusSelector, this.progressWrapper);
+        this.returnMoneyBtn = _.$(returnMoneyBtnSelector, this.progressWrapper);
+        // =========
 
         this.init();
     }
@@ -33,6 +47,21 @@ class WalletView {
 
         budgetTotalContainer.textContent = `${addCommaToNumber(totalBudget)}원`;
     };
+    createWalletHTML = (currencyType, count) => {
+        const html = `
+        <li class="wallet-grid-item">
+            <button
+                type="button"
+                class="currency-btn m-auto py-1 rounded btn btn-success"
+                data-id="${currencyType}"
+            >
+                ${currencyType}원
+            </button>
+            <span class="currency-count bg-white m-auto py-1 border rounded">${count}개</span>
+        </li>
+        `;
+        return html;
+    }
 
     // 지갑 버튼 클릭 Event
     setCurrencyBtnClickEvent = (currencyBtns, walletModel) => (
@@ -49,9 +78,15 @@ class WalletView {
         walletModel.updateDecreaseCurrencyCnt(currencyType);
         walletModel.updateBudgetTotal(parseInt(currencyType));
         walletModel.updateInsertMoneyData(currencyType);
+        walletModel.updateInsertTotal();
 
         this.renderUpdateCurrecnyCnt(target, clickedCurrency);
         this.renderUpdateTotalBudget(walletModel.totalBudget);
+
+        // 임시: ProgressView 관련
+        this.renderUpdateInputMoneyStatus(walletModel.insertTotal);
+
+        // ---
 
         this.renderDisableCurrencyBtn(target);
     };
@@ -74,21 +109,12 @@ class WalletView {
         _.addClass(currencyBtn, 'disabled', 'disabled__item');
     };
 
-    createWalletHTML = (currencyType, count) => {
-        const html = `
-        <li class="wallet-grid-item">
-            <button
-                type="button"
-                class="currency-btn m-auto py-1 rounded btn btn-success"
-                data-id="${currencyType}"
-            >
-                ${currencyType}원
-            </button>
-            <span class="currency-count bg-white m-auto py-1 border rounded">${count}개</span>
-        </li>
-        `;
-        return html;
-    }
+    // 임시: ProgressView 관련
+    renderUpdateInputMoneyStatus = (insertTotalData) => 
+        (this.inputMoneyStatus.textContent = `${addCommaToNumber(
+            insertTotalData,
+        )}원`);
+    // ---
 }
 
 export default WalletView;

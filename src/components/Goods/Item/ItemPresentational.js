@@ -4,13 +4,13 @@ class ItemPresentational {
   constructor({ $target, korean, name, status, amount, isSelected }) {
     this.render($target, korean, name, status, amount, isSelected);
   }
-  
+
   render($target, korean, name, status, amount, isSelected) {
     $target.innerHTML = ""; // 초기화
-    
+
     const $item = document.createElement("div");
     $item.className = "item";
-    
+
     let $itemContents;
     switch (status) {
       case ITEM_ENUM.STATUS.default:
@@ -29,17 +29,17 @@ class ItemPresentational {
         $itemContents = /* html */ `
           <span> ${korean} 품절 </span>
         `;
-        break; 
+        break;
     }
     $item.insertAdjacentHTML("beforeend", $itemContents);
-    
+
     $item.addEventListener("click", (e) => {
       console.log(e.target.innerText, e.target);
       isSelected(name)
     })
 
     $target.append($item);
-    
+
   }
 }
 

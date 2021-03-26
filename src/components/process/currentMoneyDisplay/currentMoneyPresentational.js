@@ -4,13 +4,17 @@ class CurrentMoneyPresentational {
 	}
 
 	render($target, currentMoney) {
-		$target.innerHTML = "";
+
+		const $currentMoney_section = document.createElement("section");
+		$currentMoney_section.className = "current-money-section";
+
+		$target.appendChild($currentMoney_section)
 
 		const $currentMoney = `
             <span class="current-money">${currentMoney} 원</span>
         `;
 
-		$target.insertAdjacentHTML("beforeend", $currentMoney)
+		$currentMoney_section.insertAdjacentHTML("beforeend", $currentMoney)
 	}
 }
 

@@ -1,34 +1,35 @@
-import CurrentMoneyPresentational from "./currentMoneyDisplay/currentMoneyPresentational.js";
-import ReturnButtonPresentational from "./returnButton/returnButtonPresentational.js"
-import MessagesPresentational from "./messages/messagesPresentational.js"
+import ProcessPresentational from "./processPresentational.js"
+import { useSelector, useSubscribe } from "../../util/store/useStore.js";
+import * as ACTION from "../../util/enums/action.js";
 
 class ProcessContainer {
 	constructor({ $target, state }) {
-		this.$target = $target;
 
 		this.moneyPocket = [];
-		this.currentMoney = null;
+		this.currentMoney = 0;
 		this.messages = [];
+		this.buttonStatus = false;
 
 		this.presentationals = null;
 
-		const testState = {
-			type: "CHANGE_CASH",
-			method: "put",
-			item: 1000
-		}
+		// this.setState(state);
 
-		const testState2 = {
-			type: "SELECT_GOODS",
-			method: "selected",
-			item: { name: "COKE", price: 500 }
-		}
+		this.$process = document.createElement("section");
+		this.$process.className = "process";
+		$target.appendChild(this.$process);
 
-		const testState3 = {
-			type: "INIT"
-		}
-		this.setState(state);
-		// this.setState(testState)
+		this.setState({}); // 렌더링 이니셜라이즈
+
+		let subscribe = useSubscribe("goods");
+
+		subscribe(ACTION.OUT_ITEM, (name) => {
+			this.setState({
+				type: "SELECT_GOODS",
+				method: "select",
+				item: { name: name, price: 700 }
+			})
+		})
+		//subscribe(ACTION)
 	}
 
 	setState(state) {
@@ -46,15 +47,21 @@ class ProcessContainer {
 				}
 
 			case "SELECT_GOODS":
-				if (state.method === "selected") {
+				if (state.method === "select") {
 					this.currentMoney -= state.item.price;
 					this.moneyPocket = this.changeMoney(this.currentMoney);
-					console.log(this.moneyPocket)
 				}
 				break;
 			default:
 				new Error(`${state.type} || ${state.method} is undefined`);
 				break;
+		}
+
+		// currentMoney가 0일때 버튼 비활성화 시키기
+		if (this.currentMoney === 0) {
+			this.buttonStatus = true;
+		} else {
+			this.buttonStatus = false;
 		}
 		// 상태 변경 후 리렌더링
 		this.render();
@@ -71,7 +78,7 @@ class ProcessContainer {
 
 		this.setState(state);
 
-		if (this.moneyPocket.length !== 0) {
+		if (this.moneyPocket.length > 0) {
 			this.returnMoney();
 		}
 	}
@@ -96,7 +103,7 @@ class ProcessContainer {
 				break;
 
 			case "SELECT_GOODS":
-				if (state.method === "selected") {
+				if (state.method === "select") {
 					return `${state.item.name} 선택 하셨습니다.`
 				}
 				break;
@@ -133,36 +140,16 @@ class ProcessContainer {
 	}
 
 	render() {
-		const $process = document.createElement("section");
-		$process.className = "process";
 
-		const $currentMoney = document.createElement("section");
-		$currentMoney.className = "current-money-section";
-
-		const $returnButton = document.createElement("section");
-		$returnButton.className = "return-button-section";
-
-		const $messages = document.createElement("section");
-		$messages.className = "messages-section";
-
-		const elements = [$currentMoney, $returnButton, $messages];
-
-		elements.forEach((element) => $process.appendChild(element))
-
-		this.$target.appendChild($process)
+		this.$process.innerHTML = "";
 
 		this.presentationals = {
-			currentMoney: new CurrentMoneyPresentational({
-				$target: $currentMoney,
-				currentMoney: this.currentMoney
-			}),
-			returnButton: new ReturnButtonPresentational({
-				$target: $returnButton,
+			process: new ProcessPresentational({
+				$target: this.$process,
+				currentMoney: this.currentMoney, // 머니 컴포넌트 상태
+				messages: this.messages, // 메세지 컴포넌트 상태
+				buttonStatus: this.buttonStatus, // 버튼 컴포넌트 상태
 				reset: this.returnMoney.bind(this)
-			}),
-			messages: new MessagesPresentational({
-				$target: $messages,
-				messages: this.messages
 			})
 		}
 	}

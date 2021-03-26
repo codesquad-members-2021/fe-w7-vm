@@ -4,7 +4,7 @@ import * as ITME_ENUM from "../../../util/enums/item.js";
 import "./item.scss";
 
 class ItemContainer {
-  constructor({ $target, name, korean, amount, handleChangeGoods }) {
+  constructor({ $target, name, price, korean, amount, handleChangeGoods }) {
     this.$target = $target;
     this.presentational = null;
 
@@ -12,6 +12,7 @@ class ItemContainer {
     this.amount = null;
     this.name = name;
     this.korean = korean;
+    this.price = price;
     this.status = ITME_ENUM.STATUS.default;
     
     this.onChangeGoods = handleChangeGoods;
@@ -56,6 +57,7 @@ class ItemContainer {
       name: this.name,
       korean: this.korean,
       status: this.status,
+      price: this.price,
       amount: this.amount,
       isSelected: this.isSelected.bind(this)
     });

@@ -16,13 +16,13 @@ class MoneyPresentational {
       case MONEY_ENUM.STATUS.isNone:
         $money.className += " is-none"
         $moneyContents = /* html */ `
-          <span> ${volume}, ${amount} </span>
+          <span> ${volume} 원, ${amount} 개</span>
         `;
         break;
       case MONEY_ENUM.STATUS.isAbleToUse:
         $money.className += " is-able-to-use"
         $moneyContents = /* html */ `
-          <span> ${volume} ${amount} </span>
+          <span> ${volume} 원, ${amount} 개 </span>
         `;
         break;
     }

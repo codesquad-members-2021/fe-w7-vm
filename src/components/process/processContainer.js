@@ -6,11 +6,14 @@ import "./scss/styles.scss"
 
 class ProcessContainer {
 	constructor({ $target }) {
-		this.moneyPocket = [];
+		
+    this.moneyPocket = [];
 		this.currentMoney = 0;
 		this.messages = [];
 		this.buttonStatus = false;
-		this.presentationals = null;
+		
+    this.presentationals = null;
+    this.dispatch = useDispatch("wallet");
 
 		// process 이니셜라이즈
 		this.$process = document.createElement("section");
@@ -18,9 +21,8 @@ class ProcessContainer {
 		$target.appendChild(this.$process);
 		this.setState({ type: "INIT" });
 
-		this.dispatch = useDispatch("wallet");
+		
 		let subscribe = useSubscribe("goods");
-
 		subscribe(ACTION.OUT_ITEM, (payload) => {
 			this.setState({
 				type: "SELECT_GOODS",
@@ -31,7 +33,6 @@ class ProcessContainer {
     
     subscribe = useSubscribe("wallet");
 		subscribe(ACTION.OUT_MONEY, (volume) => {
-      console.log("서브스크라이브", volume)
 			this.setState({
 				type: "CHANGE_CASH",
 				method: "put",
@@ -52,7 +53,9 @@ class ProcessContainer {
 				}
 				else if (state.method === "return") {
 					this.currentMoney -= state.item.volume;
-					// this.dispatch(addMoney(state.item.volume))
+					this.dispatch(
+            addMoney({ [state.item.volume]: state.item.volume } )
+          )
 				}
 
 			case "SELECT_GOODS":

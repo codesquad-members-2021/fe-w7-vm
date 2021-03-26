@@ -24,6 +24,7 @@ export default class WalletView extends WalletModel {
     returnButtonObservers.subscribe(this.getReturnExtraMoney.bind(this));
     returnButtonObservers.subscribe(this.updateWalletData.bind(this));
     returnButtonObservers.subscribe(this.updateWalletMoney.bind(this));
+    returnButtonObservers.subscribe(this.toggleDisableButton.bind(this));
   }
 
   render() {

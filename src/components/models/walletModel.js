@@ -58,12 +58,19 @@ export default class WalletModel {
     walletButtonContainer.forEach((el, idx) => {
       if (this.checkUnitMoneyCount(idx)) {
         el.querySelector('.wallet--button').disabled = true;
-        this.toggleColorDiasbleButton(el, `wallet--count`, `wallet--count--disabled`);
+        this.addColorDiasbleButton(el, `wallet--count`, `wallet--count--disabled`);
+      } else {
+        el.querySelector('.wallet--button').disabled = false;
+        this.removeColorDiasbleButton(el, `wallet--count`, `wallet--count--disabled`);
       }
     });
   }
 
-  toggleColorDiasbleButton(element, className, addClassName) {
+  removeColorDiasbleButton(element, className, removeClassName) {
+    element.querySelector(`.${className}`).classList.remove(removeClassName);
+  }
+
+  addColorDiasbleButton(element, className, addClassName) {
     element.querySelector(`.${className}`).classList.add(addClassName);
   }
 }

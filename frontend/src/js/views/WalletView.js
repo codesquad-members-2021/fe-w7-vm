@@ -140,6 +140,7 @@ class WalletView {
         walletModel.updateTotalBudget();
         this.renderUpdateInputMoneyStatus();
         this.renderUpdateTotalBudget(walletModel.totalBudget);
+        this.renderProgressStatus(this.returnMoneyBtn, this.walletModel.insertTotal);
 
         const currencyBtns = _.$all(".currency-btn");
         this.renderUpdateCurrencyBtns(currencyBtns, walletModel);
@@ -155,15 +156,18 @@ class WalletView {
         });
     };
 
+    //progressStatus에서 보여줄 메세지 생성
     createUpdatedMsg = (target, updatedData) => {
         let msg;
+
         if (_.contains(target, "currency-btn")) msg = `💶 ${updatedData.type}원이 투입되었습니다.<br>`;
-        if (target === this.returnMoneyBtn) msg = `반환되었습니다.<br>`;  //테스트 해야함.
+        if (target === this.returnMoneyBtn) msg = `💸${updatedData}원이 반환되었습니다.<br>`;
         //product가 선택되었을 때 조건 추가해야함.
         this.inputTypeInfo += msg;
         return this.inputTypeInfo;
     };
 
+    //progressStatus에 메세지 렌더링
     renderProgressStatus = (target, updatedData) => {
         const newMsg = this.createUpdatedMsg(target, updatedData);
         this.progressStatus.innerHTML = newMsg;

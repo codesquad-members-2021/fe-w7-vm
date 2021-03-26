@@ -65,6 +65,7 @@ class GoodsContainer {
         name: name, 
         korean: this.goods[name][0].korean,
         amount: this.goods[name].length,
+        price: this.goods[name][0].price,
         handleChangeGoods: this.handleChangeGoods.bind(this)
       });
 

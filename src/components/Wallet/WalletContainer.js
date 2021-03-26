@@ -2,7 +2,7 @@ import MoneyContainer from "./Money/MoneyContainer.js";
 import "./wallet.scss";
 
 import { useSelector, useSubscribe, useDispatch } from "../../util/store/useStore.js";
-import { outMoney } from "../../util/actions/wallet.js";
+import { addMoney, outMoney } from "../../util/actions/wallet.js";
 import * as ACTION from "../../util/enums/action.js";
 
 class WalletContainer {
@@ -22,20 +22,38 @@ class WalletContainer {
     this.setState({});
     
     this.subscribe( ACTION.OUT_MONEY, (payload) => {
-      this.setState({type: "amount", volume: payload});
+      this.setState({ type: "amount", volume: payload });
+      // this.setState({ type: "price", volume: payload });
     });
+
+    this.subscribe( ACTION.ADD_MONEY, (payload) => {
+      this.wallet = useSelector((state) => {
+        return state.wallet.getState();
+      });
+      this.setState({ type: "amount", volume: Object.keys(payload)[0] });
+    });
+
+    // this.subscribe(ACTION.OUT_MONEY, (payload) => {
+		// 	this.setState({ type: "price", volume: payload });
+		// })
+
   }
   
   setState({ type, volume }) {
     switch (type) {
       case "amount":
         // console.log(this.items, volume)
+        console.log(this.wallet, volume, this.wallet[volume])
         this.items.map((item) => {
           if (item.volume === String(volume)) {
             item.setState({type, value: this.wallet[volume].length})
           }
         });
       return;
+      case "price":
+        break;
+      default:
+        break;
     }
     this.render();
   }

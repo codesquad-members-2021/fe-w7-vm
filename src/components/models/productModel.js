@@ -1,10 +1,7 @@
 import { addClassName, createRandomNumber } from '../../util/util';
-import Observer from '../observer/observer';
-import { $ } from '../../util/util';
 
-export default class ProductModel extends Observer {
+export default class ProductModel {
   constructor(order, price, imgUrl) {
-    super();
     this.order = order;
     this.price = price;
     this.imgUrl = imgUrl;

@@ -1,23 +1,12 @@
-import Observer from '../observer/observer';
 import { createWalletData } from '../getData/createWalletData';
 import { _ } from '../../util/const';
 import { $$, updateInputData } from '../../util/util';
 
-export default class WalletModel extends Observer {
+export default class WalletModel {
   constructor() {
-    super();
     this.wallet = createWalletData();
     this.walletData = this.wallet.walletData;
     this.walletMoney = this.wallet.walletMoney;
-    this.subscribeInsertMoney();
-  }
-
-  subscribeInsertMoney() {
-    this.subscribe(this.walletButtonObservers, this.minusMoney.bind(this));
-    this.subscribe(this.walletButtonObservers, this.getExtraMoney.bind(this));
-    this.subscribe(this.walletButtonObservers, this.updateWalletData.bind(this));
-    this.subscribe(this.walletButtonObservers, this.updateWalletMoney.bind(this));
-    this.subscribe(this.walletButtonObservers, this.toggleDisableButton.bind(this));
   }
 
   updateWalletData() {

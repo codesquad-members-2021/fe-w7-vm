@@ -1,10 +1,25 @@
 import { _ } from '../../util/const';
 import { $ } from '../../util/util';
 import OperationModel from '../models/operationModel';
+import { observer } from '../observer/observer';
 
-export default class OperationView {
+export default class OperationView extends OperationModel {
   constructor() {
-    this.display = new OperationModel();
+    super();
+    this.displayMoneySubscribe();
+    this.returnMoneySubscribe();
+  }
+
+  displayMoneySubscribe() {
+    observer.subscribe(observer.walletButtonObservers, this.plusDisplayMoney.bind(this));
+    observer.subscribe(observer.walletButtonObservers, this.updateDisplayMoney.bind(this));
+    observer.subscribe(observer.walletButtonObservers, this.changeStatePossible.bind(this));
+  }
+
+  returnMoneySubscribe() {
+    console.log(this);
+    observer.subscribe(observer.returnButtonObservers, this.currentMoney.bind(this));
+    observer.subscribe(observer.returnButtonObservers, this.updateDisplayMoney.bind(this));
   }
 
   addEvent() {
@@ -12,7 +27,7 @@ export default class OperationView {
   }
 
   clickReturnButton() {
-    $(`.extra--money__button`).addEventListener('click', () => this.display.fire(this.display.returnButtonObservers));
+    $(`.extra--money__button`).addEventListener('click', () => this.fire(this.returnButtonObservers));
   }
 
   render() {
@@ -29,7 +44,7 @@ export default class OperationView {
     return `
     <form class="navbar-form insert--money__form" role="search">
       <div class="form-group form-group-div">
-        <input type="text" class="form-control insert--money__input" placeholder="${_.money}" value="${this.display.insertMoney} ${_.money}">
+        <input type="text" class="form-control insert--money__input" placeholder="${_.money}" value="${this.insertMoney} ${_.money}">
       </div>
     </form>
       `;
@@ -47,7 +62,7 @@ export default class OperationView {
     return `
     <form class="navbar-form insert--money__form" role="search">
       <div class="form-group form-group-div">
-        <input type="text" class="form-control operating--window" placeholder="${_.info}" value="${this.display.message}">
+        <input type="text" class="form-control operating--window" placeholder="${_.info}" value="${this.message}">
       </div>
     </form>
     `;

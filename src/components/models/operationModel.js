@@ -1,26 +1,11 @@
 import { _ } from '../../util/const';
 import { updateInputData } from '../../util/util';
-import Observer from '../observer/observer';
 import { $, $$ } from '../../util/util';
 
-export default class OperationModel extends Observer {
+export default class OperationModel {
   constructor() {
-    super();
     this.insertMoney = 0;
     this.message = _.infoMessage;
-    this.displayMoneySubscribe();
-    this.returnMoneySubscribe();
-  }
-
-  displayMoneySubscribe() {
-    this.subscribe(this.walletButtonObservers, this.plusDisplayMoney.bind(this));
-    this.subscribe(this.walletButtonObservers, this.updateDisplayMoney.bind(this));
-    this.subscribe(this.walletButtonObservers, this.changeStatePossible.bind(this));
-  }
-
-  returnMoneySubscribe() {
-    this.subscribe(this.returnButtonObservers, this.currentMoney.bind(this));
-    this.subscribe(this.returnButtonObservers, this.updateDisplayMoney.bind(this));
   }
 
   isEnough(insertMoney, price) {
@@ -45,7 +30,8 @@ export default class OperationModel extends Observer {
   }
 
   currentMoney() {
-    const currentMoney = $(`insert--money__input`).value;
+    const currentMoney = $(`.insert--money__input`).value;
     console.log(currentMoney);
+    console.log(this.insertMoney);
   }
 }

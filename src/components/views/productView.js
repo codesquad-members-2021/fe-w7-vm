@@ -1,10 +1,12 @@
 import { _ } from '../../util/const';
 import { createRandomNumber } from '../../util/util';
 import FetchProductData from '../getData/fetchProductData';
+import ProductListModel from '../models/productListModel';
 import ProductModel from '../models/productModel';
 
-export default class OrderView {
+export default class ProductView extends ProductListModel {
   constructor() {
+    super();
     this.title = _.vendingMachineTitle;
     this.fetchProductData = new FetchProductData();
     this.productList = [];
@@ -29,7 +31,7 @@ export default class OrderView {
   getOrderItem(order, price, imgUrl, count) {
     return `
     <div class="list-group-item order--button__box">
-      <button type="button" class="btn btn-default order--button" data-count="${count}" data-price="${price}">
+      <button type="button" class="btn btn-default order--button" data-count="${count}" data-price="${price}" disabled>
         <img src=${imgUrl} title="${order}" alt="${order}">
         <div class="order--price"><span>${price} ${_.money}</span></div>
       </button>
@@ -37,27 +39,27 @@ export default class OrderView {
     `;
   }
 
-  async getOrderData() {
-    const response = await this.fetchProductData.fetchProductData();
-    const dataList = response.data;
-    const dataListKeys = Object.keys(response.data);
+  // async getOrderData() {
+  //   const response = await this.fetchProductData.fetchProductData();
+  //   const dataList = response.data;
+  //   const dataListKeys = Object.keys(response.data);
 
-    const emptyDataList = Array(_.productItemCount).fill();
-    const orderDataList = emptyDataList.map(() => {
-      const randomIdx = createRandomNumber(dataListKeys.length);
-      const itemKey = dataListKeys[randomIdx];
-      const item = dataList[itemKey];
-      return {
-        order: item.name,
-        price: item.gold.base,
-        imgUrl: `http://ddragon.leagueoflegends.com/cdn/11.6.1/img/item/${itemKey}.png`,
-      };
-    });
-    this.productList = orderDataList.map((el) => {
-      const product = new ProductModel(el.order, el.price, el.imgUrl);
-      return product;
-    });
-  }
+  //   const emptyDataList = Array(_.productItemCount).fill();
+  //   const orderDataList = emptyDataList.map(() => {
+  //     const randomIdx = createRandomNumber(dataListKeys.length);
+  //     const itemKey = dataListKeys[randomIdx];
+  //     const item = dataList[itemKey];
+  //     return {
+  //       order: item.name,
+  //       price: item.gold.base,
+  //       imgUrl: `http://ddragon.leagueoflegends.com/cdn/11.6.1/img/item/${itemKey}.png`,
+  //     };
+  //   });
+  //   this.productList = orderDataList.map(({ order, price, imgUrl }) => {
+  //     const product = new ProductModel(order, price, imgUrl);
+  //     return product;
+  //   });
+  // }
 
   renderOrderView() {
     const orderView = this.productList.reduce((acc, value) => {

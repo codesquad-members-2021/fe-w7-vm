@@ -17,6 +17,7 @@ export default class OperationModel {
     classList.forEach((el) => {
       if (this.isEnough(this.insertMoney, el.dataset.price)) {
         el.classList.add('order--button--possible');
+        el.disabled = false;
       }
     });
   }
@@ -26,6 +27,7 @@ export default class OperationModel {
     classList.forEach((el) => {
       if (!this.isEnough(this.insertMoney, el.dataset.price)) {
         el.classList.remove('order--button--possible');
+        el.disabled = true;
       }
     });
   }

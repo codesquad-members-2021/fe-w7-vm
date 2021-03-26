@@ -23,6 +23,7 @@ window.addEventListener('DOMContentLoaded', async () => {
   orderButtonList.forEach((el) => {
     if (+el.dataset.price === 0) {
       el.classList.add('order--button--possible');
+      el.disabled = false;
     }
   });
 });

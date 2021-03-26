@@ -11,6 +11,7 @@ class WalletView {
 
     init = () => {
         this.walletModel.createBudget();
+        this.walletModel.createInitInsertMoneyData();   // 임시 - ProgressView에서 실행하기.
 
         this.renderBudgetInfo(this.walletModel, this.walletViewWrapper, this.budgetTotalContainer);
         const currencyBtns = _.$all(".currency-btn");
@@ -47,6 +48,7 @@ class WalletView {
 
         walletModel.updateDecreaseCurrencyCnt(currencyType);
         walletModel.updateBudgetTotal(parseInt(currencyType));
+        walletModel.updateInsertMoneyData(currencyType);
 
         this.renderUpdateCurrecnyCnt(target, clickedCurrency);
         this.renderUpdateTotalBudget(walletModel.totalBudget);

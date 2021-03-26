@@ -14,7 +14,10 @@ class GoodsContainer {
     this.items = [];
 
     // state
-    this.goods = useSelector((state) => state.goods.getState());
+    this.goods = useSelector((state) => {
+      return state.goods.getState();
+    });
+    
     this.setState({});
     
     this.subscribe( ACTION.OUT_ITEM, (name) => {

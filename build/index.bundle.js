@@ -938,7 +938,9 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _processPresentational_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./processPresentational.js */ "./src/components/process/processPresentational.js");
 /* harmony import */ var _util_store_useStore_js__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../../util/store/useStore.js */ "./src/util/store/useStore.js");
 /* harmony import */ var _util_enums_action_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../../util/enums/action.js */ "./src/util/enums/action.js");
-/* harmony import */ var _scss_styles_scss__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./scss/styles.scss */ "./src/components/process/scss/styles.scss");
+/* harmony import */ var _util_actions_wallet_js__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../../util/actions/wallet.js */ "./src/util/actions/wallet.js");
+/* harmony import */ var _scss_styles_scss__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ./scss/styles.scss */ "./src/components/process/scss/styles.scss");
+
 
 
 
@@ -958,21 +960,21 @@ class ProcessContainer {
 		$target.appendChild(this.$process);
 		this.setState({ type: "INIT" });
 
+		this.dispatch = (0,_util_store_useStore_js__WEBPACK_IMPORTED_MODULE_1__.useDispatch)("wallet");
 		let subscribe = (0,_util_store_useStore_js__WEBPACK_IMPORTED_MODULE_1__.useSubscribe)("goods");
 
 		subscribe(_util_enums_action_js__WEBPACK_IMPORTED_MODULE_2__.OUT_ITEM, (payload) => {
-			console.log(payload)
 			this.setState({
 				type: "SELECT_GOODS",
 				method: "select",
 				item: { name: payload.korean, price: payload.price }
 			})
 		})
-		subscribe(_util_enums_action_js__WEBPACK_IMPORTED_MODULE_2__.OUT_MONEY, (name) => {
+		subscribe(_util_enums_action_js__WEBPACK_IMPORTED_MODULE_2__.OUT_MONEY, (volume) => {
 			this.setState({
 				type: "CHANGE_CASH",
 				method: "put",
-				item: { name }
+				item: { volume }
 			})
 		})
 	}
@@ -989,11 +991,11 @@ class ProcessContainer {
 				}
 				else if (state.method === "return") {
 					this.currentMoney -= state.item;
+					// this.dispatch(addMoney(state.item.volume))
 				}
 
 			case "SELECT_GOODS":
 				if (state.method === "select") {
-					// 현재 이부분이 item.price가 필요합니다.
 					this.currentMoney -= state.item.price;
 					this.moneyPocket = this.makeChange(this.currentMoney);
 				}
@@ -1003,7 +1005,6 @@ class ProcessContainer {
 				break;
 		}
 
-		// currentMoney가 0일때 버튼 비활성화 시키기
 		if (this.currentMoney === 0) {
 			this.buttonStatus = true;
 		} else {
@@ -1028,6 +1029,7 @@ class ProcessContainer {
 					return `${state.item}원이 투입 되었습니다.`
 				}
 				else if (state.method === "return") {
+					// if (this.currentMoney < 0) { return `자판기 종료` }
 					return `잔돈 ${state.item}원이 반환 되었습니다.`
 				}
 				break;
@@ -1056,7 +1058,7 @@ class ProcessContainer {
 		this.setState(state);
 
 		if (this.moneyPocket.length > 0) {
-			this.returnMoney();
+			this.handleReturnButton();
 		}
 	}
 
@@ -1247,16 +1249,13 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */   "ADD_ITEM": () => (/* binding */ ADD_ITEM),
 /* harmony export */   "OUT_ITEM": () => (/* binding */ OUT_ITEM),
 /* harmony export */   "ADD_MONEY": () => (/* binding */ ADD_MONEY),
-/* harmony export */   "OUT_MONEY": () => (/* binding */ OUT_MONEY),
-/* harmony export */   "RETURN_MONEY": () => (/* binding */ RETURN_MONEY)
+/* harmony export */   "OUT_MONEY": () => (/* binding */ OUT_MONEY)
 /* harmony export */ });
 const ADD_ITEM = "goods/ADD_ITEM";
 const OUT_ITEM = "goods/OUT_ITEM";
 
 const ADD_MONEY = "wallet/ADD_MONEY";
 const OUT_MONEY = "wallet/OUT_MONEY";
-
-const RETURN_MONEY = "process/RETURN_MONEY"
 
 
 

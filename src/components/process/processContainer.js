@@ -1,6 +1,7 @@
 import ProcessPresentational from "./processPresentational.js"
-import { useSelector, useSubscribe } from "../../util/store/useStore.js";
+import { useSelector, useSubscribe, useDispatch } from "../../util/store/useStore.js";
 import * as ACTION from "../../util/enums/action.js";
+import { addMoney } from "../../util/actions/wallet.js";
 import "./scss/styles.scss"
 
 class ProcessContainer {
@@ -17,21 +18,21 @@ class ProcessContainer {
 		$target.appendChild(this.$process);
 		this.setState({ type: "INIT" });
 
+		this.dispatch = useDispatch("wallet");
 		let subscribe = useSubscribe("goods");
 
 		subscribe(ACTION.OUT_ITEM, (payload) => {
-			console.log(payload)
 			this.setState({
 				type: "SELECT_GOODS",
 				method: "select",
 				item: { name: payload.korean, price: payload.price }
 			})
 		})
-		subscribe(ACTION.OUT_MONEY, (name) => {
+		subscribe(ACTION.OUT_MONEY, (volume) => {
 			this.setState({
 				type: "CHANGE_CASH",
 				method: "put",
-				item: { name }
+				item: { volume }
 			})
 		})
 	}
@@ -48,11 +49,11 @@ class ProcessContainer {
 				}
 				else if (state.method === "return") {
 					this.currentMoney -= state.item;
+					// this.dispatch(addMoney(state.item.volume))
 				}
 
 			case "SELECT_GOODS":
 				if (state.method === "select") {
-					// 현재 이부분이 item.price가 필요합니다.
 					this.currentMoney -= state.item.price;
 					this.moneyPocket = this.makeChange(this.currentMoney);
 				}
@@ -62,7 +63,6 @@ class ProcessContainer {
 				break;
 		}
 
-		// currentMoney가 0일때 버튼 비활성화 시키기
 		if (this.currentMoney === 0) {
 			this.buttonStatus = true;
 		} else {
@@ -87,6 +87,7 @@ class ProcessContainer {
 					return `${state.item}원이 투입 되었습니다.`
 				}
 				else if (state.method === "return") {
+					// if (this.currentMoney < 0) { return `자판기 종료` }
 					return `잔돈 ${state.item}원이 반환 되었습니다.`
 				}
 				break;
@@ -115,7 +116,7 @@ class ProcessContainer {
 		this.setState(state);
 
 		if (this.moneyPocket.length > 0) {
-			this.returnMoney();
+			this.handleReturnButton();
 		}
 	}
 

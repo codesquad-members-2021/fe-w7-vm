@@ -15,13 +15,13 @@ export default class ProcessView extends Observable {
 
   // subscribe walletModel updateInsertedBalance
   setViewAboutWallet({ flag, type, insertedCurrency }) {
-    if (!flag || type === 'buy') return;
+    if (!flag || type === "buy") return;
     this.insertedBalanceHtml.value = `${this.walletModel.insertedBalance}원`;
     this.printMessage(type, insertedCurrency);
   }
 
-  setViewAboutProduct({type, target}) {
-    if(!type || type !== 'buy') return;
+  setViewAboutProduct({ type, target }) {
+    if (!type || type !== "buy") return;
     this.insertedBalanceHtml.value = `${this.walletModel.insertedBalance}원`;
     this.printMessage(type, target);
   }
@@ -53,8 +53,9 @@ export default class ProcessView extends Observable {
       if (type === "insert") return `<p class="board__message">${target}원을 입금하였습니다.</p>`;
       if (type === "return") return `<p class="board__message">${-1 * target}원을 반환하였습니다.</p>`;
     };
-    if(type === 'insert' && target < 0) return;
+    if (type === "insert" && target < 0) return;
     this.statusBoard.insertAdjacentHTML("beforeend", setMsg(target));
+    this.statusBoard.scrollTop = this.statusBoard.scrollHeight;
   }
 
   returnInsertedBalance() {

@@ -12,7 +12,7 @@ export default class WalletModel extends Observable {
     this.timer = timer;
     this.init();
   }
-  
+
   init() {
     this.balance = getRandom(NUMBERS.DEFAULTVALUE);
     this.setInitialCurrencies();
@@ -60,13 +60,15 @@ export default class WalletModel extends Observable {
   }
 
   // notify processView setViewAboutWallet
-  updateInsertedBalance(value, type = '') {
-    if(type !== 'buy') type = this.insertedBalance + value ? 'insert' : 'return';
+  updateInsertedBalance(value, type = "") {
+    if (type !== "buy") type = this.insertedBalance + value ? "insert" : "return";
     this.timer.count = 0;
+    this.timer.html.innerText = this.timer.count;
+    this.timer.html.classList.remove("hidden");
     this.insertedBalance += value;
-    this.notify({ flag: true, ...this, type, insertedCurrency : value });
+    this.notify({ flag: true, ...this, type, insertedCurrency: value });
   }
-  
+
   returnBalance() {
     if (!this.insertedBalance) return;
     this.updateCurrencies(this.insertedBalance);

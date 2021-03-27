@@ -140,13 +140,27 @@ class WalletView {
         walletModel.updateTotalBudget();
         this.renderUpdateInputMoneyStatus();
         this.renderUpdateTotalBudget(walletModel.totalBudget);
-        this.renderProgressStatus(this.returnMoneyBtn, this.walletModel.insertTotal);
+        this.renderProgressStatus(this.returnMoneyBtn, walletModel.insertTotal);
+        this.returnBiggerMoneyFirst(walletModel);
 
         const currencyBtns = _.$all(".currency-btn");
         this.renderUpdateCurrencyBtns(currencyBtns, walletModel);
+        // _.addClass(this.returnMoneyBtn.)
     };
 
-    // 반환 버튼 누를 시 지갑화면의 버튼, 갯수 Update
+    //반환 버튼이 눌리면 큰 단위부터 순차적으로 반환. 문제점: 이미 써버린 동전 갯수들이 그대로 나옴.
+    returnBiggerMoneyFirst({ insertTotal, currencyTypes, budgetData }){
+        console.table(budgetData);//확인용
+        currencyTypes.reduceRight((prev, type, idx) => {
+            const quotient = parseInt(prev / type);
+            budgetData[idx].count += quotient;
+            const leftOver = prev % type;
+            return leftOver;
+        }, insertTotal);
+        console.table(budgetData);//확인용
+    }
+
+    // 반환 버튼이 눌리면 지갑화면의 버튼, 갯수 Update
     renderUpdateCurrencyBtns = (currencyBtns, walletModel) => {
         currencyBtns.forEach((btn) => {
             const currencyCnt = walletModel.getClickedCurrency(btn.dataset.id).count;

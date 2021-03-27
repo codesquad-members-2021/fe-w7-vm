@@ -7,7 +7,7 @@ import "./scss/styles.scss"
 class ProcessContainer {
 	constructor({ $target }) {
 
-		this.timer;
+		this.timer = true;
 		this.moneyPocket = [];
 		this.currentMoney = 0;
 		this.messages = [];
@@ -83,6 +83,7 @@ class ProcessContainer {
 	handleInteraction({ target }) {
 		if (target === 0) {
 			this.buttonStatus = true;
+			this.timer = true;
 		} else {
 			this.buttonStatus = false;
 			this.debouncer(this.handleReturnButton.bind(this), 5000)
@@ -90,8 +91,10 @@ class ProcessContainer {
 	}
 
 	debouncer(fn, ms) {
-		clearTimeout(this.timer);
-		this.timer = setTimeout(() => fn(), ms);
+		if (this.timer) {
+			this.timer = setTimeout(() => fn(), ms);
+			this.timer = false;
+		}
 	}
 
 	updateMessage(state) {

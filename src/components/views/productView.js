@@ -1,26 +1,27 @@
 import { _ } from '../../util/const';
 import { $, $$ } from '../../util/util';
 import ProductListModel from '../models/productListModel';
-import { productButtonObservers } from '../observer/observer';
+import { productButtonObservers, returnButtonObservers, walletButtonObservers } from '../observer/observer';
 
 export default class ProductView extends ProductListModel {
   constructor() {
     super();
     this.title = _.vendingMachineTitle;
-    this.subscribeProductButton()
+    this.subscribeProductButton();
+    this.subscribeProductCount();
+    this.subscribeReturnMoney();
   }
-
 
   subscribeProductButton() {
     productButtonObservers.subscribe(this.changeCount.bind(this));
   }
 
-  async render() {
-    await this.getOrderData();
-    return `
-      ${this.renderTitle()}
-      ${this.renderOrderView()}
-    `;
+  subscribeProductCount() {
+    walletButtonObservers.subscribe(this.changeStatePossible.bind(this));
+  }
+
+  subscribeReturnMoney() {
+    returnButtonObservers.subscribe(this.changeStateImpossible.bind(this));
   }
 
   addEvent() {
@@ -29,8 +30,16 @@ export default class ProductView extends ProductListModel {
 
   clickProductButton() {
     $('.order--button__container').addEventListener('click', (e) => {
-        productButtonObservers.fire(e.target.closest('.order--button').id)
-      });
+      productButtonObservers.fire(e.target.closest('.order--button'));
+    });
+  }
+
+  async render() {
+    await this.getOrderData();
+    return `
+      ${this.renderTitle()}
+      ${this.renderOrderView()}
+    `;
   }
 
   renderTitle() {

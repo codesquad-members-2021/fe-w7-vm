@@ -37,15 +37,10 @@ export default class WalletView extends WalletModel {
 
   addEvent() {
     this.clickUnitMoneyButton();
-    this.clickReturnButton();
   }
 
   clickUnitMoneyButton() {
     $('.wallet--button__container').addEventListener('click', (e) => walletButtonObservers.fire(e.target.id));
-  }
-
-  clickReturnButton() {
-    $(`.extra--money__button`).addEventListener('click', () => returnButtonObservers.fire());
   }
 
   renderTitle() {
@@ -60,9 +55,7 @@ export default class WalletView extends WalletModel {
     return `
     <form class="navbar-form wallet--money__form" role="search">
       <div class="form-group form-group-div">
-        <input type="text" class="form-control wallet--money__input" placeholder="${_.money}" value="${moneyComma(
-      this.wallet.walletMoney
-    )} ${_.money}">
+        <input type="text" class="form-control wallet--money__input" placeholder="${_.money}" value="${moneyComma(this.wallet.walletMoney)} ${_.money}">
       </div>
     </form>
       `;

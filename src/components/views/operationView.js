@@ -13,12 +13,10 @@ export default class OperationView extends OperationModel {
   subscribeDisplayMoney() {
     walletButtonObservers.subscribe(this.plusDisplayMoney.bind(this));
     walletButtonObservers.subscribe(this.updateDisplayMoney.bind(this));
-    walletButtonObservers.subscribe(this.changeStatePossible.bind(this));
   }
 
   subscribeReturnMoney() {
     returnButtonObservers.subscribe(this.updateDisplayMoney.bind(this));
-    returnButtonObservers.subscribe(this.changeStateImpossible.bind(this));
   }
 
   addEvent() {

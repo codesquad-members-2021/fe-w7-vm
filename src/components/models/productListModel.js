@@ -1,5 +1,7 @@
+import { mainView } from '../../app';
 import { _ } from '../../util/const';
-import { createRandomNumber, isEmpty } from '../../util/util';
+import { $$ } from '../../util/util';
+import { changeSoldOutColor, createRandomNumber, isEmpty } from '../../util/util';
 import FetchProductData from '../getData/fetchProductData';
 import ProductModel from './productModel';
 
@@ -10,15 +12,41 @@ export default class ProductListModel extends ProductModel {
     this.productList = [];
   }
 
-  changeCount(id) {
-    if (isEmpty(this.productList[id].count)) {
-      console.log('empty');
-      return;
-    }
+  changeCount(productButton) {
+    if (productButton === null) return;
+    const id = productButton.id;
+    this.productList[id].count;
+    this.changeSoldOut(this.productList[id].count, productButton);
     this.productList[id].count--;
   }
 
+  changeSoldOut(count, element) {
+    if (isEmpty(count)) return changeSoldOutColor(element);
+  }
 
+  isEnough(insertMoney, price) {
+    return insertMoney >= +price;
+  }
+
+  changeStatePossible() {
+    const classList = $$(`.order--button`);
+    classList.forEach((el, idx) => {
+      if (this.isEnough(mainView.operationView.insertMoney, this.productList[idx].price)) {
+        el.classList.add('order--button--possible');
+        el.disabled = false;
+      }
+    });
+  }
+
+  changeStateImpossible() {
+    const classList = $$(`.order--button`);
+    classList.forEach((el, idx) => {
+      if (!this.isEnough(mainView.operationView.insertMoney, this.productList[idx].price)) {
+        el.classList.remove('order--button--possible');
+        el.disabled = true;
+      }
+    });
+  }
 
   async getOrderData() {
     const response = await this.fetchProductData.fetchProductData();
@@ -33,7 +61,7 @@ export default class ProductListModel extends ProductModel {
       return {
         order: item.name,
         price: item.gold.base,
-        imgUrl: `http://ddragon.leagueoflegends.com/cdn/11.6.1/img/item/${itemKey}.png`,
+        imgUrl: `https://ddragon.leagueoflegends.com/cdn/11.6.1/img/item/${itemKey}.png`,
       };
     });
     this.productList = orderDataList.map(({ order, price, imgUrl }) => {

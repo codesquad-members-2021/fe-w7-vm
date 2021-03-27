@@ -4,8 +4,8 @@ import WalletView from './walletView';
 
 export default class MainView {
   constructor() {
-    this.productView = new ProductView();
     this.operationView = new OperationView();
+    this.productView = new ProductView();
     this.walletView = new WalletView();
   }
 

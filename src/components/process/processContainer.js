@@ -7,6 +7,7 @@ import "./scss/styles.scss"
 class ProcessContainer {
 	constructor({ $target }) {
 
+		this.timer;
 		this.moneyPocket = [];
 		this.currentMoney = 0;
 		this.messages = [];
@@ -73,13 +74,24 @@ class ProcessContainer {
 				break;
 		}
 
-		if (this.currentMoney === 0) {
+		// currentMoney에 따른 컴포넌트 인터렉션 제어
+		this.handleInteraction({ target: this.currentMoney });
+		// 상태 변경 후 리렌더링
+		this.render();
+	}
+
+	handleInteraction({ target }) {
+		if (target === 0) {
 			this.buttonStatus = true;
 		} else {
 			this.buttonStatus = false;
+			this.debouncer(this.handleReturnButton.bind(this), 5000)
 		}
-		// 상태 변경 후 리렌더링
-		this.render();
+	}
+
+	debouncer(fn, ms) {
+		clearTimeout(this.timer);
+		this.timer = setTimeout(() => fn(), ms);
 	}
 
 	updateMessage(state) {

@@ -7,6 +7,7 @@ export default class LogView {
     this.parent = parent;
     this.InsertCoinDiv = _.$(".controller__total", parent);
     this.LogDiv = _.$(".controller__log", parent);
+    this.timer;
     this.init();
   }
   init() {
@@ -20,21 +21,29 @@ export default class LogView {
   }
 
   updatelogView(data) {
-    this.LogViewTemplate(data).then((data) => (this.LogDiv.innerHTML += data));
+    this.LogViewTemplate(data)
+      .then((data) => (this.LogDiv.innerHTML += data))
+      .then((this.LogDiv.scrollTop = this.LogDiv.scrollHeight));
+    if (data !== "reset") {
+      this.resetTimer(data);
+    } else {
+      this.resetTimer(data);
+    }
   }
 
   async LogViewTemplate(data) {
-    let template;
-    if (typeof data === "string")
-      if (data === "reset")
-        return (template = `<span>동전이 반환 되었습니다.</span>`);
-      else {
-        await _.delay(2000);
-        return (template = `<span>${data}를 뽑으셨습니다.</span>`);
-      }
+    if (typeof data[0] !== "string")
+      return `<span>${data.unit} 원을 넣었습니다.</span>`;
+    if (data === "reset") return `<span>동전이 반환 되었습니다.</span>`;
     else {
-      return (template = `<span>${data.unit} 원을 넣었습니다.</span>`);
+      this.returnSelectedProduct(data);
+      await _.delay(2000);
+      return `<span>${data[0]}를 뽑으셨습니다.</span>`;
     }
+  }
+
+  returnSelectedProduct(data) {
+    this.LogDiv.innerHTML += `<span>${data[0]}를 선택하셨습니다(재고: ${data[1]}개)</span>`;
   }
 
   onClickReset() {
@@ -45,5 +54,13 @@ export default class LogView {
 
   clickHandler() {
     this.walletModel.resetCoin();
+  }
+
+  resetTimer(status) {
+    clearTimeout(this.timer);
+    this.timer = setTimeout(() => {
+      if (status === "reset") clearTimeout(this.timer);
+      else this.walletModel.resetCoin();
+    }, 5000);
   }
 }

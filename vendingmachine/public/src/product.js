@@ -1,4 +1,4 @@
-const products = [
+let products = [
   {
     name: "콜라",
     price: "500",
@@ -120,5 +120,15 @@ const products = [
     available: false,
   },
 ];
+
+function rendomfun() {
+  return ~~(10 * Math.random());
+}
+
+let RendomProduct = (product) => {
+  product.map((v) => (v.count = rendomfun()));
+};
+
+RendomProduct(products);
 
 export default products;

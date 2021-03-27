@@ -24,5 +24,7 @@ const _ = {
   },
 
   save: (key, data) => localStorage.setItem(key, data),
+
+  
 };
 export default _;

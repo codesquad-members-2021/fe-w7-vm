@@ -1,7 +1,7 @@
-const coin = [
+let coin = [
   {
     unit: 10,
-    cnt: 0, 
+    cnt: 0,
   },
   {
     unit: 50,
@@ -28,5 +28,15 @@ const coin = [
     cnt: 1,
   },
 ];
+
+function rendomfun() {
+  return ~~(10 * Math.random());
+}
+
+let Rendomcoin = (defaultCoin) => {
+  defaultCoin.map((v) => (v.cnt = rendomfun()));
+};
+
+Rendomcoin(coin);
 
 export default coin;

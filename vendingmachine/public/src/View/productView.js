@@ -44,11 +44,10 @@ export default class ProductView {
     if (!target) return;
     if (target.disabled) return;
     else if (target.classList[0] === "item") {
-      target.classList.add("select");
       const selectName = target.children[0].innerText;
-      const selectPrice = target.children[1].innerText;
+      const selectedProduct=this.productModel.checkData(selectName);
       this.productModel.selectProduct(selectName);
-      this.walletModel.buy(selectPrice, selectName);
+      this.walletModel.buy(selectedProduct.name, selectedProduct.price, selectedProduct.count);
     }
   }
 }

@@ -32,12 +32,12 @@ export default class WalletModel extends Observable {
     this.notify([this.walletData, selectCoin]);
   }
 
-  buy(price, name) {
+  buy(name, price, count) {
     if (this.walletData.total < price) {
       alert("돈이부족합니다!!");
       return;
     }
     this.walletData.total -= price;
-    this.notify([this.walletData, name]);
+    this.notify([this.walletData, [name, count]]);
   }
 }

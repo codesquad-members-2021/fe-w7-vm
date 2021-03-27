@@ -5,7 +5,7 @@
   "scripts": {
     "server:start": "nodemon ./bin/www",
     "build": "webpack -w",
-    "start": "concurrently --kill-others-on-fail \"npm run build\" \"npm run server:start\" "
+    "start": "concurrently --kill-others-on-fail \"node app.js\" \"npm run build\" \"npm run server:start\" "
   },
   "dependencies": {
     "cookie-parser": "~1.4.4",

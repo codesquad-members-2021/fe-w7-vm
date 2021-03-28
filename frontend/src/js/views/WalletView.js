@@ -119,8 +119,8 @@ class WalletView {
         });
     };
 
-    // render - 반환 버튼 누를 시 지갑화면의 버튼, 갯수 Update (Progress ReturnBtn -> Wallet.currentBtns)
-    // 기능 추가 필요, 버튼 랜덤 추가
+    // render - 반환 버튼이 눌리면 지갑화면의 버튼, 갯수 Update (Progress ReturnBtn -> Wallet.currentBtns)
+    // 기능 추가 필요
     renderUpdateCurrencyBtns = ({budgetData}) => {
         this.currencyBtns.forEach((btn) => {
             const btnCurrency = Number(btn.dataset.id);
@@ -131,7 +131,27 @@ class WalletView {
             countContainer.textContent = `${currencyCnt}개`;
         });
     };
-    // ==================
+
+    /*
+    // 어디에 넣어야 할지 생각하기 (이 주석들)
+    returnMoneyBtnClickEventHandler = (walletModel) => {
+        // ...
+        this.returnBiggerMoneyFirst(walletModel);
+    }
+
+    //반환 버튼이 눌리면 큰 단위부터 순차적으로 반환. 문제점: 이미 써버린 동전 갯수들이 그대로 나옴.
+    returnBiggerMoneyFirst({ insertTotal, currencyTypes, budgetData }){
+        console.table(budgetData);//확인용
+        currencyTypes.reduceRight((prev, type, idx) => {
+            const quotient = parseInt(prev / type);
+            budgetData[idx].count += quotient;
+            const leftOver = prev % type;
+            return leftOver;
+        }, insertTotal);
+        console.table(budgetData);//확인용
+    }
+    */
+
 }
 
 export default WalletView;

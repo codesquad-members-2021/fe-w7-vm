@@ -12,13 +12,15 @@ class ProgressView {
         const {
             progressWrapSelector,
             inputMoneyStatusSelector,
+            balanceAlertSelector,
             progressStatusSelector,
             returnMoneyBtnSelector,
         } = progressReference;
 
         this.progressWrapper = _.$(progressWrapSelector);
         this.inputMoneyStatus = _.$(inputMoneyStatusSelector, this.progressWrapper);
-        this.progressStatus = _.$(progressStatusSelector, this.progressWrapper); //여기에 업뎃
+        this.balanceAlertSelector = _.$(balanceAlertSelector, this.progressWrapper);
+        this.progressStatus = _.$(progressStatusSelector, this.progressWrapper);
         this.returnMoneyBtn = _.$(returnMoneyBtnSelector, this.progressWrapper);
         this.inputTypeInfo = '';
 
@@ -35,17 +37,23 @@ class ProgressView {
     setWalletSubscribe = () => {
         // WalletView의 지갑 버튼 클릭용
         this.walletModel.walletViewObserver.subscribe(
-            this.renderUpdateInputMoneyForCurrencyBtns.bind(this),
-            this.renderProgressStatusForCurrencyBtnsClick.bind(this),
+            this.renderUpdateInputMoney.bind(this),
+            this.renderActivatedReturnMoneyBtn.bind(this),
+            this.renderProgressStatusForCurrencyBtnsClick.bind(this)
         );
 
         // ProgressView의 반환 버튼 클릭용
         this.walletModel.progressViewObserver.subscribe(
-            this.renderUpdateInputMoneyForReturnMoneyBtns.bind(this),
+            this.renderUpdateInputMoneyForReturnMoneyBtn.bind(this),
+            this.renderDisabledReturnMoneyBtn.bind(this),
             this.renderProgressStatusForReturnMoneyBtnClick.bind(this)
         );
 
-        //투입버튼, 반환버튼, 상품버튼 전부 재사용할 것.
+        // ProductView의 상품 버튼 클릭용
+        this.walletModel.productViewObserver.subscribe(
+            this.renderUpdateInputMoney.bind(this),
+            this.renderProgressStatusForProductBtnsClick.bind(this)
+        )
     };
 
     // 반환 버튼 클릭
@@ -57,13 +65,21 @@ class ProgressView {
         walletModel.updateForProgressViewReturnMoneyBtn();
 
     // [walletModel subscribe : ProgressView] ========
-    // render - inputMoneyStatus (투입금액) Update (지갑 버튼 클릭 시)
-    renderUpdateInputMoneyForCurrencyBtns = ({insertTotal}) =>
+    // render - inputMoneyStatus (투입금액) Update (지갑 버튼 & 상품 버튼 클릭 시)
+    renderUpdateInputMoney = ({insertTotal}) =>
         (this.inputMoneyStatus.textContent = `${addCommaToNumber(insertTotal)}원`);
 
+    // render - returnBtn (반환버튼) (재)활성화 (지갑 버튼 클릭 시)
+    renderActivatedReturnMoneyBtn = () =>
+        (_.removeClass(this.returnMoneyBtn, 'disabled', 'disabled__item'));
+
     // render - inputMoneyStatus (투입금액) Update (반환 버튼 클릭 시)
-    renderUpdateInputMoneyForReturnMoneyBtns = () =>
-        (this.inputMoneyStatus.textContent = `0원`)
+    renderUpdateInputMoneyForReturnMoneyBtn = () =>
+        (this.inputMoneyStatus.textContent = `0원`);
+
+    // render - returnMoneyBtn (반환버튼) 비활성화 (반환 버튼 클릭 시)
+    renderDisabledReturnMoneyBtn = () =>
+        (_.addClass(this.returnMoneyBtn, 'disabled', 'disabled__item')); //❗️여전히 클릭이 된다!!버그 고쳐야함❗️
 
     // render - progressStatus에 (투입현황) 메세지 render (ProgressView의 반환버튼 클릭 시)
     renderProgressStatusForReturnMoneyBtnClick = ({insertTotal}) => {
@@ -88,9 +104,16 @@ class ProgressView {
     getUpdateInputTypeInfo = (msg) => (this.inputTypeInfo += msg);
 
 
- //product가 선택되었을 때 조건 추가해야함.
-
-    // =======================================
+    // product가 선택되었을 때 조건 추가해야함.
+    // [walletModel subscribe : ProductView] ===========
+    renderProgressStatusForProductBtnsClick = ({clickedProductData}) => {
+        const newMsg = this.createUpdatedMsgForProductBtns(clickedProductData);
+        this.progressStatus.innerHTML = newMsg;
+    };
+    createUpdatedMsgForProductBtns = ({name}) => {
+        const msg = `🥤${name}를(을) 선택하셨습니다.<br>`;
+        return this.getUpdateInputTypeInfo(msg);
+    }
 
 }
 

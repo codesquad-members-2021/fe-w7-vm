@@ -12,9 +12,11 @@ class WalletModel {
         this.insertTotal;
 
         this.clickedCurrency;
+        this.clickedProductData;
 
         this.walletViewObserver = new Observable();
         this.progressViewObserver = new Observable();
+        this.productViewObserver = new Observable();
     };
 
     // -- 유틸
@@ -66,7 +68,6 @@ class WalletModel {
 
         this.updateBudgetTotal();
         this.updateInsertTotal();
-
         this.walletViewObserver.notify(this);
     };
 
@@ -80,6 +81,14 @@ class WalletModel {
         this.updateInitInsertMoneyData();
         this.updateInsertTotal();
     };
+
+    //ProductView에서 상품 버튼 클릭 시.. (통합)
+    updateForProgressViewProductBtn = () => {
+        this.deductProductPriceFromInsertMoneyData();
+        //남은 금액에 따라 구매가능한 상품만 활성화하기
+
+        this.productViewObserver.notify(this);
+    }
 
     // =================================
 
@@ -121,7 +130,16 @@ class WalletModel {
     // 반환버튼 클릭 시, InsertTotal 초기화
     updateInitInsertTotal = () => (this.insertTotal = 0);
 
-
+    // 상품버튼 선택 시 InsertTotal에서 상품금액 차감
+    deductProductPriceFromInsertMoneyData = () => {
+        console.log(this.clickedProductData.price);
+        if (this.insertTotal >= this.clickedProductData.price) {
+            this.insertTotal = this.insertTotal - this.clickedProductData.price;
+        } else if (this.inserTotal < this.clickedProductData.price) {
+            return;
+            //'잔액이 부족합니다.' 메세지 띄우기(View에서 removeClass로 inivisible 클래스 삭제)
+        }
+    }
 }
 
 export default WalletModel;

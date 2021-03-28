@@ -5,7 +5,7 @@ import ProductModel from "../models/ProductModel.js"; // 임시. 마지막에 �
 
 class ProductView {
     /**
-     * @param {ProductModel} ProductModel
+     * @param {ProductModel} productModel
      * @param {WalletModel} walletModel
      * @param {*} productReference
      */
@@ -60,6 +60,7 @@ class ProductView {
     };
 
     // setCreateProductHtml, 상품의 HTML 생성
+    // <span class="item-price">${price + (Math.floor(Math.random() * 20) * 1000)}</span>(임시로 빼둘게요 라노!:))
     setCreateProductHtml = ({ name, price, imgurl }) => {
         const html = `
         <li class="product-item-container disabled__item">
@@ -68,7 +69,7 @@ class ProductView {
             </div>
             <div class="product-info-container" id="product__item">
                 <button class="btn btn-secondary disabled disabled__item">${name}</button>
-                <span class="item-price">${price + (Math.floor(Math.random() * 20) * 1000)}</span>
+                <span class="item-price">${price}</span>
             </div>
         </li>
         `;
@@ -91,9 +92,11 @@ class ProductView {
         const clickProductData = productDatas.find(
             (productData) => productData.name === targetName,
         );
+        this.walletModel.clickedProductData = clickProductData;
         if (!clickProductData) return;
 
         this.productModel.updateProductCount(clickProductData);
+        this.walletModel.updateForProgressViewProductBtn(clickProductData);//구매 시 진행화면 업데이트
         this.renderDisableItem(clickProductData, target, rootBtnWrap);
     };
 

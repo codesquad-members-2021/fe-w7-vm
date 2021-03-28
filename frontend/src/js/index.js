@@ -17,6 +17,7 @@ const REFERENCE = {
     progress: {
         progressWrapSelector: '#progressWrapper',
         inputMoneyStatusSelector: '.progress-current-value',
+        balanceAlertSelector:'.progress-balance-alert',
         progressStatusSelector : '.progress-current-status',
         returnMoneyBtnSelector: '#returnBtn'
     },

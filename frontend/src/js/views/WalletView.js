@@ -63,21 +63,6 @@ class WalletView {
 
         budgetTotalContainer.textContent = `${addCommaToNumber(budgetTotal)}원`;
     };
-    createWalletHTML = (currencyType, count) => {
-        const html = `
-        <li class="wallet-grid-item">
-            <button
-                type="button"
-                class="currency-btn m-auto py-1 rounded btn btn-success"
-                data-id="${currencyType}"
-            >
-                ${currencyType}원
-            </button>
-            <span class="currency-count bg-white m-auto py-1 border rounded">${count}개</span>
-        </li>
-        `;
-        return html;
-    };
 
     // 지갑 버튼 클릭 Event
     setCurrencyBtnClickEvent = (currencyBtns, walletModel) => (
@@ -107,7 +92,7 @@ class WalletView {
 
     // render - 총 금액 Update
     renderUpdateTotalBudget = ({budgetTotal}) =>
-        (this.budgetTotalContainer.textContent = `${addCommaToNumber(budgetTotal)}원`);
+    (this.budgetTotalContainer.textContent = `${addCommaToNumber(budgetTotal)}원`);
 
     // render - 상태 체크 후 금액 버튼 비활성
     renderDisableCurrencyBtn = ({budgetData}) => {
@@ -132,26 +117,21 @@ class WalletView {
         });
     };
 
-    /*
-    // 어디에 넣어야 할지 생각하기 (이 주석들)
-    returnMoneyBtnClickEventHandler = (walletModel) => {
-        // ...
-        this.returnBiggerMoneyFirst(walletModel);
-    }
-
-    //반환 버튼이 눌리면 큰 단위부터 순차적으로 반환. 문제점: 이미 써버린 동전 갯수들이 그대로 나옴.
-    returnBiggerMoneyFirst({ insertTotal, currencyTypes, budgetData }){
-        console.table(budgetData);//확인용
-        currencyTypes.reduceRight((prev, type, idx) => {
-            const quotient = parseInt(prev / type);
-            budgetData[idx].count += quotient;
-            const leftOver = prev % type;
-            return leftOver;
-        }, insertTotal);
-        console.table(budgetData);//확인용
-    }
-    */
-
+    createWalletHTML = (currencyType, count) => {
+        const html = `
+        <li class="wallet-grid-item">
+            <button
+                type="button"
+                class="currency-btn m-auto py-1 rounded btn btn-success"
+                data-id="${currencyType}"
+            >
+                ${currencyType}원
+            </button>
+            <span class="currency-count bg-white m-auto py-1 border rounded">${count}개</span>
+        </li>
+        `;
+        return html;
+    };
 }
 
-export default WalletView;
+    export default WalletView;

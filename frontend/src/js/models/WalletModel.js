@@ -8,7 +8,9 @@ class WalletModel {
         this.budgetData;
         this.budgetTotal;   // 구 totalBudget
 
+        this.insertMoneyData;
         this.insertTotal;
+
         this.clickedCurrency;
 
         this.walletViewObserver = new Observable();
@@ -52,7 +54,7 @@ class WalletModel {
         this.budgetTotal -= currencyType;
     };
 
-    // 지갑 총 금액 Update
+    // 지갑 총 금액 Update (budgetData 기준으로 업데이트)
     updateBudgetTotal = () =>
         (this.budgetTotal = this.calculateTotalValue(this.budgetData));
 
@@ -60,30 +62,66 @@ class WalletModel {
     updateForWalletViewCurrenyBtns = (currencyType) => {
         this.updateDecreaseCurrencyCnt(currencyType);
         this.updateDecreaseBudgetTotal(parseInt(currencyType));
-        this.updateInsertTotal(currencyType);
+        this.updateInsertMoneyData(currencyType);
+
         this.updateBudgetTotal();
+        this.updateInsertTotal();
 
         this.walletViewObserver.notify(this);
     };
 
     // ProgressView에서 반환 버튼 클릭 시.. (통합)
     updateForProgressViewReturnMoneyBtn = () => {
+        this.updateRecoverBudgetData();
         this.updateBudgetTotal();
 
         this.progressViewObserver.notify(this);
+
+        this.updateInitInsertMoneyData();
+        this.updateInsertTotal();
     };
 
     // =================================
 
     // [2] ProgressView
-    // 돈 투입되었을 시, 총 투입금액 Update
-    updateInsertTotal = (currencyType) =>
-        (this.insertTotal = (this.insertTotal || 0) + Number(currencyType));
+    // 넣은 금액을 Backup하는 InsertMoneyData 생성
+    createInsertMoneyData = () => {
+        this.insertMoneyData = this.currencyTypes.map(
+            (type) => new Currency(type, 0),
+        );
+    };
+
+    // 돈 투입되었을 시, 총 투입금액 Update (insertMoneyData 기준으로 계산)
+    updateInsertTotal = () =>
+        (this.insertTotal = this.calculateTotalValue(this.insertMoneyData));
+
+    // 돈 투입되었을 시, InsertMoneyData Update (CurrencyType에 따라 추가)
+    updateInsertMoneyData = (currencyType) => {
+        if (!this.insertMoneyData) return;
+        const insertCurrency = this.insertMoneyData.find(
+            (currency) => Number(currencyType) === currency.type,
+        );
+        insertCurrency.count++;
+    };
+
+    // 돈 반환 시, InsertMoneyData의 Count 초기화
+    updateInitInsertMoneyData = () => this.insertMoneyData.forEach((currency) => (currency.count = 0));
 
     // 반환버튼 클릭 시 돈 반환
     updateRecoverBudgetData = () => {
-        // 다시 만들어야해..!
+        this.budgetData.forEach((budgetCurrency) => {
+            const bakCurrency = this.insertMoneyData.find(
+                (insertCurrency) => insertCurrency.type === budgetCurrency.type,
+            );
+            if (!bakCurrency || bakCurrency <= 0) return;
+            budgetCurrency.count += bakCurrency.count;
+        });
     };
+
+    // 반환버튼 클릭 시, InsertTotal 초기화
+    updateInitInsertTotal = () => (this.insertTotal = 0);
+
+
 }
 
 export default WalletModel;

@@ -7,18 +7,12 @@ import ProgressView from './views/ProgressView.js';
 const REFERENCE = {
     product: {
         productWrapSelector: '#productWrapper',
-        productItemBtnSelector: '#productItem',
+        productBtnsSelector: '#product__item button',
     },
     wallet: {
         walletWrapSelector: '#walletWrapper',
         budgetTotalSelector: '#budgetContainer',
-
-        // 임시 (ProgressView 관련)
-        progressWrapSelector: '#progressWrapper',
-        inputMoneyStatusSelector: '.progress-current-value',
-        progressStatusSelector : '.progress-current-status',
-        returnMoneyBtnSelector: '#returnBtn'
-        //--------
+        currencyBtnsSelector: '.currency-btn',
     },
     progress: {
         progressWrapSelector: '#progressWrapper',
@@ -31,10 +25,9 @@ const REFERENCE = {
 const init = () => {
     const productModel = new ProductModel();
     const walletModel = new WalletModel();
-    // 임시. 리팩토링 시 구조 바꿔야함!
-    const productView = new ProductView(productModel, walletModel, REFERENCE.product);
-    new WalletView(walletModel, REFERENCE.wallet, productView);
-    // ----
+
+    new ProductView(productModel, walletModel, REFERENCE.product);
+    new WalletView(walletModel, REFERENCE.wallet);
     new ProgressView(walletModel, REFERENCE.progress);
 };
 

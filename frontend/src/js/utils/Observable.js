@@ -9,6 +9,7 @@ class Observable {
             (subscriber) => subscriber !== observer,
         );
     };
+    unsubscribeAll = () => (this._observers = []);
 
     notify = (data) => this._observers.forEach((observer) => observer(data));
 }

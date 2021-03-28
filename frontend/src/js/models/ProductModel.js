@@ -1,3 +1,5 @@
+import Observable from "../utils/Observable.js";
+
 class ProductModel {
     constructor() {
         this.products;

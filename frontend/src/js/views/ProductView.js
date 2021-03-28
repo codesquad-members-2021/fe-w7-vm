@@ -1,33 +1,44 @@
 import _ from '../utils/util.js';
 import { fetchData } from '../utils/dataUtil.js';
+import WalletModel from "../models/WalletModel.js"; // 임시. 마지막에 지우기 (요로케하면 모델 메서드 바로찾아요)
+import ProductModel from "../models/ProductModel.js"; // 임시. 마지막에 지우기
 
 class ProductView {
+    /**
+     * @param {ProductModel} ProductModel
+     * @param {WalletModel} walletModel
+     * @param {*} productReference
+     */
     constructor(productModel, walletModel, productReference) {
         this.productModel = productModel;
         this.walletModel = walletModel;
-        this.productReference = productReference;
+        const { productWrapSelector, productBtnsSelector } = productReference;
 
-        this.productViewWrapper = _.$(
-            this.productReference.productWrapSelector,
-        );
+        this.productViewWrapper = _.$(productWrapSelector);
+        this.productBtns;
+        this.productBtnsSelector = productBtnsSelector;
 
         this.init();
     }
 
     init = async () => {
+        this.setWalletSubscribe();
         const productItemData = await this.getProductInitData();
 
         this.productModel.insertProductInitData(productItemData.data);
         this.renderInitView(this.productViewWrapper, productItemData);
+
+        this.productBtns = _.$all(this.productBtnsSelector, this.productViewWrapper);  // 꼭 renderInitView 후 실행
         this.setProductViewBtnClickEvent(this.productViewWrapper);
     };
 
-    // renderInitView, 상품들 초기 Render
-    renderInitView = async (productViewWrapper, productItemData) => {
-        productItemData.data.forEach((data) => {
-            const html = this.setCreateProductHtml(data);
-            productViewWrapper.insertAdjacentHTML('beforeend', html);
-        });
+    // WalletModel Subscribe [ProductView]
+    setWalletSubscribe = () => {
+        // WalletView의 지갑 버튼 클릭시..
+        this.walletModel.walletViewObserver.subscribe(
+            // 투입 금액에 따라 활성
+            this.renderActiveItem.bind(this)
+        );
     };
 
     // getProductInitData, 서버에서 상품 정보들을 가져옴
@@ -40,6 +51,14 @@ class ProductView {
         }
     };
 
+    // renderInitView, 상품들 초기 Render
+    renderInitView = async (productViewWrapper, productItemData) => {
+        productItemData.data.forEach((data) => {
+            const html = this.setCreateProductHtml(data);
+            productViewWrapper.insertAdjacentHTML('beforeend', html);
+        });
+    };
+
     // setCreateProductHtml, 상품의 HTML 생성
     setCreateProductHtml = ({ name, price, imgurl }) => {
         const html = `
@@ -49,7 +68,7 @@ class ProductView {
             </div>
             <div class="product-info-container" id="product__item">
                 <button class="btn btn-secondary disabled disabled__item">${name}</button>
-                <span class="item-price">${price}</span>
+                <span class="item-price">${price + (Math.floor(Math.random() * 20) * 1000)}</span>
             </div>
         </li>
         `;
@@ -86,18 +105,15 @@ class ProductView {
         _.addClass(targetRootWrap, 'disabled__item');
     };
 
-    // 상품 구매 가능할 때 다시 활성화 (리팩토링 필요)
-    renderActiveItem = (inputMoney) => {
-        const nInputMoney =  Number(inputMoney.replace(/,|원/g, ''));
-        const productBtnList = _.$all('#product__item button');
-
-        productBtnList.forEach((productBtn) => {
+    // 상품 구매 가능할 때 다시 활성화
+    renderActiveItem = ({insertTotal}) => {
+        this.productBtns.forEach((productBtn) => {
             const price = Number(productBtn.nextElementSibling.textContent);
-            if (price > nInputMoney) return;
+            if (price > insertTotal) return;
             const productParentWrap = productBtn.closest('li');
             _.removeClass(productBtn, 'disabled', 'disabled__item');
             _.removeClass(productParentWrap, 'disabled__item');
-        })
+        });
     };
 
     // Disabled 관련 className 체크

@@ -132,7 +132,6 @@ class WalletModel {
 
     // 상품버튼 선택 시 InsertTotal에서 상품금액 차감
     deductProductPriceFromInsertMoneyData = () => {
-        console.log(this.clickedProductData.price);
         if (this.insertTotal >= this.clickedProductData.price) {
             this.insertTotal = this.insertTotal - this.clickedProductData.price;
         } else if (this.inserTotal < this.clickedProductData.price) {

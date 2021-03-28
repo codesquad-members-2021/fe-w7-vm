@@ -32,6 +32,13 @@ class ProductView {
         this.setProductViewBtnClickEvent(this.productViewWrapper);
     };
 
+    // ProductModel Subscribe [ProductView] (보류, 언젠가 함)
+    setProductSubscribe = () => {
+        this.productModel.productViewObserver.subscribe(
+            this.renderDisableItem.bind(this)
+        );
+    };
+
     // WalletModel Subscribe [ProductView]
     setWalletSubscribe = () => {
         // WalletView의 지갑 버튼 클릭시..
@@ -95,8 +102,8 @@ class ProductView {
         this.walletModel.clickedProductData = clickProductData;
         if (!clickProductData) return;
 
-        this.productModel.updateProductCount(clickProductData);
-        this.walletModel.updateForProgressViewProductBtn(clickProductData);//구매 시 진행화면 업데이트
+        this.walletModel.updateForProgressViewProductBtn(); //구매 시 진행화면 업데이트\
+        this.productModel.updateForProgressViewProductBtn(target);
         this.renderDisableItem(clickProductData, target, rootBtnWrap);
     };
 

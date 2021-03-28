@@ -1,5 +1,5 @@
 import { _ } from '../../util/const';
-import { updateInputData } from '../../util/util';
+import { isEnough, updateInputData } from '../../util/util';
 import { $$ } from '../../util/util';
 
 export default class OperationModel {
@@ -13,7 +13,14 @@ export default class OperationModel {
   }
 
   plusDisplayMoney(unit) {
+    if (unit === '') return;
     this.insertMoney += +unit;
+  }
+
+  minusDisplayMoney(unit) {
+    if (unit === null) return;
+    const price = unit.dataset.price;
+    return (this.insertMoney -= +price);
   }
 
   updateDisplayMoney() {

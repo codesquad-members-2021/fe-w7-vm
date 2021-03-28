@@ -55,7 +55,7 @@ export default class WalletView extends WalletModel {
     return `
     <form class="navbar-form wallet--money__form" role="search">
       <div class="form-group form-group-div">
-        <input type="text" class="form-control wallet--money__input" placeholder="${_.money}" value="${moneyComma(this.wallet.walletMoney)} ${_.money}">
+        <input type="text" class="form-control wallet--money__input" placeholder="${_.money}" value="${moneyComma(this.wallet.walletMoney)} ${_.money}" readonly>
       </div>
     </form>
       `;

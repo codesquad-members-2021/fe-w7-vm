@@ -1,6 +1,6 @@
 import { mainView } from '../../app';
 import { _ } from '../../util/const';
-import { $$ } from '../../util/util';
+import { $$, isEnough } from '../../util/util';
 import { changeSoldOutColor, createRandomNumber, isEmpty } from '../../util/util';
 import FetchProductData from '../getData/fetchProductData';
 import ProductModel from './productModel';
@@ -16,19 +16,14 @@ export default class ProductListModel extends ProductModel {
     if (productButton === null) return;
     const id = productButton.id;
     this.productList[id].count;
-    console.log(this.productList[id].count);
     if (isEmpty(this.productList[id].count)) return changeSoldOutColor(productButton);
     this.productList[id].count--;
-  }
-
-  isEnough(insertMoney, price) {
-    return insertMoney >= +price;
   }
 
   changeStatePossible() {
     const classList = $$(`.order--button`);
     classList.forEach((el, idx) => {
-      if (this.isEnough(mainView.operationView.insertMoney, this.productList[idx].price)) {
+      if (isEnough(mainView.operationView.getInsertMoney(), this.productList[idx].price)) {
         el.classList.add('order--button--possible');
         el.disabled = false;
       }
@@ -38,11 +33,22 @@ export default class ProductListModel extends ProductModel {
   changeStateImpossible() {
     const classList = $$(`.order--button`);
     classList.forEach((el, idx) => {
-      if (!this.isEnough(mainView.operationView.insertMoney, this.productList[idx].price) || isEmpty(this.productList[idx].count)) {
+      if (!isEnough(mainView.operationView.getInsertMoney(), this.productList[idx].price) || isEmpty(this.productList[idx].count)) {
         el.classList.remove('order--button--possible');
         el.disabled = true;
       }
     });
+  }
+
+  getProductLog(productButton) {
+    if (productButton === null) return;
+    let product = productButton.dataset.order;
+
+    if (product === undefined) {
+      return (product = `Sold out`);
+    }
+
+    return product;
   }
 
   async getOrderData() {

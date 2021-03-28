@@ -1,79 +1,98 @@
-import CurrentMoneyPresentational from "./currentMoneyDisplay/currentMoneyPresentational.js";
-import ReturnButtonPresentational from "./returnButton/returnButtonPresentational.js"
-import MessagesPresentational from "./messages/messagesPresentational.js"
+import ProcessPresentational from "./processPresentational.js"
+import { useSelector, useSubscribe, useDispatch } from "../../util/store/useStore.js";
+import * as ACTION from "../../util/enums/action.js";
+import { addMoney } from "../../util/actions/wallet.js";
+import "./scss/styles.scss"
 
 class ProcessContainer {
-	constructor({ $target, state }) {
-		this.$target = $target;
+	constructor({ $target }) {
 
 		this.moneyPocket = [];
-		this.currentMoney = null;
+		this.currentMoney = 0;
 		this.messages = [];
+		this.buttonStatus = false;
+		this.timer;
 
 		this.presentationals = null;
+		this.dispatch = useDispatch("wallet");
 
-		const testState = {
-			type: "CHANGE_CASH",
-			method: "put",
-			item: 1000
-		}
+		// process 이니셜라이즈
+		this.$process = document.createElement("section");
+		this.$process.className = "process";
+		$target.appendChild(this.$process);
+		this.setState({ type: "INIT" });
 
-		const testState2 = {
-			type: "SELECT_GOODS",
-			method: "selected",
-			item: { name: "COKE", price: 500 }
-		}
 
-		const testState3 = {
-			type: "INIT"
-		}
-		this.setState(state);
-		// this.setState(testState)
+		let subscribe = useSubscribe("goods");
+		subscribe(ACTION.OUT_ITEM, (payload) => {
+			this.setState({
+				type: "SELECT_GOODS",
+				method: "select",
+				item: { name: payload.korean, price: payload.price }
+			})
+		})
+
+		subscribe = useSubscribe("wallet");
+		subscribe(ACTION.OUT_MONEY, (volume) => {
+			this.setState({
+				type: "CHANGE_CASH",
+				method: "put",
+				item: { volume }
+			})
+		})
 	}
 
 	setState(state) {
 		// 메시지 업데이트
 		this.updateMessage(state);
+
 		// 상태 변경 
 		switch (state.type) {
 			case "CHANGE_CASH":
 				if (state.method === "put") {
-					this.moneyPocket.push(state.item);
-					this.currentMoney += state.item;
+					this.moneyPocket.push(state.item.volume);
+					this.currentMoney += state.item.volume;
 				}
 				else if (state.method === "return") {
-					this.currentMoney -= state.item;
+					this.currentMoney -= state.item.volume;
+					if (this.currentMoney === 0) {
+						this.updateMessage(state);
+					}
+					this.dispatch(
+						addMoney({ [state.item.volume]: state.item.volume })
+					)
 				}
 
 			case "SELECT_GOODS":
-				if (state.method === "selected") {
+				if (state.method === "select") {
 					this.currentMoney -= state.item.price;
-					this.moneyPocket = this.changeMoney(this.currentMoney);
-					console.log(this.moneyPocket)
+					this.moneyPocket = this.makeChange(this.currentMoney);
 				}
 				break;
 			default:
 				new Error(`${state.type} || ${state.method} is undefined`);
 				break;
 		}
+
+		// currentMoney에 따른 컴포넌트 인터렉션 제어
+		this.handleInteraction({ target: this.currentMoney });
 		// 상태 변경 후 리렌더링
 		this.render();
 	}
 
-	returnMoney() {
-		const shiftedCoin = this.moneyPocket.shift();
-
-		const state = {
-			type: "CHANGE_CASH",
-			method: "return",
-			item: shiftedCoin
-		};
-
-		this.setState(state);
-
-		if (this.moneyPocket.length !== 0) {
-			this.returnMoney();
+	handleInteraction({ target }) {
+		if (target === 0) {
+			this.buttonStatus = true;
+			clearTimeout(this.timer)
+		} else {
+			this.buttonStatus = false;
+			this.debouncer(this.handleReturnButton.bind(this), 5000)
 		}
+	}
+
+	debouncer(fn, ms) {
+		clearTimeout(this.timer);
+		this.timer = setTimeout(() => fn(), ms)
 	}
 
 	updateMessage(state) {
@@ -83,20 +102,20 @@ class ProcessContainer {
 	selectMessage(state) {
 		switch (state.type) {
 			case "INIT":
-				this.currentMoney = 0;
-				return `자판기 시작`
+				return `-- Vending Machine is on --`
 
 			case "CHANGE_CASH":
 				if (state.method === "put") {
-					return `${state.item}원이 투입 되었습니다.`
+					return `${state.item.volume}원이 투입 되었습니다.`
 				}
 				else if (state.method === "return") {
-					return `잔돈 ${state.item}원이 반환 되었습니다.`
+					if (this.currentMoney === 0) { return `투입된 금액이 없습니다.` }
+					return `잔돈 ${state.item.volume}원이 반환 되었습니다.`
 				}
 				break;
 
 			case "SELECT_GOODS":
-				if (state.method === "selected") {
+				if (state.method === "select") {
 					return `${state.item.name} 선택 하셨습니다.`
 				}
 				break;
@@ -107,7 +126,26 @@ class ProcessContainer {
 		}
 	}
 
-	changeMoney(currentMoney) {
+	handleReturnButton() {
+		// goods item이 눌렸을때도 clearTimeout 필요
+		clearTimeout(this.timer);
+
+		const shiftedCoin = this.moneyPocket.shift();
+
+		const state = {
+			type: "CHANGE_CASH",
+			method: "return",
+			item: { volume: shiftedCoin }
+		};
+
+		this.setState(state);
+
+		if (this.moneyPocket.length > 0) {
+			this.handleReturnButton();
+		}
+	}
+
+	makeChange(currentMoney) {
 		const currentMoneyArr = currentMoney.toString().split("").reverse();
 		let zero = "";
 		let change = [];
@@ -133,36 +171,15 @@ class ProcessContainer {
 	}
 
 	render() {
-		const $process = document.createElement("section");
-		$process.className = "process";
-
-		const $currentMoney = document.createElement("section");
-		$currentMoney.className = "current-money-section";
-
-		const $returnButton = document.createElement("section");
-		$returnButton.className = "return-button-section";
-
-		const $messages = document.createElement("section");
-		$messages.className = "messages-section";
-
-		const elements = [$currentMoney, $returnButton, $messages];
-
-		elements.forEach((element) => $process.appendChild(element))
-
-		this.$target.appendChild($process)
+		this.$process.innerHTML = "";
 
 		this.presentationals = {
-			currentMoney: new CurrentMoneyPresentational({
-				$target: $currentMoney,
-				currentMoney: this.currentMoney
-			}),
-			returnButton: new ReturnButtonPresentational({
-				$target: $returnButton,
-				reset: this.returnMoney.bind(this)
-			}),
-			messages: new MessagesPresentational({
-				$target: $messages,
-				messages: this.messages
+			process: new ProcessPresentational({
+				$target: this.$process,
+				currentMoney: this.currentMoney,
+				messages: this.messages,
+				buttonStatus: this.buttonStatus,
+				onClickReturnButton: this.handleReturnButton.bind(this)
 			})
 		}
 	}

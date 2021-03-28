@@ -1,8 +1,16 @@
 .messages-section {
-  border: 1px solid #222;
+  @extend .flex-display;
+  border: $default-border;
+  border-radius: $default-border-radius;
+  width: 100%;
+  height: 300px;
+  overflow: auto;
+  padding: $components-padding;
+  margin: $components-margin;
 }
 
 .message {
-  font-size: 36px;
-  font-weight: 700;
+  @extend .default-font;
+  font-size: 16px;
+  padding: $components-padding;
 }

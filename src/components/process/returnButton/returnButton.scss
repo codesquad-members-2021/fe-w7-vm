@@ -1,8 +1,25 @@
 .return-button-section {
-  border: 1px solid #222;
+  @extend .flex-display;
+  border: $default-border;
+  border-radius: $default-border-radius;
+  width: 100%;
+  margin: $components-margin;
 }
 
 .return-button {
+  @extend .default-font;
+  cursor: pointer;
+  width: 100%;
+  border-radius: $default-border-radius;
+  padding: $components-padding;
   outline: none;
   border: none;
+  color: #fff;
+  background-color: green;
+
+  &:disabled {
+    background-color: #fff;
+    color: #222;
+    opacity: 0.1;
+  }
 }

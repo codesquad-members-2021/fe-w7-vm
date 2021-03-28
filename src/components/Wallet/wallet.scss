@@ -1,0 +1,32 @@
+.wallet--section {
+  width: 100%;
+  min-height: 500px;
+  // border: 1px solid black;
+  border: 3px solid #dee2e6;
+  
+  display: flex;
+  flex-grow: 2; 
+  
+
+  ul {
+    width: 100%;
+
+    display: flex;
+    justify-content: space-evenly;
+    align-items: center;
+    flex-direction: column;
+
+
+    li {
+      margin-top: 10px;
+      margin-bottom: 10px;
+      
+      width: 85%;
+
+      display: flex;
+      flex-basis: 50%;
+    }
+
+
+  }
+}

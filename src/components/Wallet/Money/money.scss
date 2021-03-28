@@ -1,16 +1,16 @@
-.item {
+.money {
   width: 100%;
-  min-height: 85px;
+  min-height: 50px;
   border: 1px solid black;
   padding: 10px 10px;
-  cursor: pointer;
   
   display:flex;
+  cursor: pointer;
 
-  &.is-sold-out {
+  &.is-none {
     border: 1px solid red;
   }
-  &.is-able-to-buy {
+  &.is-able-to-use {
     border: 1px solid green;
   }
 }

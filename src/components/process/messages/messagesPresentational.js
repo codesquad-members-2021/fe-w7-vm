@@ -4,14 +4,18 @@ class MessagesPresentational {
 	}
 
 	render($target, messages) {
-		$target.innerHTML = "";
+		const $messages_section = document.createElement("section");
+		$messages_section.className = "messages-section";
+
+		$target.appendChild($messages_section)
 
 		messages.forEach((message) => {
-			const $message = `
-            <div class="message">${message}</div>
-            `;
-			$target.insertAdjacentHTML("beforeend", $message)
+			const $message = `<div class="message">${message}</div>`;
+
+			$messages_section.insertAdjacentHTML("beforeend", $message)
 		})
+
+		$target.querySelector(".messages-section").scrollTop = $target.querySelector(".messages-section").scrollHeight;
 	}
 }
 

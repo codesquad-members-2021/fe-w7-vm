@@ -5,35 +5,43 @@ const initialState = {
 }
 
 const wallet = (state = initialState, { type, payload }) => {
-  const name = Object.keys(payload)[0];
-  const value = Object.values(payload)[0];
   
   switch(type) {
     case ACTION.ADD_MONEY:
+      const name = Object.keys(payload)[0];
+      const value = Object.values(payload)[0];
+  
       // 처음 들어올 때
       if (!state.wallet?.[name]) {
         return  { 
-          wallet: {
-            ...state.wallet,
-            [name]: [value]
-          } 
+          state: {
+            wallet: {
+              ...state.wallet,
+              [name]: [value]
+            } 
+          }
         }
       }
       // 처음 들어오는게 아닐 때
       return {
-        wallet: {
-          ...state.wallet,
-          [name]: [...state.wallet[name], value]   
+        state: {
+          wallet: {
+            ...state.wallet,
+            [name]: [...state.wallet[name], value]   
+          }
         }
       }
     
     case ACTION.OUT_MONEY:
-      const returnItem = state.wallet[name].pop();
+      const payloadReturn = state.wallet[payload].pop();
       return {
-        wallet: {
-          ...state.wallet,
-          [name]: state.wallet[name]
-        }
+        state: {
+          wallet: {
+            ...state.wallet,
+            [payload]: state.wallet[payload]
+          }
+        },
+        payloadReturn: payloadReturn
       }
     default:
       console.log("error");

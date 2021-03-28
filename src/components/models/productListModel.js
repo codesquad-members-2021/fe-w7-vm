@@ -43,11 +43,9 @@ export default class ProductListModel extends ProductModel {
   getProductLog(productButton) {
     if (productButton === null) return;
     let product = productButton.dataset.order;
-
     if (product === undefined) {
       return (product = `Sold out`);
     }
-
     return product;
   }
 

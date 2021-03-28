@@ -18,6 +18,7 @@ export default class ProductView extends ProductListModel {
 
   subscribeProductCount() {
     walletButtonObservers.subscribe(this.changeStatePossible.bind(this));
+    walletButtonObservers.subscribe(this.changeStateImpossible.bind(this));
   }
 
   subscribeReturnMoney() {

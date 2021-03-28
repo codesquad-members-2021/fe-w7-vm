@@ -12,26 +12,6 @@ export default class OperationModel {
     return this.insertMoney;
   }
 
-  // changeStatePossible() {
-  //   const classList = $$(`.order--button`);
-  //   classList.forEach((el) => {
-  //     if (this.isEnough(this.insertMoney, el.dataset.price)) {
-  //       el.classList.add('order--button--possible');
-  //       el.disabled = false;
-  //     }
-  //   });
-  // }
-
-  // changeStateImpossible() {
-  //   const classList = $$(`.order--button`);
-  //   classList.forEach((el) => {
-  //     if (!this.isEnough(this.insertMoney, el.dataset.price)) {
-  //       el.classList.remove('order--button--possible');
-  //       el.disabled = true;
-  //     }
-  //   });
-  // }
-
   plusDisplayMoney(unit) {
     this.insertMoney += +unit;
   }

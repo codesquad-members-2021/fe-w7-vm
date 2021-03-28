@@ -16,12 +16,9 @@ export default class ProductListModel extends ProductModel {
     if (productButton === null) return;
     const id = productButton.id;
     this.productList[id].count;
-    this.changeSoldOut(this.productList[id].count, productButton);
+    console.log(this.productList[id].count);
+    if (isEmpty(this.productList[id].count)) return changeSoldOutColor(productButton);
     this.productList[id].count--;
-  }
-
-  changeSoldOut(count, element) {
-    if (isEmpty(count)) return changeSoldOutColor(element);
   }
 
   isEnough(insertMoney, price) {
@@ -41,7 +38,7 @@ export default class ProductListModel extends ProductModel {
   changeStateImpossible() {
     const classList = $$(`.order--button`);
     classList.forEach((el, idx) => {
-      if (!this.isEnough(mainView.operationView.insertMoney, this.productList[idx].price)) {
+      if (!this.isEnough(mainView.operationView.insertMoney, this.productList[idx].price) || isEmpty(this.productList[idx].count)) {
         el.classList.remove('order--button--possible');
         el.disabled = true;
       }

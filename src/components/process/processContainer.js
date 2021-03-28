@@ -7,11 +7,11 @@ import "./scss/styles.scss"
 class ProcessContainer {
 	constructor({ $target }) {
 
-		this.timer;
 		this.moneyPocket = [];
 		this.currentMoney = 0;
 		this.messages = [];
 		this.buttonStatus = false;
+		this.timer;
 
 		this.presentationals = null;
 		this.dispatch = useDispatch("wallet");
@@ -83,6 +83,7 @@ class ProcessContainer {
 	handleInteraction({ target }) {
 		if (target === 0) {
 			this.buttonStatus = true;
+			clearTimeout(this.timer)
 		} else {
 			this.buttonStatus = false;
 			this.debouncer(this.handleReturnButton.bind(this), 5000)
@@ -91,7 +92,7 @@ class ProcessContainer {
 
 	debouncer(fn, ms) {
 		clearTimeout(this.timer);
-		this.timer = setTimeout(() => fn(), ms);
+		this.timer = setTimeout(() => fn(), ms)
 	}
 
 	updateMessage(state) {
@@ -126,6 +127,9 @@ class ProcessContainer {
 	}
 
 	handleReturnButton() {
+		// goods item이 눌렸을때도 clearTimeout 필요
+		clearTimeout(this.timer);
+
 		const shiftedCoin = this.moneyPocket.shift();
 
 		const state = {
@@ -166,21 +170,15 @@ class ProcessContainer {
 		return change
 	}
 
-	/* 
-	 - this.currentMoney가 0초과일때
-	 timer가 돌고 5초 뒤에 returnButton을 굴리는 함수를 실행시킨다.
-	 5초뒤에 dispatch 실행
-	*/
-
 	render() {
 		this.$process.innerHTML = "";
 
 		this.presentationals = {
 			process: new ProcessPresentational({
 				$target: this.$process,
-				currentMoney: this.currentMoney, // 머니 컴포넌트 상태
-				messages: this.messages, // 메세지 컴포넌트 상태
-				buttonStatus: this.buttonStatus, // 버튼 컴포넌트 상태
+				currentMoney: this.currentMoney,
+				messages: this.messages,
+				buttonStatus: this.buttonStatus,
 				onClickReturnButton: this.handleReturnButton.bind(this)
 			})
 		}

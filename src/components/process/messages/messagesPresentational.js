@@ -14,6 +14,8 @@ class MessagesPresentational {
 
 			$messages_section.insertAdjacentHTML("beforeend", $message)
 		})
+
+		$target.querySelector(".messages-section").scrollTop = $target.querySelector(".messages-section").scrollHeight;
 	}
 }
 

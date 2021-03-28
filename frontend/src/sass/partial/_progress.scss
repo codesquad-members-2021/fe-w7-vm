@@ -1,7 +1,26 @@
 .progress-container {
+    background-color: #fdf9af;
+    height: 100%;
+
     div {
         text-align: center;
-        border: 1px solid #555;
+        border: none;
         border-radius: 5px;
     }
+
+    button {
+        color: #555;
+        margin-left: 20px;
+        width: 180px;
+    }
+}
+
+.progress-current-value {
+    background-color: #fff;
+    height: 30px;
+}
+
+.progress-current-status {
+    text-align: right;
+    background-color: #fff;
 }

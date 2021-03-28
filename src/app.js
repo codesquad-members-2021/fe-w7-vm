@@ -17,6 +17,12 @@ class App {
     this.wallet = null;
     this.goods = null;
     this.process = null;
+    
+    this.store = store;
+    useStore(store); // store initialize
+    
+    this.state = { process: {} } // 향후 모델로 옮겨집니다.
+    this.init()
 
     this.store = store;
     useStore(store); // store initialize

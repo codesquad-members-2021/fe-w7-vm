@@ -45,7 +45,6 @@ class ProcessContainer {
 	setState(state) {
 		// 메시지 업데이트
 		this.updateMessage(state);
-
 		// 상태 변경 
 		switch (state.type) {
 			case "CHANGE_CASH":

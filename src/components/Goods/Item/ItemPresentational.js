@@ -40,7 +40,6 @@ class ItemPresentational {
     })
 
     $target.append($item);
-
   }
 }
 

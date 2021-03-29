@@ -9,7 +9,7 @@ const _ = {
   walletMoneyList: [10000, 5000, 1000, 500, 100, 50, 10],
   walletMoneyCount: 5,
   productItemCount: 20,
-  riotDataUrl: 'http://ddragon.leagueoflegends.com/cdn/11.6.1/data/en_US/item.json',
+  riotDataUrl: 'https://ddragon.leagueoflegends.com/cdn/11.6.1/data/en_US/item.json',
 };
 
 export { _ };

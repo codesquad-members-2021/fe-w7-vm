@@ -125,8 +125,17 @@ body {
     display: block;
   }
 
-  .insert--money__form {
+  .insert--money__form,
+  .operation--window__form {
     padding: 5px;
+
+    .log__box {
+      @include defaultBorder();
+      border-radius: $defaultBorderRadius;
+      height: 300px;
+      background: #fff;
+      overflow: auto;
+    }
   }
   .insert--money__input {
     width: 100%;
@@ -154,9 +163,11 @@ body {
 
   .operating--window {
     width: 100%;
-    height: 300px;
     font-size: 2rem;
     font-weight: 600;
+    border: none;
+    background: #fff;
+    border-radius: $defaultBorderRadius;
   }
 }
 

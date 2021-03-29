@@ -2,9 +2,10 @@ import './style/main.scss';
 import MainView from './components/views/mainView';
 import { $$, changeSoldOutColor, isEmpty } from './util/util';
 
+const mainView = new MainView();
+
 window.addEventListener('DOMContentLoaded', async () => {
   const targetEl = document.querySelector('#root');
-  const mainView = new MainView();
   const mainViewHTML = await mainView.init();
   targetEl.innerHTML += `
     ${mainViewHTML}
@@ -28,3 +29,5 @@ window.addEventListener('DOMContentLoaded', async () => {
     }
   });
 });
+
+export { mainView };

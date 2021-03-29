@@ -49,14 +49,14 @@ export default class WalletModel {
     this.walletMoney -= +unit;
   }
 
-  checkUnitMoneyCount(idx) {
+  isOutOfMoney(idx) {
     return this.walletData[idx].count === 0;
   }
 
   toggleDisableButton() {
     const walletButtonContainer = $$('.wallet--button__box');
     walletButtonContainer.forEach((el, idx) => {
-      if (this.checkUnitMoneyCount(idx)) {
+      if (this.isOutOfMoney(idx)) {
         el.querySelector('.wallet--button').disabled = true;
         this.addColorDiasbleButton(el, `wallet--count`, `wallet--count--disabled`);
       } else {

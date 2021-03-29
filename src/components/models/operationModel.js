@@ -1,5 +1,5 @@
 import { _ } from '../../util/const';
-import { updateInputData } from '../../util/util';
+import { isEnough, updateInputData } from '../../util/util';
 import { $$ } from '../../util/util';
 
 export default class OperationModel {
@@ -8,32 +8,19 @@ export default class OperationModel {
     this.message = _.infoMessage;
   }
 
-  isEnough(insertMoney, price) {
-    return insertMoney >= +price;
-  }
-
-  changeStatePossible() {
-    const classList = $$(`.order--button`);
-    classList.forEach((el) => {
-      if (this.isEnough(this.insertMoney, el.dataset.price)) {
-        el.classList.add('order--button--possible');
-        el.disabled = false;
-      }
-    });
-  }
-
-  changeStateImpossible() {
-    const classList = $$(`.order--button`);
-    classList.forEach((el) => {
-      if (!this.isEnough(this.insertMoney, el.dataset.price)) {
-        el.classList.remove('order--button--possible');
-        el.disabled = true;
-      }
-    });
+  getInsertMoney() {
+    return this.insertMoney;
   }
 
   plusDisplayMoney(unit) {
+    if (unit === '') return;
     this.insertMoney += +unit;
+  }
+
+  minusDisplayMoney(unit) {
+    if (unit === null) return;
+    const price = unit.dataset.price;
+    return (this.insertMoney -= +price);
   }
 
   updateDisplayMoney() {

@@ -1,5 +1,7 @@
+import { mainView } from '../../app';
 import { _ } from '../../util/const';
-import { createRandomNumber } from '../../util/util';
+import { $$, isEnough } from '../../util/util';
+import { changeSoldOutColor, createRandomNumber, isEmpty } from '../../util/util';
 import FetchProductData from '../getData/fetchProductData';
 import ProductModel from './productModel';
 
@@ -10,12 +12,42 @@ export default class ProductListModel extends ProductModel {
     this.productList = [];
   }
 
-  changeCount(data) {
-    console.log(data.id)
-    console.log(this.productList)
+  changeCount(productButton) {
+    if (productButton === null) return;
+    const id = productButton.id;
+    this.productList[id].count;
+    if (isEmpty(this.productList[id].count)) return changeSoldOutColor(productButton);
+    this.productList[id].count--;
   }
 
+  changeStatePossible() {
+    const classList = $$(`.order--button`);
+    classList.forEach((el, idx) => {
+      if (isEnough(mainView.operationView.getInsertMoney(), this.productList[idx].price)) {
+        el.classList.add('order--button--possible');
+        el.disabled = false;
+      }
+    });
+  }
 
+  changeStateImpossible() {
+    const classList = $$(`.order--button`);
+    classList.forEach((el, idx) => {
+      if (!isEnough(mainView.operationView.getInsertMoney(), this.productList[idx].price) || isEmpty(this.productList[idx].count)) {
+        el.classList.remove('order--button--possible');
+        el.disabled = true;
+      }
+    });
+  }
+
+  getProductLog(productButton) {
+    if (productButton === null) return;
+    let product = productButton.dataset.order;
+    if (product === undefined) {
+      return (product = `Sold out`);
+    }
+    return product;
+  }
 
   async getOrderData() {
     const response = await this.fetchProductData.fetchProductData();
@@ -30,7 +62,7 @@ export default class ProductListModel extends ProductModel {
       return {
         order: item.name,
         price: item.gold.base,
-        imgUrl: `http://ddragon.leagueoflegends.com/cdn/11.6.1/img/item/${itemKey}.png`,
+        imgUrl: `https://ddragon.leagueoflegends.com/cdn/11.6.1/img/item/${itemKey}.png`,
       };
     });
     this.productList = orderDataList.map(({ order, price, imgUrl }) => {
